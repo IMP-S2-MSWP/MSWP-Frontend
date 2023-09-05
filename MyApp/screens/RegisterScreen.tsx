@@ -1,9 +1,21 @@
+// RegisterScreen.tsx
+
 import React from 'react';
 import { Button, View } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import RegisterForm from '../components/RegisterForm';
+import { RootStackParamList } from '../types';
 
-const RegisterScreen= ({ navigation }) =>{
-   
+type RegisterScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Register'
+>;
+
+type Props = {
+  navigation: RegisterScreenNavigationProp;
+};
+
+const RegisterScreen: React.FC<Props> = ({ navigation }) => {
    const handleRegistration=(username:string,password:string)=>{
        // Perform registration operation here.
        console.log(`registering with ${username}`);
