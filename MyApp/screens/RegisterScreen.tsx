@@ -1,11 +1,11 @@
 // RegisterScreen.tsx
 
 import React from 'react';
-import { Button, View } from 'react-native';
+import {  Button, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import RegisterForm from '../components/RegisterForm';
 import { RootStackParamList } from '../types';
-
+import { NativeBaseProvider, Box } from "native-base";
 type RegisterScreenNavigationProp = StackNavigationProp< //이 또한 새로운 typeScript 타입 
   RootStackParamList,
   'Register'
@@ -21,11 +21,14 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
        console.log(`registering with ${id}`);
    }
    
+   
    return(
      <View>
        <RegisterForm onRegister={handleRegistration}/>
+       
        <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
      </View>
+     
    )
 };
 
