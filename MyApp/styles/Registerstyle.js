@@ -24,6 +24,7 @@ export default StyleSheet.create({
     justifyContent :'center',
     borderColor:"#E6E6E6",
     fontFamily:'BMJUA_ttf',
+    
  },
  btText: {
   textAlign: 'center',
@@ -48,18 +49,17 @@ export default StyleSheet.create({
     fontFamily:'BMJUA_ttf',
   },
  picker:{
-  width:'40%',
-  height:20,
+  width:'70%',
   borderWidth:1,
-  color:'yellow',
+  color:'black',
   borderColor: 'black',
- },
- label: {
-  fontSize: 16,
+  backgroundColor : 'white',
   marginBottom: 10,
-  fontFamily:'BMJUA_ttf',
-},
- pickerItem:{
-  
- }
+  borderRadius: 10,
+ },
+ inputFocused:{
+  borderColor:'#424242',
+  backgroundColor:'#F2F2F2',
+}
+
 });

@@ -6,7 +6,7 @@
  2023-09-10//이상용//Start 디자인 수정
  */
  import React from 'react';
- import {  Button, View,Text, StyleSheet } from 'react-native';
+ import {  Button, View,Text, StyleSheet, Image } from 'react-native';
  import { StackNavigationProp } from '@react-navigation/stack';
  import RegisterForm from '../components/RegisterForm';
  import { RootStackParamList } from '../types';
@@ -29,6 +29,7 @@
    //  }
     return(
       <View style={Mainstyle.container}>
+
         <Text style={Mainstyle.MainText}>블투러브</Text>
         <Text style={Mainstyle.SubText}>너와 나 사이 20M</Text>
         <TouchableOpacity style={Mainstyle.startBt} onPress={() => navigation.navigate('Register')} >

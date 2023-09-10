@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   startBt: {
-    marginTop: 197,
+    marginTop: 255,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',

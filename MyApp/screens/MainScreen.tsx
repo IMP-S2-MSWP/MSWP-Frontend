@@ -15,7 +15,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
-type TabParamList = {
+type TabParamList ={
   Home: undefined;
   Profile: undefined;
 };

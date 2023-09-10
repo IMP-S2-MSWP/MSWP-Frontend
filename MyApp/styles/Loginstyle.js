@@ -47,5 +47,9 @@ export default StyleSheet.create({
     marginBottom:20,
     color:'#E6E6E6',
     fontFamily:'BMJUA_ttf',
+  },
+  inputFocused:{
+    borderColor:'#424242',
+    backgroundColor:'#F2F2F2'
   }
 });
