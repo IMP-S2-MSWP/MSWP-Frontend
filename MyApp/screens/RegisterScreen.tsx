@@ -1,11 +1,12 @@
 // RegisterScreen.tsx
 
-import React from 'react';
-import {  Button, View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {  ActivityIndicator, Button, Text, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import RegisterForm from '../components/RegisterForm';
 import { RootStackParamList } from '../types';
 import { NativeBaseProvider, Box } from "native-base";
+import Registerstyle from '../styles/Registerstyle';
 type RegisterScreenNavigationProp = StackNavigationProp< //이 또한 새로운 typeScript 타입 
   RootStackParamList,
   'Register'
@@ -15,6 +16,7 @@ type Props = { //Props라는 새로운 TypeScript 타입을 선언. 현재 컴�
   navigation: RegisterScreenNavigationProp;
 };
 
+
 const RegisterScreen: React.FC<Props> = ({ navigation }) => {
    const handleRegistration=(id:string,password:string,username:string,nickname:string,sex:string,birthDate:String)=>{
        // Perform registration operation here.
@@ -23,10 +25,12 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
    
    
    return(
-     <View>
+     <View style={Registerstyle.container}>
+      <Text style={Registerstyle.helloText}>회원가입</Text>
        <RegisterForm onRegister={handleRegistration}/>
-       
-       <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
+       <TouchableOpacity style={Registerstyle.startBt} onPress={() =>navigation.navigate('Login')} >
+          <Text style={Registerstyle.btText}>로그인으로 돌아가기</Text>
+        </TouchableOpacity>
      </View>
      
    )

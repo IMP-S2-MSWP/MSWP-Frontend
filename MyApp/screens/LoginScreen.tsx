@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, View } from 'react-native';
+import { Button, Text, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import LoginForm from '../components/LoginForm';
 import { RootStackParamList } from '../types';
+import Loginstyle from '../styles/Loginstyle';
 
 type LoginScreenNavigationProp = StackNavigationProp<
    RootStackParamList,
@@ -21,9 +22,14 @@ const LoginScreen :React.FC<Props>= ({ navigation }) =>{
      }
 
      return(
-       <View>
+       <View  style={Loginstyle.container}>
          <LoginForm onLogin={handleLogin}/>
-         <Button title="Go to Register" onPress={() => navigation.navigate('Register')} />
+         <TouchableOpacity style={Loginstyle.startBt} onPress={() => navigation.navigate('Register')}>
+          <Text style={Loginstyle.btText}>회원가입</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={Loginstyle.startBt} onPress={() => navigation.navigate('Main')}>
+          <Text style={Loginstyle.btText}>로그인test</Text>
+        </TouchableOpacity>
        </View>
      )
 };

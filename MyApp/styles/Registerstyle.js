@@ -1,7 +1,7 @@
 /* 
  style
  2023-09-06//이상용//Login Style
- 2023-09-10//이상용//Login design , 폰트적용
+ 2023-09-10//이상용//Login design
  */
 import { StyleSheet } from 'react-native';
 
@@ -24,7 +24,6 @@ export default StyleSheet.create({
     justifyContent :'center',
     borderColor:"#E6E6E6",
     fontFamily:'BMJUA_ttf',
-  
  },
  btText: {
   textAlign: 'center',
@@ -41,11 +40,26 @@ export default StyleSheet.create({
   backgroundColor: '#ccc',
   borderRadius: 10,
   marginTop:10,
-},
+ },
   helloText:{
     fontSize:40,
     marginBottom:20,
     color:'#E6E6E6',
     fontFamily:'BMJUA_ttf',
-  }
+  },
+ picker:{
+  width:'40%',
+  height:20,
+  borderWidth:1,
+  color:'yellow',
+  borderColor: 'black',
+ },
+ label: {
+  fontSize: 16,
+  marginBottom: 10,
+  fontFamily:'BMJUA_ttf',
+},
+ pickerItem:{
+  
+ }
 });
