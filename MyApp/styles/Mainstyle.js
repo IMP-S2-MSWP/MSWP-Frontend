@@ -47,5 +47,9 @@ export default StyleSheet.create({
   backgroundColor : '#848484',
   padding : 13,
  },
+ imgStyle:{
+  position: 'absolute',
+  
+ }
 
 });

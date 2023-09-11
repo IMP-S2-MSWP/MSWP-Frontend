@@ -46,10 +46,16 @@ export default StyleSheet.create({
     fontSize:40,
     marginBottom:20,
     color:'#E6E6E6',
-    fontFamily:'BMJUA_ttf',
+    fontFamily:'BlackHanSans-Regular',
   },
   inputFocused:{
     borderColor:'#424242',
     backgroundColor:'#F2F2F2'
+  },
+  statusLg :{
+    marginTop:15,
+    color : 'red',
+    fontFamily:'BMJUA_ttf',
+    fontSize:15
   }
 });

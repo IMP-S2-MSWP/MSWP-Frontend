@@ -43,10 +43,10 @@ export default StyleSheet.create({
   marginTop:10,
  },
   helloText:{
-    fontSize:40,
+    fontSize:48,
     marginBottom:20,
     color:'#E6E6E6',
-    fontFamily:'BMJUA_ttf',
+    fontFamily:'BlackHanSans-Regular',
   },
  picker:{
   width:'70%',

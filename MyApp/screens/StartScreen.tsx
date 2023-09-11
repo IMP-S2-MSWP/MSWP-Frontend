@@ -4,6 +4,7 @@
  2023-09-06//이상용//Start 초안구축
  2023-09-07//이상용//Start 디자인
  2023-09-10//이상용//Start 디자인 수정
+ 2023-09-11//이상용//img 삽입 테스트
  */
  import React from 'react';
  import {  Button, View,Text, StyleSheet, Image } from 'react-native';
@@ -29,7 +30,7 @@
    //  }
     return(
       <View style={Mainstyle.container}>
-
+        <Image style={Mainstyle.imgStyle} source={require('../img/test.png')}/>
         <Text style={Mainstyle.MainText}>블투러브</Text>
         <Text style={Mainstyle.SubText}>너와 나 사이 20M</Text>
         <TouchableOpacity style={Mainstyle.startBt} onPress={() => navigation.navigate('Register')} >
