@@ -7,7 +7,7 @@ const useBluetoothScanner = () => {
 
   const startScan = () => {
     setDevices([]); // Clear the device list before start scanning
-    BleManager.scan([], 5, false).then(() => {
+    BleManager.scan([], 20, false).then(() => {
       console.log('Scanning...');
     });
   };
