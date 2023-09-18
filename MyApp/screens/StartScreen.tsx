@@ -31,7 +31,7 @@
     return(
       <View style={Mainstyle.container}>
         <Image style={Mainstyle.imgStyle} source={require('../img/test.png')}/>
-        <Text style={Mainstyle.MainText}>블투러브</Text>
+        <Text style={Mainstyle.MainText}>블투러</Text>
         <Text style={Mainstyle.SubText}>너와 나 사이 20M</Text>
         <TouchableOpacity style={Mainstyle.startBt} onPress={() => navigation.navigate('Register')} >
            <Text style={Mainstyle.btText}>시작하기</Text>
