@@ -20,7 +20,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       console.log(`Logging in with ${username}`);
       
       // Navigate to Device screen after successful login
-      navigation.navigate('Device');
+
     } catch (error) {
       console.log(error);
     }

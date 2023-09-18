@@ -1,3 +1,7 @@
+/*
+
+*/
+
 import { useEffect } from 'react';
 import Peripheral from 'react-native-peripheral';
 
