@@ -12,14 +12,34 @@ import { RootStackParamList } from '../types';
 import Loginstyle from '../styles/Loginstyle';
 import axios from 'axios';
 type LoginScreenNavigationProp = StackNavigationProp<
-   RootStackParamList,
-   'Login'
+  RootStackParamList,
+  'Login'
 >;
 
 type Props ={
-   navigation : LoginScreenNavigationProp; 
+  navigation : LoginScreenNavigationProp; 
 }
 
+const LoginScreen: React.FC<Props> = ({ navigation }) => {
+  const handleLogin = async (username: string, password: string) => {
+    try {
+      // Perform login operation here.
+      console.log(`Logging in with ${username}`);
+      
+      // Navigate to Device screen after successful login
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <View>
+      <LoginForm onLogin={handleLogin} />
+      <Button title="Go to Register" onPress={() => navigation.navigate('Register')} />
+    </View>
+  );
+  
 const LoginScreen :React.FC<Props>= ({ navigation }) =>{
   const [loginStatus, setLoginStatus] = useState('');
    const handleLogin =(id:string,password:string)=>{
@@ -82,6 +102,7 @@ const LoginScreen :React.FC<Props>= ({ navigation }) =>{
         <Text style={Loginstyle.statusLg}>{loginStatus}</Text>
        </View>
      )
+
 };
 
 export default LoginScreen;

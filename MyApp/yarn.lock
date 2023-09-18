@@ -4875,6 +4875,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hermes-engine@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/hermes-engine/-/hermes-engine-0.11.0.tgz#bb224730d230a02a5af02c4e090d1f52d57dd3db"
+  integrity sha512-7aMUlZja2IyLYAcZ69NBnwJAR5ZOYlSllj0oMpx08a8HzxHOys0eKCzfphrf6D0vX1JGO1QQvVsQKe6TkYherw==
+
 hermes-estree@0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/hermes-estree/-/hermes-estree-0.12.0.tgz#8a289f9aee854854422345e6995a48613bac2ca8"
@@ -7276,12 +7281,39 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+
+react-native-ble-advertiser@^0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/react-native-ble-advertiser/-/react-native-ble-advertiser-0.0.17.tgz#ee698e451260757961c92337f946003dd7987667"
+  integrity sha512-26kWCC/xyo/dtXQSD52vFqPXzD0xKWuyBIZR7pmXLlqDzVQR+N80sqKVweCt7OmPhkRloQ0z5D0Q7Jnbw6pvmA==
+
+react-native-ble-manager@^10.1.3:
+  version "10.1.3"
+  resolved "https://registry.yarnpkg.com/react-native-ble-manager/-/react-native-ble-manager-10.1.3.tgz#16448af85b0c4e1e1ca107f00fbc3c12c018f18e"
+  integrity sha512-V+PxTUdRH+2vdXDgFfm2RwznOFMnvAiILRs4lLcHF22MF3Bqq9wsgsp8bwQiXEGWnJJeR3Z+DStmxZO/ixTjhA==
+
+react-native-ble-peripheral@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-ble-peripheral/-/react-native-ble-peripheral-2.0.1.tgz#54d170fc16df39dbb3ff345374b327705f662f77"
+  integrity sha512-pppFZZS41bZn/Eb4l3dAAjPS+RrYIraB4WF/rTBbU+GLCRFtzgheZAtQMydIH0oKZm8Ope4zWeGr1TKFbFz5Jg==
+
+react-native-ble-plx@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-ble-plx/-/react-native-ble-plx-2.0.3.tgz#b0a746f33389dbf7fd7b158513330d487d5d0fbb"
+  integrity sha512-62LRDBPf/03K7sge+qq2ZuF8PWCGB782G+SBrpgNm5fA5Hs3FCY1ExTJZ1G0tB5ZhBPYEXcKRxPLuFegcDFrqA==
+
+react-native-device-info@^10.9.0:
+  version "10.9.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.9.0.tgz#5b378eea884a130db1d3ac637610f3a5ae7e8217"
+  integrity sha512-HqujZoNSkPGYZVs8ZsAwPkdY5UQt2jW0eg/wtW/kKbcAOp0KjUesgG7e1UISY4Z7Bx6LjZeKs0cqDzQI8AlOmw==
+
 react-native-animatable@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.3.tgz#a13a4af8258e3bb14d0a9d839917e9bb9274ec8a"
   integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
   dependencies:
     prop-types "^15.7.2"
+
 
 react-native-gesture-handler@^2.12.1:
   version "2.12.1"
@@ -7299,6 +7331,12 @@ react-native-iphone-x-helper@^1.3.0:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
   integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
 
+
+react-native-peripheral@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-peripheral/-/react-native-peripheral-0.0.3.tgz#a39385f9fddc135069d07767c92e3bcb60317c5d"
+  integrity sha512-PdSs0V8HPfZSaZ9MZvtwktG5m6n/JRjS0J83iD+C5VCMQ2Rhj1adgmZ4ZzR+mSvXj5tdtUh98nkx1n9v9Wl1eg==
+
 react-native-picker-select@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-8.1.0.tgz#667a5442f783f4bcfd3f65880c6926155fd2c39c"
@@ -7313,6 +7351,7 @@ react-native-ratings@^8.1.0:
   integrity sha512-+QOJ4G3NjVkI1D+tk4EGx1dCvVfbD2nQdkrj9cXrcAoEiwmbep4z4bZbCKmWMpQ5h2dqbxABU8/eBnbDmvAc3g==
   dependencies:
     lodash "^4.17.15"
+
 
 react-native-reanimated@^3.4.2:
   version "3.4.2"
