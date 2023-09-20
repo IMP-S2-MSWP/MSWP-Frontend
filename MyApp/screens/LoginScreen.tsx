@@ -20,26 +20,7 @@ type Props ={
   navigation : LoginScreenNavigationProp; 
 }
 
-const LoginScreen: React.FC<Props> = ({ navigation }) => {
-  const handleLogin = async (username: string, password: string) => {
-    try {
-      // Perform login operation here.
-      console.log(`Logging in with ${username}`);
-      
-      // Navigate to Device screen after successful login
 
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return (
-    <View>
-      <LoginForm onLogin={handleLogin} />
-      <Button title="Go to Register" onPress={() => navigation.navigate('Register')} />
-    </View>
-  );
-  
 const LoginScreen :React.FC<Props>= ({ navigation }) =>{
   const [loginStatus, setLoginStatus] = useState('');
    const handleLogin =(id:string,password:string)=>{
@@ -48,7 +29,7 @@ const LoginScreen :React.FC<Props>= ({ navigation }) =>{
       id,
       password,
     };
-
+    navigation.navigate('Device')
     axios.post('http://192.168.0.16:8080/api/login', requestData)
       .then(response => {
         if(response.data != null) {

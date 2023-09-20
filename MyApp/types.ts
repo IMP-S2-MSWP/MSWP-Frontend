@@ -3,7 +3,7 @@ export type RootStackParamList = {
     Register: undefined;
 
     Device: undefined;
-  };
+
 
     Clear: undefined;
     Main : undefined;
