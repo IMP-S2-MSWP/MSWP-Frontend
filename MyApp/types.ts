@@ -5,5 +5,5 @@ export type RootStackParamList = {
     Clear: undefined;
     Start : undefined;
     Profile : undefined;
-    Main: undefined
+    Main: undefined;
   };

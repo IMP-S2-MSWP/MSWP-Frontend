@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import { Button, ScrollView, Text, View } from 'react-native';
 
 //
@@ -29,14 +29,14 @@ const DeviceScreen = () => {
          </View>
        )}
 
-       {/* Add a new button for starting the advertisement */}
+       {/* Add a new button for starting the advertisement *//*}
        <Button title="Start Advertising" onPress={startAdvertising} />
 
        <Button title="Scan devices" onPress={()=>{
          startScan(); // Start a new scan when button is pressed
         }}/>
         
-        {/* Display list of scanned devices */}
+        {/* Display list of scanned devices *//*}
         <ScrollView>
           {devices.map((device, index) => (
             <Text key={index}>name: {device.advertising.serviceUUIDs}  id : {device.id}</Text>
@@ -47,3 +47,4 @@ const DeviceScreen = () => {
 };
 
 export default DeviceScreen;
+*/

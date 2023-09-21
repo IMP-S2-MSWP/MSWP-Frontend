@@ -1,6 +1,6 @@
 /*
 
-*/
+
 
 import { useEffect } from 'react';
 import Peripheral from 'react-native-peripheral';
@@ -30,4 +30,4 @@ export default function useBluetoothAdvertiser() {
   };
 
   return { startAdvertising };
-}
+}*/

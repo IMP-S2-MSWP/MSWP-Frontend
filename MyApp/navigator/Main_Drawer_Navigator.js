@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
@@ -24,10 +24,10 @@ const Main_Drawer_Navigator = () => {
         }}
 
       >
-      <Drawer.Screen name="Main" component={Main_Tab_Navigator}  options={{
+      <Drawer.Screen name="ddd" component={Main_Tab_Navigator}  options={{
           drawerIcon: () => (
             <Icon name="home" size={20} color="white" />
-          )
+            ),  
         }}/>
 
 

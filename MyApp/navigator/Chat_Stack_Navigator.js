@@ -6,8 +6,8 @@ import Main from "../screens/MainScreen";
 import FDeviceScreen from '../screens/FDeviceScreen';
 import BeaconScreen from '../screens/BeaconScreen';
 import MypageScreen from '../screens/MypageScreen';
-import SettingScreen from '../screens/SettingScreen';
-
+import ChatScreen from '../screens/ChatScreen';
+import ChatListScreen from '../screens/ChatListScreen';
 
 
 const Stack = createStackNavigator();
@@ -34,17 +34,14 @@ const homecomponentoption = {
     ),
 };
 
-const Main_Stack_Navigator = () => {
+const Chat_Stack_Navigator = () => {
     return (
-      <Stack.Navigator initialRouteName="메인페이지" screenOptions={screenOptionStyle}>
+      <Stack.Navigator initialRouteName="ChatList" screenOptions={screenOptionStyle}>
         <Stack.Screen name="메인페이지" component={Main} options={{ headerShown:false}}/>
-        <Stack.Screen name="Mypage" component={MypageScreen} />
-        <Stack.Screen name="Beacon" component={BeaconScreen}/>
-        <Stack.Screen name="FDevice" component={FDeviceScreen}/>
-        <Stack.Screen name="Setting" component={SettingScreen}/>
-
+        <Stack.Screen name="Chat" component={ChatScreen}/>
+        <Stack.Screen name="ChatList" component={ChatListScreen} options={{ headerShown:false}}/>
       </Stack.Navigator>
     );
   };
 
-export default Main_Stack_Navigator
+export default Chat_Stack_Navigator

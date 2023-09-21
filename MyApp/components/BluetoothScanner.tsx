@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+/*import { useEffect, useState } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 import BleManager from 'react-native-ble-manager';
 
@@ -37,4 +37,4 @@ const useBluetoothScanner = () => {
   return { devices, startScan }; // Return both the devices and the function to start scanning
 };
 
-export default useBluetoothScanner;
+export default useBluetoothScanner;*/
