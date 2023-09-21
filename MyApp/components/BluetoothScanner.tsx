@@ -20,32 +20,40 @@ const useBluetoothScanner = () => {
     
       setDevices((prevDevices) => {
         const devices = prevDevices || []; // 기존 devices 값이 undefined인 경우 빈 배열로 초기화
-    
-        // Check if the device is already in the list
+
+        // Check if the serviceUUIDs is a valid UUID format
+        const uuidPattern =
+          /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+        // Check if the device is already in the list and has a valid UUID
         const isDeviceExist = devices.some((existingDevice) => {
-          // Check if both serviceUUIDs are arrays
           if (
             Array.isArray(existingDevice.advertising.serviceUUIDs) &&
             Array.isArray(device.advertising.serviceUUIDs)
           ) {
             return (
               existingDevice.advertising.serviceUUIDs[0] ===
-              device.advertising.serviceUUIDs[0]
+                device.advertising.serviceUUIDs[0] &&
+              uuidPattern.test(device.advertising.serviceUUIDs[0])
             );
           }
           return false;
         });
-    
+
         if (!isDeviceExist && Array.isArray(device.advertising.serviceUUIDs)) {
-          // Check if the service UUIDs array is defined and not empty
-          if (device.advertising.serviceUUIDs.length > 0) {
+          // Check if the service UUIDs array is defined and not empty and has a valid UUID
+          if (
+            device.advertising.serviceUUIDs.length > 0 &&
+            uuidPattern.test(device.advertising.serviceUUIDs[0])
+          ) {
             // Add the new device to the list
             return [...devices, device];
           }
         }
-    
-        // Device already exists or invalid service UUIDs, do not add it again
-        return devices;
+
+        // Device already exists or invalid service UUIDs or not a valid UUID format,
+        // do not add it again
+         return devices;
       });
     };
 
@@ -55,7 +63,7 @@ const useBluetoothScanner = () => {
     const listener = bleManagerEmitter.addListener(
       'BleManagerDiscoverPeripheral',
       handleDiscoverPeripheral
-    );
+     );
 
      return (()=>{
        listener.remove();
