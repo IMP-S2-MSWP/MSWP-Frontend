@@ -1,3 +1,9 @@
+/*
+블루투스 스캐너 클래스 
+주변에 있는 블루투스 기기들을 스캔하는 훅
+2023-09-22 고주원 : uuid 정규화 코드 추가
+
+*/
 import { useEffect, useState } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 import BleManager from 'react-native-ble-manager';
