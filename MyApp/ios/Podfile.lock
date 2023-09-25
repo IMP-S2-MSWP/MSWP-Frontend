@@ -76,7 +76,6 @@ PODS:
   - libevent (2.1.12)
   - MultiplatformBleAdapter (0.1.9)
   - OpenSSL-Universal (1.1.1100)
-  - PromisesObjC (2.3.1)
   - RCT-Folly (2021.07.22.00):
     - boost
     - DoubleConversion
@@ -384,9 +383,8 @@ PODS:
     - React-Core
   - react-native-ionicons (4.6.5):
     - React
-  - react-native-peripheral (0.0.3):
-    - PromisesObjC
-    - React
+  - react-native-pager-view (6.2.1):
+    - React-Core
   - react-native-safe-area-context (3.3.2):
     - React-Core
   - React-NativeModulesApple (0.72.4):
@@ -601,7 +599,7 @@ DEPENDENCIES:
   - react-native-ble-manager (from `../node_modules/react-native-ble-manager`)
   - react-native-ble-plx (from `../node_modules/react-native-ble-plx`)
   - react-native-ionicons (from `../node_modules/react-native-ionicons`)
-  - react-native-peripheral (from `../node_modules/react-native-peripheral`)
+  - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -647,7 +645,6 @@ SPEC REPOS:
     - libevent
     - MultiplatformBleAdapter
     - OpenSSL-Universal
-    - PromisesObjC
     - SocketRocket
     - YogaKit
 
@@ -701,8 +698,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-ble-plx"
   react-native-ionicons:
     :path: "../node_modules/react-native-ionicons"
-  react-native-peripheral:
-    :path: "../node_modules/react-native-peripheral"
+  react-native-pager-view:
+    :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-NativeModulesApple:
@@ -782,7 +779,6 @@ SPEC CHECKSUMS:
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   MultiplatformBleAdapter: 5a6a897b006764392f9cef785e4360f54fb9477d
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: c0569ecc035894e4a68baecb30fe6a7ea6e399f9
   RCTTypeSafety: e90354072c21236e0bcf1699011e39acd25fea2f
@@ -801,7 +797,7 @@ SPEC CHECKSUMS:
   react-native-ble-manager: 86847e55815e3c8177191395d9308b587e456259
   react-native-ble-plx: f10240444452dfb2d2a13a0e4f58d7783e92d76e
   react-native-ionicons: 7ce04a8e61c6de2fc3b6798e8b9621b865cb18b1
-  react-native-peripheral: ae61f4dcd31e46cf145ca91683c8227652e24f85
+  react-native-pager-view: d211379f61895b6349bd7e571b44a26d005c2975
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   React-NativeModulesApple: edb5ace14f73f4969df6e7b1f3e41bef0012740f
   React-perflogger: 496a1a3dc6737f964107cb3ddae7f9e265ddda58

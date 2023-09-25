@@ -15,25 +15,14 @@ import RegisterScreen from './screens/RegisterScreen';
 import { NativeBaseProvider } from 'native-base';
 import StartScreen from './screens/StartScreen';
 import Main_Tab_Navigator from "./navigator/Main_Tab_Navigator";
+import SignUp from './screens/Signup/SignUp';
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
     <NativeBaseProvider>
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Start" screenOptions={{headerShown:false,}}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-
-        {/*//<Stack.Screen name="Device" component={DeviceScreen} />*/}
-
-        <Stack.Screen name="Main" component={Main_Tab_Navigator}  />
-        <Stack.Screen name="Start" component={StartScreen} />
-       
-        
-      </Stack.Navigator>
-    </NavigationContainer>
+        <SignUp/>
     </NativeBaseProvider>
   );
 }
