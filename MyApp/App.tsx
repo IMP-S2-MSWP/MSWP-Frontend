@@ -18,18 +18,20 @@ import Main_Tab_Navigator from "./navigator/Main_Tab_Navigator";
 
 const Stack = createStackNavigator();
 
+
+
 function App() {
   return (
     <NativeBaseProvider>
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Start" screenOptions={{headerShown:false,}}>
+      <Stack.Navigator initialRouteName="Start" >
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
 
         {/*//<Stack.Screen name="Device" component={DeviceScreen} />*/}
 
         <Stack.Screen name="Main" component={Main_Tab_Navigator}  />
-        <Stack.Screen name="Start" component={StartScreen} />
+        <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }}/>
        
         
       </Stack.Navigator>

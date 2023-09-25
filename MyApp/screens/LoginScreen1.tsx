@@ -12,7 +12,6 @@ import { RootStackParamList } from '../types';
 import Loginstyle from '../styles/Loginstyle';
 import axios from 'axios';
 import {NavigationContainer} from '@react-navigation/native';
-import Main_Drawer_Navigator from '../navigator/Main_Drawer_Navigator';
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Login'
