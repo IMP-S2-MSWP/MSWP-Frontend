@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { View,TouchableOpacity, Text } from 'react-native';
 import  Icon from 'react-native-vector-icons/Ionicons';
 import Main from "../screens/MainScreen";
-import FDeviceScreen from '../screens/FDeviceScreen';
+
 import BeaconScreen from '../screens/BeaconScreen';
 import MypageScreen from '../screens/MypageScreen';
 import SettingScreen from '../screens/SettingScreen';
@@ -40,7 +40,7 @@ const Main_Stack_Navigator = () => {
         <Stack.Screen name="메인페이지" component={Main} options={{ headerShown:false}}/>
         <Stack.Screen name="Mypage" component={MypageScreen} />
         <Stack.Screen name="Beacon" component={BeaconScreen}/>
-        <Stack.Screen name="FDevice" component={FDeviceScreen}/>
+
         <Stack.Screen name="Setting" component={SettingScreen}/>
 
       </Stack.Navigator>

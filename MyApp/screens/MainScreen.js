@@ -1,31 +1,41 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Animated,StatusBar, Dimensions} from 'react-native';
 import CustomButton from '../components/Button/CustomButton';
 import { useIsFocused } from '@react-navigation/native';
-import { useState, useEffect } from 'react';
-import {Button,Checkbox,Input,useTheme,Pressable, Box, HStack, Badge, Spacer, Flex} from "native-base"
+import { useState, useEffect, useRef } from 'react';
+import {Button,Checkbox,Input,useTheme, Pressable, Box, HStack, Badge, Spacer, Flex, Switch, Image, Center} from "native-base"
 import { TextInput } from 'react-native-gesture-handler';
+import PagerView from "react-native-pager-view";
+import { NavigationContainer } from '@react-navigation/native';
+import UserListpage from "./MainViewPager/UserListPage";
+import Beaconlistpage from "./MainViewPager/BeaconListPage";
 const MainScreen = (props) => {
   const theme = useTheme()
   const [user, setUser] = useState([]);
+  const [pageIndex,setPageIndex] = useState(0);
+  const pagerRef = useRef(null);
 
 
-  const handlePressIn = () => {
-    props.navigation.navigate('오늘');
-  };
-  const handlePressIn2 = () => {
-    props.navigation.navigate('예정');
-  };
-  const handlePressIn3 = () => {
-    props.navigation.navigate('전체');
-  };
-  const handlePressIn4 = () => {
-    props.navigation.navigate('완료됨');
-  };
+  const handleUserTextClick=()=>{
+    if(pageIndex==1){
+    setPageIndex(prevPageIndex=> prevPageIndex-1)
+       pagerRef.current.setPage(pageIndex -1);
+    }
+}
+const handleBeaconTextClick=()=>{
+  if(pageIndex==0){
+     setPageIndex(prevPageIndex=> prevPageIndex+1)
+     pagerRef.current.setPage(pageIndex +1);
+  }
+}
 
+  const toggleList = () => {
+    // 스위치를 토글할 때 호출되는 함수
+    setIsFirstListVisible(!isFirstListVisible); // 현재 상태를 반대로 설정
+  };
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-    <View style={styles.center}>
+    <View style={{flex :1}}>
+      <View style={styles.center}>
       <Pressable mt='5' mb="5" w='350' onPress={()=>{
               props.navigation.navigate('Mypage');
             }}>
@@ -38,7 +48,7 @@ const MainScreen = (props) => {
           transform: [{
             scale: isPressed ? 0.96 : 1
           }]
-        }} p="5" rounded="8" shadow={3} borderWidth="1" borderColor="coolGray.300">
+        }} p="5" rounded="8" borderWidth="1" borderColor="coolGray.300">
               <HStack alignItems="center">
                 <Badge colorScheme="darkBlue" _text={{
               color: "white"
@@ -68,64 +78,34 @@ const MainScreen = (props) => {
             </Box>;
       }}
       </Pressable>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+      <Pressable onPress={() => {handleUserTextClick()}}>
+        <Text style={pageIndex === 0 ? { fontWeight: 'bold' } : null}>User</Text>
+      </Pressable>
 
-        <View style={{flex:1, flexDirection:'row',}}>
-          <Pressable 
-            p="2"h="140"
-            onPress={()=>{
-              props.navigation.navigate('FDevice');
-            }}
-          >
-
-             {({
-        isHovered,
-        isPressed
-      }) => {
-        return <Box bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
-          transform: [{
-            scale: isPressed ? 0.96 : 1
-          }]
-        }} w="150" h="140"  p="5" rounded="8" shadow={3} borderWidth="1" borderColor="skyblue">
-            <Text>주변 기기 찾기</Text>
-            </Box>}}
-          </Pressable>
-
-          <Pressable
-            p="2"h="140"
-            onPress={()=>{
-              props.navigation.navigate('Beacon');
-            }}
-          >
-
-             {({
-        isHovered,
-        isPressed
-      }) => {
-        return <Box bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
-          transform: [{
-            scale: isPressed ? 0.96 : 1
-          }]
-        }} w="150" h="140" p="5" rounded="8" shadow={3} borderWidth="1" borderColor="skyblue">
-            <Text>비콘 탐색하기</Text>
-            </Box>}}
-          </Pressable>
-        </View>
-      <View>
-      </View>
+      <Pressable onPress={() => {handleBeaconTextClick()}}>
+        <Text style={pageIndex === 1 ? { fontWeight: 'bold' } : null}>Beacon</Text>
+      </Pressable>
     </View>
-    </ScrollView>
+      </View>
+      <PagerView ref={pagerRef} style={styles.container} initialPage={1} onPageSelected={e=>setPageIndex(e.nativeEvent.position)}>
+        <UserListpage key="0"/>
+        <Beaconlistpage key="1" />
+      </PagerView> 
+    </View>
+
   );
 };
 
 const styles = StyleSheet.create({
   center: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
+    backgroundColor:"#ffffff"
   }, 
   container: {
-    flexGrow: 1,
+    flex :1,
+    backgroundColor:"#ffffff"
   },
 });
 

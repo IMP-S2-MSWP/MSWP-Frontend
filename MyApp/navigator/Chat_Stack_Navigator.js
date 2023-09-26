@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { View,TouchableOpacity, Text } from 'react-native';
 import  Icon from 'react-native-vector-icons/Ionicons';
 import Main from "../screens/MainScreen";
-import FDeviceScreen from '../screens/FDeviceScreen';
+
 import BeaconScreen from '../screens/BeaconScreen';
 import MypageScreen from '../screens/MypageScreen';
 import ChatScreen from '../screens/ChatScreen';

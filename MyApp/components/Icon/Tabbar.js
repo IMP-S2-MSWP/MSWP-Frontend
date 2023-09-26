@@ -11,7 +11,7 @@ const TabBar = (focused,name) =>{
   }else if (name==="비콘채팅"){
     iconImagePath="list-circle-sharp"
   }else if (name==="좋아요"){
-    iconImagePath="ios-add-outline"
+    iconImagePath=" "
   }
 
 
