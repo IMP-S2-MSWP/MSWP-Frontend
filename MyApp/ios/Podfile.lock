@@ -74,6 +74,10 @@ PODS:
     - hermes-engine/Pre-built (= 0.72.4)
   - hermes-engine/Pre-built (0.72.4)
   - libevent (2.1.12)
+  - lottie-ios (4.3.2)
+  - lottie-react-native (6.3.1):
+    - lottie-ios (~> 4.3.0)
+    - React-Core
   - MultiplatformBleAdapter (0.1.9)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2021.07.22.00):
@@ -505,6 +509,8 @@ PODS:
     - React
   - RNCPicker (2.5.0):
     - React-Core
+  - RNDateTimePicker (7.6.0):
+    - React-Core
   - RNDeviceInfo (10.9.0):
     - React-Core
   - RNGestureHandler (2.12.1):
@@ -578,6 +584,8 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
+  - lottie-ios (from `../node_modules/lottie-ios`)
+  - lottie-react-native (from `../node_modules/lottie-react-native`)
   - OpenSSL-Universal (= 1.1.1100)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -622,6 +630,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -662,6 +671,10 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2023-08-07-RNv0.72.4-813b2def12bc9df02654b3e3653ae4a68d0572e0
+  lottie-ios:
+    :path: "../node_modules/lottie-ios"
+  lottie-react-native:
+    :path: "../node_modules/lottie-react-native"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -744,6 +757,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNCPicker:
     :path: "../node_modules/@react-native-picker/picker"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
@@ -777,6 +792,8 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 81191603c4eaa01f5e4ae5737a9efcf64756c7b2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  lottie-ios: 48af491639ba6e8bb7cfaf7649b8a339487da935
+  lottie-react-native: c9f1db4f4124dcce9f8159e65d8dc6e8bcb11fb4
   MultiplatformBleAdapter: 5a6a897b006764392f9cef785e4360f54fb9477d
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
@@ -820,6 +837,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNCPicker: 32ca102146bc7d34a8b93a998d9938d9f9ec7898
+  RNDateTimePicker: ccd988deb223cbb2e669e157ec576c2c6217128c
   RNDeviceInfo: 02ea8b23e2280fa18e00a06d7e62804d74028579
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNReanimated: 726395a2fa2f04cea340274ba57a4e659bc0d9c1

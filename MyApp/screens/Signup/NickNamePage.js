@@ -21,7 +21,6 @@ const NicknamePage = ({ userData, handleInputChange }) => {
         fontSize: 16,
         letterSpacing: 0.47,
         textAlign: "left",
-        color: "#999999"
       };
       const invalidName3 = {
         height: 21,
@@ -38,7 +37,10 @@ const NicknamePage = ({ userData, handleInputChange }) => {
        <FormControl >
           <Stack width= "335" mx="5" mt ='101'>
             <FormControl.Label><Text style={invalidName}>닉네임</Text></FormControl.Label>
-            <Input size="xl" variant ='underlined' onChangeText={handleInputChange('nickname')} value={userData.nickname} placeholder="아이디 입력" style={invalidName2}/>
+            <Input size="xl" variant ='underlined' 
+            onChangeText={handleInputChange('nickname')} value={userData.nickname} 
+            placeholder="아이디 입력"  
+            style={invalidName2}/>
             <FormControl.HelperText>
             <Text style={invalidName3}>한글, 영문, 숫자 조합 10자리 </Text>
             </FormControl.HelperText>

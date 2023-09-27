@@ -21,7 +21,6 @@ const PasswordPage = ({ userData, handleInputChange }) => {
         fontSize: 16,
         letterSpacing: 0.47,
         textAlign: "left",
-        color: "#999999"
       };
       const invalidName3 = {
         width: 161,
@@ -39,7 +38,7 @@ const PasswordPage = ({ userData, handleInputChange }) => {
        <FormControl >
           <Stack width= "335" mx="5" mt ='101'>
             <FormControl.Label><Text style={invalidName}>비밀번호</Text></FormControl.Label>
-            <Input size="xl" variant ='underlined' onChangeText={handleInputChange('password')} value={userData.password} placeholder="비밀번호 입력" style={invalidName2}/>
+            <Input size="xl" variant ='underlined' type ="password" onChangeText={handleInputChange('password')} value={userData.password} placeholder="비밀번호 입력" style={invalidName2}/>
             <FormControl.HelperText>
             <Text style={invalidName3}>영문, 숫자 조합 2~10자리</Text>
             </FormControl.HelperText>
@@ -47,7 +46,7 @@ const PasswordPage = ({ userData, handleInputChange }) => {
               Atleast 6 characters are required.
             </FormControl.ErrorMessage>
             <FormControl.Label mt='10'><Text style={invalidName}>비밀번호 확인</Text></FormControl.Label>
-            <Input size="xl" variant ='underlined' onChangeText={handleInputChange('password')} value={userData.password} placeholder="비밀번호 입력" style={invalidName2}/>
+            <Input size="xl" type ="password" variant ='underlined' onChangeText={handleInputChange('password')} value={userData.password} placeholder="비밀번호 입력" style={invalidName2}/>
 
             <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
               Atleast 6 characters are required.

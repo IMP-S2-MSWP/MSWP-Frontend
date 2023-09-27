@@ -7,6 +7,7 @@ import NameGenderDOBpage from "./NameGenderDobPage"
 import UserNamepage     from "./UsernamePage"
 import Passwordpage     from "./PasswordPage"
 import NickNamepage     from "./NickNamePage"
+import Completepage     from "./Completepage"
 import { Button } from "native-base";
  const SignUp=()=>{
    const [pageIndex,setPageIndex] = useState(0);
@@ -74,12 +75,12 @@ const invalidName = {
 
 return(
 <View style={{flex :1}}>
-<PagerView ref={pagerRef} style={{ flex :1 }} initialPage={0} onPageSelected={e=>setPageIndex(e.nativeEvent.position)}>
+<PagerView ref={pagerRef} style={{ flex :1 }} initialPage={0} scrollEnabled={false} onPageSelected={e=>setPageIndex(e.nativeEvent.position)}>
 <NameGenderDOBpage key="1" handleInputChange={handleInputChange} handleGenderChange={handleGenderChange} userData={userData}/>
 <UserNamepage key="2" handleInputChange={handleInputChange} userData={userData}/>
 <Passwordpage key="3" handleInputChange={handleInputChange} userData={userData}/>
 <NickNamepage key="4" handleInputChange={handleInputChange} userData={userData}/>
-
+<Completepage key="5" />
 </PagerView>
 {canGoNext() &&
 (<Button title="next" onPress={()=>{

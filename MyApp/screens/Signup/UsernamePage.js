@@ -21,7 +21,6 @@ const UsernamePage = ({ userData, handleInputChange }) => {
         fontSize: 16,
         letterSpacing: 0.47,
         textAlign: "left",
-        color: "#999999"
       };
       const invalidName3 = {
         width: 161,
