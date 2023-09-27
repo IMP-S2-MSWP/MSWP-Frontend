@@ -26,7 +26,7 @@ export default StyleSheet.create({
   textAlign: 'center',
   fontSize: 60,
   marginTop: 200,
-  color: '#E6E6E6',
+  color: '#5a5a5a',
   fontFamily:'BMJUA_ttf',
  },
  SubText:{
@@ -34,18 +34,25 @@ export default StyleSheet.create({
   fontSize: 30,
   marginTop: 10,
   fontFamily:'BMJUA_ttf',
-  color: '#E6E6E6'
+  color: '#5a5a5a'
  },
  bottomText:{
   marginTop:14,
   fontSize: 14,
   fontFamily:'BMJUA_ttf',
   textAlign:'center',
-  color: '#E6E6E6'
+  alignItems:'center',
+  alignSelf:'center',
+  color: '#5a5a5a',
+  position : 'absolute',
+  bottom:90
+
  },
  container:{
-  backgroundColor : '#848484',
+  backgroundColor : '#ffffff',
   padding : 13,
+  width : 375,
+  height : 812
  },
  imgStyle:{
   position: 'absolute',

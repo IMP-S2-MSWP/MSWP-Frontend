@@ -7,55 +7,33 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container:{
-    flex:1,
-    justifyContent : 'center',
-    alignItems : 'center',
-    backgroundColor: '#848484'
+    backgroundColor: '#f9f9f9',
+    padding : 13,
+    width : 375,
+    height : 812
   },
-  input: {
-    height: 40,
-    width: 300,
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
-    borderRadius:5,
-    backgroundColor:'gray',
-    alignItems : 'center',
-    justifyContent :'center',
-    borderColor:"#E6E6E6",
-    fontFamily:'BMJUA_ttf',
-  
- },
- btText: {
-  textAlign: 'center',
+  texts:{
+    width: 63,
+  height: 24,
+  fontFamily: "LeferiBaseType",
   fontSize: 16,
-  fontFamily:'BMJUA_ttf',
- },
-
- startBt: {
-  alignSelf: 'center',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 350,
-  height: 40,
-  backgroundColor: '#ccc',
-  borderRadius: 10,
-  marginTop:10,
-},
-  helloText:{
-    fontSize:40,
-    marginBottom:20,
-    color:'#E6E6E6',
-    fontFamily:'BlackHanSans-Regular',
+  fontWeight: "normal",
+  fontStyle: "normal",
+  letterSpacing: 0.42,
+  textAlign: "left",
+  color: "#868686"
   },
-  inputFocused:{
-    borderColor:'#424242',
-    backgroundColor:'#F2F2F2'
+  invalidName : {
+    width: 114,
+    height: 27,
+    fontFamily: 'LeferiBaseType',
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontStyle: 'normal',
+    letterSpacing: 0.47,
+    textAlign: 'left',
+    color: '#868686',
   },
-  statusLg :{
-    marginTop:15,
-    color : 'red',
-    fontFamily:'BMJUA_ttf',
-    fontSize:15
-  }
+  
+  
 });
