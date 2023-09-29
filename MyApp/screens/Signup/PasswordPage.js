@@ -36,7 +36,7 @@ const PasswordPage = ({ userData, handleInputChange }) => {
   return (
     <View>
        <FormControl >
-          <Stack width= "335" mx="5" mt ='101'>
+          <Stack width= "335" mx="5" mt ='60'>
             <FormControl.Label><Text style={invalidName}>비밀번호</Text></FormControl.Label>
             <Input size="xl" variant ='underlined' type ="password" onChangeText={handleInputChange('password')} value={userData.password} placeholder="비밀번호 입력" style={invalidName2}/>
             <FormControl.HelperText>

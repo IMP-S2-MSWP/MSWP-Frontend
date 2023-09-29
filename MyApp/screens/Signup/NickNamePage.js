@@ -35,7 +35,7 @@ const NicknamePage = ({ userData, handleInputChange }) => {
   return (
     <View>
        <FormControl >
-          <Stack width= "335" mx="5" mt ='101'>
+          <Stack width= "335" mx="5" mt ='60'>
             <FormControl.Label><Text style={invalidName}>닉네임</Text></FormControl.Label>
             <Input size="xl" variant ='underlined' 
             onChangeText={handleInputChange('nickname')} value={userData.nickname} 

@@ -61,7 +61,7 @@ const NameGenderDOBPage = ({ userData, handleInputChange }) => {
   return (
     <View>
       <FormControl >
-        <Stack width= "335" mx="5" mt ='101'>
+        <Stack width= "335" mx="5" mt ='60'>
           <FormControl.Label><Text style={invalidName}>이름</Text></FormControl.Label>
           <Input size="xl" variant ='underlined' onChangeText={handleInputChange('name')} value={userData.name} placeholder="이름 입력" style={invalidName2}/>
           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>

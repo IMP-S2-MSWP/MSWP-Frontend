@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     position :"absolute",
-    bottom:140,
+    bottom:70,
     left:20
   },
   buttonText: {

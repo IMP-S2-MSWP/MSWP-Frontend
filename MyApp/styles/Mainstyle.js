@@ -7,12 +7,12 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   startBt: {
-    marginTop: 255,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     width: 350,
     height: 40,
+    bottom:40,
     backgroundColor: '#ccc',
     borderRadius: 10,
     
@@ -45,14 +45,13 @@ export default StyleSheet.create({
   alignSelf:'center',
   color: '#5a5a5a',
   position : 'absolute',
-  bottom:90
+  bottom:40
 
  },
  container:{
-  backgroundColor : '#ffffff',
-  padding : 13,
-  width : 375,
-  height : 812
+  alignItems:"center",
+  flex:1,
+  backgroundColor: "white"
  },
  imgStyle:{
   position: 'absolute',
