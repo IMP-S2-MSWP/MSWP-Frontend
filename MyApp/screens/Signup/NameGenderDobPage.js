@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Input, FormControl, WarningOutlineIcon, Stack, Radio,Pressable,Icon,MaterialIcons} from "native-base";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import style from "../../components/Style/Signup/style"
 
 const NameGenderDOBPage = ({ userData, handleInputChange }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -21,33 +22,7 @@ const NameGenderDOBPage = ({ userData, handleInputChange }) => {
     hideDatePicker();
     handleInputChange('dob')(formattedDate); // 생년월일 상태 업데이트
   };
-  const invalidName = {
-    height: 27,
-    fontFamily: "LeferiBaseType",
-    fontSize: 18,
-    fontWeight: "bold",
-    fontStyle: "normal",
-    letterSpacing: 0.47,
-    textAlign: "left",
-    color: "#868686"
-  };
-  const invalidName1 = {
-    fontFamily: "LeferiBaseType",
-    fontSize: 16,
-    fontWeight: "bold",
-    fontStyle: "normal",
-    letterSpacing: 0.47,
-    textAlign: "left",
-    color: "#868686",
-  };
-  const invalidName2 = {
-    fontFamily: "LeferiBaseType",
-    fontWeight: "bold",
-    fontStyle: "normal",
-    fontSize: 16,
-    letterSpacing: 0.47,
-    textAlign: "left",
-  };
+
   const invalidName4 = {
     fontFamily: "LeferiBaseType",
     fontSize: 16,
@@ -62,27 +37,31 @@ const NameGenderDOBPage = ({ userData, handleInputChange }) => {
     <View>
       <FormControl >
         <Stack width= "335" mx="5" mt ='60'>
-          <FormControl.Label><Text style={invalidName}>이름</Text></FormControl.Label>
-          <Input size="xl" variant ='underlined' onChangeText={handleInputChange('name')} value={userData.name} placeholder="이름 입력" style={invalidName2}/>
+          <FormControl.Label><Text style={style.form_title_style}>이름</Text></FormControl.Label>
+          <Input size="xl" variant ='underlined' onChangeText={handleInputChange('name')} value={userData.name} placeholder="이름 입력" style={style.form_input_style}/>
           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Atleast 6 characters are required.
           </FormControl.ErrorMessage>
 
-          <FormControl.Label mt ='10'>성별</FormControl.Label>
+          <FormControl.Label mt ='10'><Text style={style.form_title_style}>성별</Text></FormControl.Label>
           <Radio.Group name="myRadioGroup" accessibilityLabel="gender" value={userData.gender} onChange={handleInputChange('gender')}>
             <Radio value="man" my={1}>
-            <Text style={invalidName1}> 남성</Text>
+            <Text style={{...style.form_input_style,color: userData.gender=='man' ? "black": "#868686"}}> 남성</Text>
             </Radio>
             <Radio value="woman" my={1}>
-            <Text style={invalidName1}> 여성</Text>
+            <Text style={{...style.form_input_style,color: userData.gender=='woman' ? "black": "#868686"}}> 여성</Text>
             </Radio>
           </Radio.Group>
 
           {/* 생년월일 입력 */}
-          <FormControl.Label  mt ='10'><Text style={invalidName}>생년월일</Text></FormControl.Label>
+          <FormControl.Label  mt ='10'><Text style={style.form_title_style}>생년월일</Text></FormControl.Label>
           <View style = {{borderBottomWidth:1, borderBottomColor:"#D4D4D4"}}>
            <Pressable onPress={showDatePicker}>
-           <Text style={invalidName4}>{dob ? dob : "생년월일 선택"}</Text>
+           <Text style={{...style.form_input_style,
+                          marginBottom:8,
+                          color: dob? "black": "#868686"}}>
+                            {dob ? dob : "생년월일 선택"}
+                            </Text>
     
           </Pressable>
           </View>

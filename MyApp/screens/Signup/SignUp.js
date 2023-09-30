@@ -12,6 +12,8 @@ import style from "../../components/Style/Signup/style"
  const SignUp=()=>{
    const [pageIndex,setPageIndex] = useState(0);
    const pagerRef = useRef(null);
+   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+
    const [userData,setUserData] = useState({
      name: '',
      gender: '',
@@ -20,7 +22,7 @@ import style from "../../components/Style/Signup/style"
      password: '',
      nickname:''
    });
-
+   const [passwordsDoNotMatch,setpasswordsDoNotMatch] = useState(false);
    const handleInputChange = (name) => (text) => {
     setUserData((prevData) => ({
       ...prevData,
@@ -48,6 +50,12 @@ import style from "../../components/Style/Signup/style"
   }
 
   const handleNextClick=()=>{
+    if(pageIndex === 2 && userData.password !== passwordConfirmation){ // 추가된 부분
+      setpasswordsDoNotMatch(true)
+      alert("Passwords do not match.");
+        return;
+    }
+
     if(canGoNext()) {
        setPageIndex(prevPageIndex=> prevPageIndex+1)
        pagerRef.current.setPage(pageIndex +1);
@@ -58,9 +66,9 @@ import style from "../../components/Style/Signup/style"
 return(
 <View style={{flex :1, backgroundColor:"white"}}>
 <PagerView ref={pagerRef} style={{ flex :1 }} initialPage={0} scrollEnabled={false} onPageSelected={e=>setPageIndex(e.nativeEvent.position)}>
-<NameGenderDOBpage key="1" handleInputChange={handleInputChange} handleGenderChange={handleGenderChange} userData={userData}/>
+<NameGenderDOBpage key="1" handleInputChange={handleInputChange} userData={userData}/>
 <UserNamepage key="2" handleInputChange={handleInputChange} userData={userData}/>
-<Passwordpage key="3" handleInputChange={handleInputChange} userData={userData}/>
+<Passwordpage key="3" handleInputChange={handleInputChange} userData={userData} passwordConfirmation ={passwordConfirmation} setPasswordConfirmation ={setPasswordConfirmation} passwordsDoNotMatch={passwordsDoNotMatch} />
 <NickNamepage key="4" handleInputChange={handleInputChange} userData={userData}/>
 <Completepage key="5" />
 </PagerView>
