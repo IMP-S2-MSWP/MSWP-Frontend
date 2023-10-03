@@ -8,6 +8,9 @@ import BeaconScreen from '../screens/BeaconScreen';
 import MypageScreen from '../screens/MypageScreen';
 import ChatScreen from '../screens/ChatScreen';
 import ChatListScreen from '../screens/ChatListScreen';
+import BeaconListPage from '../screens/MainViewPager/BeaconListPage';
+
+
 
 
 const Stack = createStackNavigator();
@@ -40,6 +43,8 @@ const Chat_Stack_Navigator = () => {
         <Stack.Screen name="메인페이지" component={Main} options={{ headerShown:false}}/>
         <Stack.Screen name="Chat" component={ChatScreen}/>
         <Stack.Screen name="ChatList" component={ChatListScreen} options={{ headerShown:false}}/>
+        <Stack.Screen name="Beacon" component={BeaconListPage} options={{ headerShown:false}}/>
+
       </Stack.Navigator>
     );
   };

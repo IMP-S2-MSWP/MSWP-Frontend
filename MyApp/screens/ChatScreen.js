@@ -6,10 +6,12 @@ import { useState, useEffect } from 'react';
 import {Button,Checkbox,Input,useTheme,Pressable, Box, HStack, Badge, Spacer, Flex} from "native-base"
 import { TextInput } from 'react-native-gesture-handler';
 
-const ChatScreen = (props) => {
+const ChatScreen = ({route}) => {
+    const { name } = route.params ?? {};
     return(
         <View>
         <Text>chawet</Text>
+        <Text>name : {name}</Text>
         </View>
 
         );
