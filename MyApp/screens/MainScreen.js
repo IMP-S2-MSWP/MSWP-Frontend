@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Animated,StatusBar, Dimensions} fro
 import CustomButton from '../components/Button/CustomButton';
 import { useIsFocused } from '@react-navigation/native';
 import { useState, useEffect, useRef } from 'react';
-import {Button,Checkbox,Input,useTheme, Pressable, Box, HStack, Badge, Spacer, Flex, Switch, Image, Center} from "native-base"
+import {Button,Checkbox,Input,useTheme, Pressable, Box, HStack, Badge, Spacer, Flex, Switch, Image, Center, VStack} from "native-base"
 import { TextInput } from 'react-native-gesture-handler';
 import PagerView from "react-native-pager-view";
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,7 +14,6 @@ const MainScreen = (props) => {
   const [user, setUser] = useState([]);
   const [pageIndex,setPageIndex] = useState(0);
   const pagerRef = useRef(null);
-
 
   const handleUserTextClick=()=>{
     if(pageIndex==1){
@@ -36,57 +35,44 @@ const handleBeaconTextClick=()=>{
   return (
     <View style={{flex :1}}>
       <View style={styles.center}>
-      <Pressable mt='5' mb="5" w='350' onPress={()=>{
-              props.navigation.navigate('Mypage');
-            }}>
-        {({
-        isHovered,
-        isFocused,
-        isPressed
-      }) => {
-        return <Box bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
-          transform: [{
-            scale: isPressed ? 0.96 : 1
-          }]
-        }} p="5" rounded="8" borderWidth="1" borderColor="coolGray.300">
-              <HStack alignItems="center">
-                <Badge colorScheme="darkBlue" _text={{
-              color: "white"
-            }} variant="solid" rounded="4">
-                  마이페이지
-                </Badge>
-                <Spacer />
-                <Text fontSize={10} color="coolGray.800">
-                  마이페이지 사진 자리
-                </Text>
+      <Box borderColor='black' p="5" borderBottomWidth='1' mb="5" w='370' h='120'>
+      <HStack alignItems="center">
+   
+              <Image
+                  source={{
+                    uri:"https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg"
+                  }}
+                  alt="Alternate Text" borderRadius='50' w='20' h='20' mb='1'/>
+              
+             
+              <VStack ml='3'>
+              <Text style={{fontWeight:"bold", fontSize:16}} >
+               카리나
+              </Text>  
+              <Text>
+                저는 이상용을 좋아해요
+                </Text>   
+              </VStack>         
+              <Spacer />
+              <Image
+                  source={{
+                    uri:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Coraz%C3%B3n.svg/800px-Coraz%C3%B3n.svg.png"
+                  }}
+                  alt="Alternate Text"
+                  size="xs" resizeMode='contain' h='16' w='16'
+                  
+                />
               </HStack>
-              <Text color="coolGray.800" mt="3" fontWeight="medium" fontSize="xl" >
-               이름은 이상용
-              </Text>
-              <View>
-                <Text mt="2" fontSize="sm" color="coolGray.700">
-                 자기에 대한 소개를 입력
-                </Text>
-              </View>
-              <Flex>
-                {isFocused ? <Text mt="2" fontSize={12} fontWeight="medium" textDecorationLine="underline" color="darkBlue.600" alignSelf="flex-start">
-                    Read More
-                  </Text> : <Text mt="2" fontSize={12} fontWeight="medium" color="darkBlue.600">
-                    Read More
-                  </Text>}
-              </Flex>
-            </Box>;
-      }}
-      </Pressable>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-      <Pressable onPress={() => {handleUserTextClick()}}>
-        <Text style={pageIndex === 0 ? { fontWeight: 'bold' } : null}>User</Text>
-      </Pressable>
+      </Box>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+  <Pressable style={{ flex: 1, alignItems:'center'}} onPress={handleUserTextClick}>
+    <Text style={[{fontSize: 18},pageIndex === 0 ? { fontWeight: 'bold', borderBottomWidth:1} : null]}>User</Text>
+  </Pressable>
 
-      <Pressable onPress={() => {handleBeaconTextClick()}}>
-        <Text style={pageIndex === 1 ? { fontWeight: 'bold' } : null}>Beacon</Text>
-      </Pressable>
-    </View>
+  <Pressable style={{ flex: 1, alignItems:'center'}} onPress={handleBeaconTextClick}>
+    <Text style={[{fontSize: 18},pageIndex === 1 ? { fontWeight: 'bold', borderBottomWidth:1 } : null]}>Beacon</Text>
+  </Pressable>
+</View>
       </View>
       <PagerView ref={pagerRef} style={styles.container} initialPage={1} onPageSelected={e=>setPageIndex(e.nativeEvent.position)}>
         <UserListpage key="0"/>

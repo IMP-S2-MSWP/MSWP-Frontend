@@ -30,36 +30,18 @@ const BeaconListPage = (props) => {
       ));
     };
 
-   // Function to increase number of users
-   const increaseNumOfUser=()=>{
-     if(numUsers<20){   //Maximum limit can be any number you want.
-        setNumUsers(numUsers+1);
-     }
-   }
-
-   // Function to decrease number of users
-   const decreaseNumOfUser=()=>{
-     if(numUsers>0){  //Minimum limit can be any number you want.
-        setNumUsers(numUsers-1);
-     }
-   }
+  
 
   
   return (
         <View>
+            <Text style={{marginLeft:10, padding:7, fontSize:16}}>근처 비콘 수 : {users.length}</Text>
             <ScrollView>
-            <Text>Beacon List</Text>
-            <Text>근처 비콘 수 : {users.length}</Text>
-
-            {/* Buttons to change the number of users */}
-            <Button title="Increase Users" onPress={increaseNumOfUser}/>
-            <Button title="Decrease Users" onPress={decreaseNumOfUser}/>
-
             {users.map(user => (
                 <Pressable
                     key={user.id}
                     p="1"
-                    marginBottom={0.5}
+                    marginBottom={1}
                     borderWidth="0"
                     onPress={()=>{
                         navigation.navigate('Chat',{
@@ -80,9 +62,12 @@ const BeaconListPage = (props) => {
                       <Pressable
                           p="2"
                           borderWidth="1"
+                          w='9'
+                          h='9'
+                          mr='3'
                           onPress={() => toggleFill(user.id)}
                       >
-                          <Text>{user.filled ? '❤️' : '♡'}</Text>
+                          <Text>{user.filled ? '❤️' : ' ♡'}</Text>
                       </Pressable>
                   </HStack>
 
