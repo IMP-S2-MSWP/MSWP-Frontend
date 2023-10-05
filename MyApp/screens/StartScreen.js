@@ -19,4 +19,4 @@ const StartScreen = (props) => {
         );
 
 }
-export default StartScreen;
+export default StartScreen;  

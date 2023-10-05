@@ -23,16 +23,6 @@ const NameGenderDOBPage = ({ userData, handleInputChange }) => {
     handleInputChange('dob')(formattedDate); // 생년월일 상태 업데이트
   };
 
-  const invalidName4 = {
-    fontFamily: "LeferiBaseType",
-    fontSize: 16,
-    fontWeight: "bold",
-    fontStyle: "normal",
-    letterSpacing: 0.47,
-    textAlign: "left",
-    color: "#868686",
-    marginBottom: 8
-  };
   return (
     <View>
       <FormControl >

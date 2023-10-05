@@ -3,14 +3,11 @@ import Check from '../../components/Lottie/Check'
 import { Button,Stack} from "native-base";
 import { View, Text, TextInput } from 'react-native';
 import LottieView from 'lottie-react-native';
-const CompletePage = () => {
-    const asd13 = {
-        backgroundColor: "#2679ff",
-        borderRadius: 8,
-        width: 335,
-        height: 56,
-        bottom:-50
-      };
+import { useNavigation } from '@react-navigation/native';
+import style from "../../components/Style/Signup/style"
+const CompletePage = (props) => {
+  const navigation = useNavigation();
+
     const invalidName12 = {
         height: 27,
         fontFamily: "LeferiBaseType",
@@ -35,7 +32,7 @@ const CompletePage = () => {
     <View style={{flex:1,alignItems:"center"}}>
     <Text style={invalidName12}>가입 완료!</Text>
     <LottieView  style={{marginTop: -40,height:"70%", width:"70%"}} source={require('../../components/Lottie/source/Check.json')} autoPlay loop={false}/>
-    <Button title="next" style={asd13} >
+    <Button title="next" style={{...style.button_style,bottom:-50,left:0}} onPress={()=>navigation.navigate('Login')}>
     <Text style={invalidName}>로그인 하기</Text>
     </Button>
      </View>

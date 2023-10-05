@@ -9,34 +9,16 @@ const PasswordPage = ({userData, handleInputChange,passwordConfirmation,setPassw
   const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // 추가된 부분
 
   const isPasswordValid = passwordPattern.test(userData.password); 
-      const invalidName2 = {
-        fontFamily: "LeferiBaseType",
-        fontWeight: "bold",
-        fontStyle: "normal",
-        fontSize: 16,
-        letterSpacing: 0.47,
-        textAlign: "left",
-      };
-      const invalidName3 = {
-        width: 161,
-        height: 21,
-        fontFamily: "LeferiBaseType",
-        fontSize: 14,
-        fontWeight: "normal",
-        fontStyle: "normal",
-        letterSpacing: 0.36,
-        textAlign: "left",
-        color: "#868686"
-      };
+
       return (
         <View>
           
             <Stack width= '335' mx='5' mt ='60'>
             <FormControl isInvalid={!isPasswordValid}>
               <FormControl.Label><Text style={style.form_title_style}>비밀번호</Text></FormControl.Label>
-              <Input size="xl" variant ='underlined' type ="password" onChangeText={handleInputChange('password')} value={userData.password} placeholder="비밀번호 입력" style={invalidName2}/>
+              <Input size="xl" variant ='underlined' type ="password" onChangeText={handleInputChange('password')} value={userData.password} placeholder="비밀번호 입력" style={style.form_input_style}/>
               <FormControl.HelperText>
-                <Text style={invalidName3}>영문, 숫자 조합으로만 가능</Text>
+                <Text style={style.form_helpertext_style}>영문, 숫자 조합으로만 가능</Text>
               </FormControl.HelperText>
               {!isPasswordValid && ( /* 수정된 부분 */
             <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
@@ -55,7 +37,7 @@ const PasswordPage = ({userData, handleInputChange,passwordConfirmation,setPassw
                  onChangeText={(value)=>setPasswordConfirmation(value)}
                  value={passwordConfirmation}
                  placeholder="비밀번호 재입력"
-                 style={invalidName2}
+                 style={style.form_input_style}
                />
    
                {/* 비밀번호 불일치 시 에러 메시지 */}
