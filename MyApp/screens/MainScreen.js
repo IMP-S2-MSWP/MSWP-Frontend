@@ -60,7 +60,6 @@ const handleBeaconTextClick=()=>{
                   }}
                   alt="Alternate Text"
                   size="xs" resizeMode='contain' h='16' w='16'
-                  
                 />
               </HStack>
       </Box>
