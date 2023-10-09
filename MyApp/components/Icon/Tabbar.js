@@ -5,13 +5,13 @@ import  Icon from 'react-native-vector-icons/Ionicons';
 const TabBar = (focused,name) =>{
   let iconImagePath;
   if(name==="메인"){
-    iconImagePath= "home"
+    //iconImagePath= "home"
   }else if (name==="채팅"){
-    iconImagePath="add-circle-sharp"
+    // iconImagePath="add-circle-sharp"
   }else if (name==="비콘채팅"){
-    iconImagePath="list-circle-sharp"
+    //iconImagePath="list-circle-sharp"
   }else if (name==="좋아요"){
-    iconImagePath="ios-add-outline"
+    //iconImagePath=" "
   }
 
 
