@@ -8,7 +8,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Mainstyle from '../styles/Mainstyle';
 import { useNavigation } from '@react-navigation/native';
-import Loginstyle from '../styles/Loginstyle';
+import Loginstyle from '../components/Style/Loginstyle';
 import LoginForm from '../components/LoginForm';
 import axios from 'axios';
 import { StackNavigationProp } from '@react-navigation/stack';
