@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import {Button,Checkbox,Input,useTheme,Pressable, Box, HStack, Badge, Spacer, Flex, Icon, MaterialIcons} from "native-base"
 import { TextInput } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Mainstyle from '../styles/Mainstyle';
+import Mainstyle from '../components/Style/Mainstyle';
 import { useNavigation } from '@react-navigation/native';
 import Loginstyle from '../components/Style/Loginstyle';
 import LoginForm from '../components/LoginForm';

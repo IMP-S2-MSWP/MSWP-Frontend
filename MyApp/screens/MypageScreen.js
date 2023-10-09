@@ -15,12 +15,6 @@ const MypageScreen = (props) => {
 
     return(
         <View style={{flex :1, alignItems: 'center', textAlign: 'center', backgroundColor:"#ffffff"}}>
-       <Svg height="100%" width="100%" viewBox={`0 0 ${width} ${height}`}>
-      <Path 
-        d={`M0,${height} Q${width / 2},${height * 0.8} ${width},${height}`} 
-        fill="blue" // 원하는 색상으로 변경 가능
-      />
-    </Svg>
        <Image
                   source={{
                     uri:"https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg"

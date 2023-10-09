@@ -23,11 +23,7 @@ function App() {
   return (
     <NativeBaseProvider>
     <NavigationContainer>
-<<<<<<< HEAD
-      <Stack.Navigator initialRouteName="Main" screenOptions={{headerShown:false,}}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-=======
+
       <Stack.Navigator initialRouteName="Start" >
         <Stack.Screen name="Login" component={LoginScreen}         options={{
               headerTitle: '', // 헤더 이름 제거
@@ -47,7 +43,6 @@ function App() {
                 shadowOpacity: 0, // iOS에서 그림자 제거
               }, // 헤더 언더라인 제거
             }}/>
->>>>>>> MOB-29--UI-
 
         {/*//<Stack.Screen name="Device" component={DeviceScreen} />*/}
 

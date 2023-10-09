@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import CustomButton from '../components/Button/CustomButton';
-import Mainstyle from '../styles/Mainstyle';
+import Mainstyle from '../components/Style/Mainstyle';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import LottieView from 'lottie-react-native';
