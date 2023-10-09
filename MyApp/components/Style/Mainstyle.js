@@ -7,12 +7,12 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   startBt: {
-    marginTop: 255,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     width: 350,
     height: 40,
+    bottom:40,
     backgroundColor: '#ccc',
     borderRadius: 10,
     
@@ -26,7 +26,7 @@ export default StyleSheet.create({
   textAlign: 'center',
   fontSize: 60,
   marginTop: 200,
-  color: '#E6E6E6',
+  color: '#5a5a5a',
   fontFamily:'BMJUA_ttf',
  },
  SubText:{
@@ -34,18 +34,24 @@ export default StyleSheet.create({
   fontSize: 30,
   marginTop: 10,
   fontFamily:'BMJUA_ttf',
-  color: '#E6E6E6'
+  color: '#5a5a5a'
  },
  bottomText:{
   marginTop:14,
   fontSize: 14,
   fontFamily:'BMJUA_ttf',
   textAlign:'center',
-  color: '#E6E6E6'
+  alignItems:'center',
+  alignSelf:'center',
+  color: '#5a5a5a',
+  position : 'absolute',
+  bottom:40
+
  },
  container:{
-  backgroundColor : '#848484',
-  padding : 13,
+  alignItems:"center",
+  flex:1,
+  backgroundColor: "white"
  },
  imgStyle:{
   position: 'absolute',

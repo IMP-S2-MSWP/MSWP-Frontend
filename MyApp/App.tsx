@@ -7,7 +7,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
+import SignUp from './screens/Signup/SignUp';
 //import Main_Drawer_Navigator from './navigator/Main_Drawer_Navigator'
 //
 //import DeviceScreen from './screens/DeviceScreen';
@@ -15,21 +15,44 @@ import RegisterScreen from './screens/RegisterScreen';
 import { NativeBaseProvider } from 'native-base';
 import StartScreen from './screens/StartScreen';
 import Main_Tab_Navigator from "./navigator/Main_Tab_Navigator";
-
 const Stack = createStackNavigator();
+
+
 
 function App() {
   return (
     <NativeBaseProvider>
     <NavigationContainer>
+<<<<<<< HEAD
       <Stack.Navigator initialRouteName="Main" screenOptions={{headerShown:false,}}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+=======
+      <Stack.Navigator initialRouteName="Start" >
+        <Stack.Screen name="Login" component={LoginScreen}         options={{
+              headerTitle: '', // 헤더 이름 제거
+              headerBackTitleVisible: false, // 뒤로가기 버튼에 텍스트 숨김
+              headerStyle: { 
+                borderBottomWidth: 0, // 헤더 언더라인 제거
+                elevation: 0, // Android에서 그림자 제거
+                shadowOpacity: 0, // iOS에서 그림자 제거
+              }, // 헤더 언더라인 제거
+            }}/>
+        <Stack.Screen name="SignUp" component={SignUp}         options={{
+              headerTitle: '', // 헤더 이름 제거
+              headerBackTitleVisible: false, // 뒤로가기 버튼에 텍스트 숨김
+              headerStyle: { 
+                borderBottomWidth: 0, // 헤더 언더라인 제거
+                elevation: 0, // Android에서 그림자 제거
+                shadowOpacity: 0, // iOS에서 그림자 제거
+              }, // 헤더 언더라인 제거
+            }}/>
+>>>>>>> MOB-29--UI-
 
         {/*//<Stack.Screen name="Device" component={DeviceScreen} />*/}
 
         <Stack.Screen name="Main" component={Main_Tab_Navigator}  />
-        <Stack.Screen name="Start" component={StartScreen} />
+        <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }}/>
        
         
       </Stack.Navigator>

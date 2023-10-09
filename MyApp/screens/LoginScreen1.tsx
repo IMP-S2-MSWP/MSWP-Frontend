@@ -9,10 +9,13 @@ import { Alert, Button, Text, TouchableOpacity, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import LoginForm from '../components/LoginForm';
 import { RootStackParamList } from '../types';
-import Loginstyle from '../styles/Loginstyle';
+import Loginstyle from '../components/Style/Loginstyle';
 import axios from 'axios';
 import {NavigationContainer} from '@react-navigation/native';
-import Main_Drawer_Navigator from '../navigator/Main_Drawer_Navigator';
+<<<<<<< HEAD:MyApp/screens/LoginScreen.tsx
+
+=======
+>>>>>>> 0f79de7ccf9c926396c2f92dbc2e72ce204b1401:MyApp/screens/LoginScreen1.tsx
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Login'
