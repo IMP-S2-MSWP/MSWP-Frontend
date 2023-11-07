@@ -9,12 +9,14 @@ import PagerView from "react-native-pager-view";
 import { NavigationContainer } from '@react-navigation/native';
 import UserListpage from "./MainViewPager/UserListPage";
 import Beaconlistpage from "./MainViewPager/BeaconListPage";
+import useBluetoothAdvertiser  from '../components/Bluetooth/BluetoothAdvertiser'
+import { useUser } from '../stores/UserContext';
 const MainScreen = (props) => {
   const theme = useTheme()
-  const [user, setUser] = useState([]);
   const [pageIndex,setPageIndex] = useState(0);
   const pagerRef = useRef(null);
-
+  const { startAdvertising } = useBluetoothAdvertiser();
+  const { user } =  useUser();
   const handleUserTextClick=()=>{
     if(pageIndex==1){
     setPageIndex(prevPageIndex=> prevPageIndex-1)
@@ -37,7 +39,7 @@ const handleBeaconTextClick=()=>{
       <View style={styles.center}>
       <Box borderColor='black' p="5" borderBottomWidth='1' mb="5" w='370' h='120'>
       <HStack alignItems="center">
-   
+              <Button onPress={startAdvertising}></Button>
               <Image
                   source={{
                     uri:"https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg"
@@ -47,10 +49,10 @@ const handleBeaconTextClick=()=>{
              
               <VStack ml='3'>
               <Text style={{fontWeight:"bold", fontSize:16}} >
-               카리나
+               {user.name}
               </Text>  
               <Text>
-                저는 이상용을 좋아해요
+                {user.birth}
                 </Text>   
               </VStack>         
               <Spacer />
@@ -74,8 +76,9 @@ const handleBeaconTextClick=()=>{
 </View>
       </View>
       <PagerView ref={pagerRef} style={styles.container} initialPage={1} onPageSelected={e=>setPageIndex(e.nativeEvent.position)}>
-        <UserListpage key="0"/>
-        <Beaconlistpage key="1" />
+      <Beaconlistpage key="0" />
+        <UserListpage key="1"/>
+        
       </PagerView> 
     </View>
 

@@ -16,7 +16,7 @@ const PasswordPage = ({userData, handleInputChange,passwordConfirmation,setPassw
             <Stack width= '335' mx='5' mt ='60'>
             <FormControl isInvalid={!isPasswordValid}>
               <FormControl.Label><Text style={style.form_title_style}>비밀번호</Text></FormControl.Label>
-              <Input size="xl" variant ='underlined' type ="password" onChangeText={handleInputChange('password')} value={userData.password} placeholder="비밀번호 입력" style={style.form_input_style}/>
+              <Input size="xl" variant ='underlined' type ="password" onChangeText={handleInputChange('password')} value={userData.password} placeholder="비밀번호 입력" style={style.form_input_style} />
               <FormControl.HelperText>
                 <Text style={style.form_helpertext_style}>영문, 숫자 조합으로만 가능</Text>
               </FormControl.HelperText>

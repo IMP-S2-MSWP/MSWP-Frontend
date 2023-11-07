@@ -15,12 +15,14 @@ import SignUp from './screens/Signup/SignUp';
 import { NativeBaseProvider } from 'native-base';
 import StartScreen from './screens/StartScreen';
 import Main_Tab_Navigator from "./navigator/Main_Tab_Navigator";
+import { UserProvider } from './stores/UserContext'; 
 const Stack = createStackNavigator();
 
 
 
 function App() {
   return (
+    <UserProvider>
     <NativeBaseProvider>
     <NavigationContainer>
 
@@ -53,6 +55,7 @@ function App() {
       </Stack.Navigator>
     </NavigationContainer>
     </NativeBaseProvider>
+    </UserProvider>
   );
 }
 
