@@ -35,11 +35,11 @@ const Main_Tab_Navigator = () => {
           )
         })}
       >
-      <Tab.Screen name="메인" component={Main_Stack_Navigator} options={{ headerTitle: '블투러브' }}/>
-      <Tab.Screen name="채팅" component={Chat_Stack_Navigator} />
-      <Tab.Screen name="비콘채팅" component={Main_Stack_Navigator} />
-      <Tab.Screen name="좋아요" component={Main_Stack_Navigator} />
-      <Tab.Screen name="프로필" component={MypageScreen} />
+      <Tab.Screen name="메인" component={Main_Stack_Navigator} options={{ headerShown:false}}/>
+      <Tab.Screen name="채팅" component={Chat_Stack_Navigator} options={{ headerShown:false}}/>
+      <Tab.Screen name="비콘채팅" component={Main_Stack_Navigator}options={{ headerShown:false}} />
+      <Tab.Screen name="좋아요" component={Main_Stack_Navigator} options={{ headerShown:false}}/>
+      <Tab.Screen name="프로필" component={MypageScreen} options={{ headerShown:false}}/>
 
       
     </Tab.Navigator>

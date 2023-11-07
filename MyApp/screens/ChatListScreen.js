@@ -1,29 +1,58 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import CustomButton from '../components/Button/CustomButton';
-import { useIsFocused } from '@react-navigation/native';
-import { useState, useEffect } from 'react';
-import {Button,Checkbox,Input,useTheme,Pressable, Box, HStack, Badge, Spacer, Flex} from "native-base"
-import { TextInput } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { Pressable } from "native-base";
+
 const ChatListScreen = (props) => {
+    const chats = [
+        { id: '1', name: '채팅방1' },
+        { id: '2', name: '채팅방2' },
+        { id: '3', name: '채팅방3' },
+        // ... 추가하실 채팅방 데이터
+    ];
 
-    return(
-        <View>
-            
-            <Pressable
-                p="2"
-                borderWidth="1"
-                onPress={()=>{
-                    props.navigation.navigate('Chat');
+    const renderChatItem = ({ item }) => (
+        <Pressable
+            style={styles.chatItem}
+            onPress={() => props.navigation.navigate('Chat')}
+        >
+            <View style={styles.avatar} />
+            <Text style={styles.chatName}>{item.name}</Text>
+        </Pressable>
+    );
 
-                }}
-            
-            >
-                <Text>채팅방1</Text>
-            </Pressable>
+    return (
+        <View style={styles.container}>
+            <FlatList
+                data={chats}
+                renderItem={renderChatItem}
+                keyExtractor={(item) => item.id}
+            />
         </View>
-        );
-
+    );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F2F2F2',
+    },
+    chatItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: '#E0E0E0',
+    },
+    avatar: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: '#FF6B6B',
+        marginRight: 15,
+    },
+    chatName: {
+        fontSize: 16,
+    }
+});
 
 export default ChatListScreen;

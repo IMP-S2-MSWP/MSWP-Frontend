@@ -36,7 +36,7 @@ const homecomponentoption = {
 
 const Main_Stack_Navigator = () => {
     return (
-      <Stack.Navigator initialRouteName="메인페이지" screenOptions={screenOptionStyle}>
+      <Stack.Navigator initialRouteName="메인페이지" screenOptions={screenOptionStyle} >
         <Stack.Screen name="메인페이지" component={Main} options={{ headerShown:false}}/>
         <Stack.Screen name="Beacon" component={BeaconScreen}/>
 

@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { View,TouchableOpacity, Text } from 'react-native';
@@ -41,7 +43,7 @@ const Chat_Stack_Navigator = () => {
     return (
       <Stack.Navigator initialRouteName="ChatList" screenOptions={screenOptionStyle}>
         <Stack.Screen name="메인페이지" component={Main} options={{ headerShown:false}}/>
-        <Stack.Screen name="Chat" component={ChatScreen}/>
+        <Stack.Screen name="Chat" component={ChatScreen} options={{ headerShown:false}}/>
         <Stack.Screen name="ChatList" component={ChatListScreen} options={{ headerShown:false}}/>
         <Stack.Screen name="Beacon" component={BeaconListPage} options={{ headerShown:false}}/>
 

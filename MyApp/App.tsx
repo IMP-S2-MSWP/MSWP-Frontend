@@ -46,7 +46,7 @@ function App() {
 
         {/*//<Stack.Screen name="Device" component={DeviceScreen} />*/}
 
-        <Stack.Screen name="Main" component={Main_Tab_Navigator}  />
+        <Stack.Screen name="Main" component={Main_Tab_Navigator}  options={{ headerTitle: '블투러브' }}/>
         <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }}/>
        
         
