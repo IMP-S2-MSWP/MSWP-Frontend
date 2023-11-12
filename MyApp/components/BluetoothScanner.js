@@ -1,24 +1,16 @@
-import { useEffect, useState } from 'react';
-import { NativeEventEmitter, NativeModules } from 'react-native';
+import {useEffect, useState} from 'react';
+import {NativeEventEmitter, NativeModules} from 'react-native';
 import BleManager from 'react-native-ble-manager';
 
 const useBluetoothScanner = () => {
-  const [devices, setDevices] = useState<Array<any>>([]);
-
-  const startScan = () => {
-    setDevices([]); // Clear the device list before start scanning
-    BleManager.scan([], 5, false).then(() => {
-      console.log('Scanning...');
-    });
-  };
+  const [devices, setDevices] = useState([]);
+  const [scanning, setScanning] = useState(false);
 
   useEffect(() => {
-    BleManager.start({ showAlert: false });
+    BleManager.start({showAlert: false});
 
-    const handleDiscoverPeripheral = (device: any) => {
-    
-    
-      setDevices((prevDevices) => {
+    const handleDiscoverPeripheral = device => {
+      setDevices(prevDevices => {
         const devices = prevDevices || []; // 기존 devices 값이 undefined인 경우 빈 배열로 초기화
 
         // Check if the serviceUUIDs is a valid UUID format
@@ -26,7 +18,7 @@ const useBluetoothScanner = () => {
           /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
         // Check if the device is already in the list and has a valid UUID
-        const isDeviceExist = devices.some((existingDevice) => {
+        const isDeviceExist = devices.some(existingDevice => {
           if (
             Array.isArray(existingDevice.advertising.serviceUUIDs) &&
             Array.isArray(device.advertising.serviceUUIDs)
@@ -53,7 +45,7 @@ const useBluetoothScanner = () => {
 
         // Device already exists or invalid service UUIDs or not a valid UUID format,
         // do not add it again
-         return devices;
+        return devices;
       });
     };
 
@@ -62,16 +54,37 @@ const useBluetoothScanner = () => {
 
     const listener = bleManagerEmitter.addListener(
       'BleManagerDiscoverPeripheral',
-      handleDiscoverPeripheral
-     );
+      handleDiscoverPeripheral,
+    );
 
-     return (()=>{
-       listener.remove();
-     });
-    
+    return () => {
+      listener.remove();
+    };
   }, []);
 
-  return { devices, startScan }; // Return both the devices and the function to start scanning
+  const startScan = (scanTime = 5, onScanComplete) => {
+    scanDevices = []; // 스캔을 시작하기 전에 장치 목록 초기화
+    setScanning(true);
+
+    BleManager.scan([], scanTime, false).then(() => {
+      console.log(`Scanning for ${scanTime} seconds...`);
+
+      setTimeout(() => {
+        BleManager.stopScan().then(() => {
+          setScanning(false);
+          console.log('Scan is stopped');
+
+          setDevices(scanDevices); // 스캔 도중 발견된 장치들로 상태 업데이트
+
+          if (typeof onScanComplete === 'function') {
+            onScanComplete(scanDevices); // 콜백에 임시 배열 전달
+          }
+        });
+      }, scanTime * 1000);
+    });
+  };
+
+  return {devices, scanning, startScan};
 };
 
 export default useBluetoothScanner;
