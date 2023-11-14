@@ -1,17 +1,18 @@
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import BlePeripheral from 'react-native-ble-peripheral';
-
+import {useUser} from '../../stores/UserContext';
 // Advertiser Service UUID (이 값을 자신의 서비스 UUID로 변경하세요)
-const SERVICE_UUID = '332D0FBA-981D-444C-8E7E-3F9E66F00DC0';
+const {user} = useUser();
+const SERVICE_UUID = user.uuid;
 
 export default function useBluetoothAdvertiser() {
   useEffect(() => {
     // Start advertising when the component is mounted
     const startAdvertising = async () => {
       try {
-        await BlePeripheral.addService('332D0FBA-981D-444C-8E7E-3F9E66F00DC0',false);
+        await BlePeripheral.addService(SERVICE_UUID, false);
         await BlePeripheral.start();
-        
+
         console.log('BLE advertising started successfully.');
       } catch (error) {
         console.log('Failed to start BLE advertising:', error);
@@ -25,7 +26,9 @@ export default function useBluetoothAdvertiser() {
       if (BlePeripheral.isAdvertising()) {
         BlePeripheral.stop()
           .then(() => console.log('BLE advertising stopped successfully.'))
-          .catch(error => console.log('Failed to stop BLE advertising:', error));
+          .catch(error =>
+            console.log('Failed to stop BLE advertising:', error),
+          );
       }
     };
   }, []);

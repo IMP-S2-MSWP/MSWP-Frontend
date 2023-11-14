@@ -10,6 +10,7 @@ import Completepage from './Completepage';
 import {Button} from 'native-base';
 import style from '../../components/Style/Signup/style';
 import axios from 'axios';
+import {API_URL} from '@env';
 
 const SignUp = () => {
   const [pageIndex, setPageIndex] = useState(0);
@@ -76,12 +77,9 @@ const SignUp = () => {
   async function checkUsernameAvailability(username) {
     try {
       // '/api/register/validation' 엔드포인트로 POST 요청을 보냄
-      const response = await axios.post(
-        'http://3.39.9.55:8080/api/register/validation',
-        {
-          id: username, // 중복 확인을 위한 사용자 아이디
-        },
-      );
+      const response = await axios.post(API_URL + '/api/register/validation', {
+        id: username, // 중복 확인을 위한 사용자 아이디
+      });
       console.log(response.data);
       // 서버 응답 처리
       if (response.data) {
@@ -100,17 +98,14 @@ const SignUp = () => {
   const handleRegister = async () => {
     try {
       // 서버에 회원가입 요청을 보냄
-      const response = await axios.post(
-        'http://192.168.0.16:8080/api/register',
-        {
-          id: userData.username,
-          password: userData.password,
-          name: userData.name,
-          nickname: userData.nickname,
-          birth: userData.dob,
-          gender: userData.gender == 'man' ? 'M' : 'W',
-        },
-      );
+      const response = await axios.post(API_URL + '/api/register', {
+        id: userData.username,
+        password: userData.password,
+        name: userData.name,
+        nickname: userData.nickname,
+        birth: userData.dob,
+        gender: userData.gender == 'man' ? 'M' : 'W',
+      });
       console.log(response.data);
 
       // 회원가입 요청 성공

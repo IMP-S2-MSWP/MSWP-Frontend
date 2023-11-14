@@ -38,7 +38,7 @@ const LoginScreen = () => {
   const handleLogin = () => {
     console.log(API_URL + '/api/login');
     axios
-      .post('http://3.39.9.55:8080/api/login', userData)
+      .post(API_URL + '/api/login', userData)
       .then(response => {
         if (response.data != null) {
           console.log(response.data);

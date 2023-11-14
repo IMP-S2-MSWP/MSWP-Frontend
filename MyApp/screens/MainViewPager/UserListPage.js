@@ -1,9 +1,9 @@
 // UserListPage.js
 
-import React, {useState, useEffect} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
-import {View, Text, FlatList, ScrollView} from 'react-native';
+import {View, Text, FlatList, ScrollView, Alert} from 'react-native';
 import {
   Button,
   Checkbox,
@@ -21,14 +21,22 @@ import {
 } from 'native-base';
 import axios from 'axios';
 import useBluetoothScanner from '../../components/BluetoothScanner';
+import {API_URL} from '@env';
+import LottieView from 'lottie-react-native';
+import {useUser} from '../../stores/UserContext';
 // Dummy data for demonstration
 
 const UserListPage = props => {
-  const [numUsers, setNumUsers] = useState(13); // Declare numUsers and setNumUsers
   const [users, setUsers] = useState([]); // Initialize users as empty array
   const {devices, startScan, scanning} = useBluetoothScanner();
   const {statues, setStatues} = useState(false);
+  const [heartList, setHeartList] = useState([]);
+  const [userIdList, setUserIdList] = useState([]);
+  const lottieRefs = useRef({});
+
+  const {user} = useUser();
   useEffect(() => {
+    heartlist(user.id);
     // 컴포넌트 마운트 시 1회 스캔을 수행합니다.
     const initialScanTimeout = setTimeout(() => {
       startScan(5, scannedDevices => {
@@ -81,51 +89,41 @@ const UserListPage = props => {
     }
   }, [scanning]);
 
+  useEffect(() => {
+    props.setList(users.map(user => user.id));
+  }, [users]);
+
   // Re-run effect when devices changes
 
   const navigation = useNavigation();
 
   const toggleFill = id => {
     setUsers(
-      users.map(user =>
-        user.id === id ? {...user, filled: !user.filled} : user,
-      ),
+      users.map(usermap => {
+        if (usermap.id === id) {
+          const newUser = {...usermap, filled: !usermap.filled};
+          // 애니메이션 상태에 따라 LottieView 제어
+          if (newUser.filled) {
+            addHeart(user.id, id);
+            lottieRefs.current[id].play();
+          } else {
+            lottieRefs.current[id].reset();
+            addHeart(user.id, id);
+          }
+          return newUser;
+        }
+        return usermap;
+      }),
     );
   };
   async function checkNewDeviceServiceUUIDs(newUUIDs) {
     try {
       console.log('New service UUIDs to check:', newUUIDs);
       // Send POST request with the new UUIDs
-      const response = await axios.post('http://192.168.0.16:8080/api/around', {
+      const response = await axios.post(API_URL + '/api/around', {
         uuidList: newUUIDs, // Only the new service UUIDs
       });
-      // const response = {
-      //   data: {
-      //     1: {
-      //       birth: '2000-02-14',
-      //       gender: 'M',
-      //       id: 'test',
-      //       image: 'test.jpg',
-      //       message: 'test 계정입니다',
-      //       name: '이승민',
-      //       nickname: 'test',
-      //       uuid: 'bc21688d-1378-4f10-b49f-ab4e5dbb7936',
-      //     },
-      //     2: {
-      //       birth: '2000-02-14',
-      //       gender: 'M',
-      //       id: 'test2',
-      //       image: 'test2.jpg',
-      //       message: 'test 계정입니다',
-      //       name: '고주원',
-      //       nickname: 'test',
-      //       uuid: 'bc21688d-1378-4f10-b49f-ab4e5dbb7937',
-      //     },
-      //     sc: 200,
-      //   },
-      // };
       console.log(response.data);
-
       // Handle the server response
       if (response.data) {
         console.log('Service UUIDs check was successful.');
@@ -133,7 +131,48 @@ const UserListPage = props => {
       } else {
         console.log('There was a problem checking the Service UUIDs.');
       }
-
+      return response.data; // Return the data for further processing if needed
+    } catch (error) {
+      console.error(
+        'An error occurred while checking the new service UUIDs:',
+        error,
+      );
+      return error; // Returning error for handling it appropriately in the calling context
+    }
+  }
+  async function addHeart(idFrom, idTo) {
+    try {
+      const response = await axios.post(API_URL + '/api/click', {
+        idFrom: idFrom, // Only the new service UUIDs
+        idTo: idTo, // Only the new service UUIDs
+      });
+      console.log(response.data);
+      // Handle the server response
+      if (response.data) {
+        console.log('Service UUIDs check was successful.'); // Assuming updateUsers function is designed to handle the response data properly.
+      } else {
+        console.log('There was a problem checking the Service UUIDs.');
+      }
+      return response.data; // Return the data for further processing if needed
+    } catch (error) {
+      console.error(
+        'An error occurred while checking the new service UUIDs:',
+        error,
+      );
+      return error; // Returning error for handling it appropriately in the calling context
+    }
+  }
+  async function heartlist(id) {
+    try {
+      const response = await axios.get(API_URL + '/api/count?id=' + id);
+      console.log(response.data);
+      // Handle the server response
+      if (response.data) {
+        console.log('Service UUIDs check was successful.');
+        extractIdFrom(response.data); // Assuming updateUsers function is designed to handle the response data properly.
+      } else {
+        console.log('There was a problem checking the Service UUIDs.');
+      }
       return response.data; // Return the data for further processing if needed
     } catch (error) {
       console.error(
@@ -149,11 +188,19 @@ const UserListPage = props => {
     const newUsers = Object.values(data).filter(
       user => user && typeof user === 'object',
     );
-    const updatedUser = [...users, ...newUsers];
+    const plusUser = newUsers.map(user => {
+      return {
+        ...user,
+        filled: heartList.includes(user.id),
+      };
+    });
+    const updatedUser = [...users, ...plusUser];
 
     setUsers(updatedUser); // 추출한 유저 배열로 상태 업데이트
   };
-
+  const extractIdFrom = data => {
+    setHeartList(data.list.map(item => item.idTo));
+  };
   // 예시로 device.advertising.serviceUUIDs가 다음과 같다고 가정합니다.
 
   // 함수를 호출하여 서비스 UUIDs를 검사합니다.
@@ -163,13 +210,6 @@ const UserListPage = props => {
       <Text style={{marginLeft: 10, padding: 7, fontSize: 16}}>
         근처 유저 수 : {users.length}
       </Text>
-      {/* <ScrollView>
-        {devices.map((device, index) => (
-          <Text key={index}>
-            name: {device.advertising.serviceUUIDs} id : {device.id}
-          </Text>
-        ))}
-      </ScrollView> */}
 
       <ScrollView>
         {users.map(user => (
@@ -183,28 +223,33 @@ const UserListPage = props => {
                 name: user.name,
               });
             }}>
-            <HStack space={3} alignItems="center" marginLeft={4}>
-              {/* <Image
-                style={{borderRadius: 14}}
-                source={{uri: user.image}}
-                alt={user.name}
-                boxSize={10}
-              /> */}
-              <VStack>
-                <Text style={{fontSize: 16}}>{user.name}</Text>
-                <Text>hi</Text>
-                {/* Replace with actual heart icon */}
-                {/*<Button title={user.filled ? '❤️' : '♡'} onPress={() => toggleFill(user.id)} />*/}
-              </VStack>
-              <Spacer />
-              <Pressable
-                p="2"
-                borderWidth="1"
-                w="9"
-                h="9"
-                mr="3"
-                onPress={() => toggleFill(user.id)}>
-                <Text>{user.filled ? '❤️' : ' ♡'}</Text>
+            <HStack
+              space={3}
+              alignItems="center"
+              justifyContent="space-between">
+              <HStack space={3} alignItems="center" marginLeft={4} flex={1}>
+                <Image
+                  style={{borderRadius: 14}}
+                  source={{uri: API_URL + '/images/' + user.image}}
+                  alt={user.name}
+                  boxSize={10}
+                />
+                <VStack>
+                  <Text style={{fontSize: 16}}>{user.name}</Text>
+                  <Text>{user.message}</Text>
+                  {/* Replace with actual heart icon */}
+                  {/*<Button title={user.filled ? '❤️' : '♡'} onPress={() => toggleFill(user.id)} />*/}
+                </VStack>
+              </HStack>
+              <Pressable key={user.id} onPress={() => toggleFill(user.id)}>
+                <LottieView
+                  ref={el => (lottieRefs.current[user.id] = el)} // 참조 할당
+                  style={{height: 50, width: 50}}
+                  source={require('../../components/Lottie/source/heartpicker')}
+                  loop={false}
+                  autoPlay={false}
+                  progress={user.filled ? 1 : 0}
+                />
               </Pressable>
             </HStack>
           </Pressable>
