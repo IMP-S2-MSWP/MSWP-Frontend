@@ -19,7 +19,8 @@ import LoginForm from '../components/LoginForm';
 import axios from 'axios';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useUser} from '../stores/UserContext';
-import {API_URL} from '@env';
+// import {API_URL} from './env';
+import {API_URL} from '../env';
 
 const LoginScreen = () => {
   const [userData, setUserData] = useState({

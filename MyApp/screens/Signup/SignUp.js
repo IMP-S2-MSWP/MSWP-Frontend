@@ -10,7 +10,8 @@ import Completepage from './Completepage';
 import {Button} from 'native-base';
 import style from '../../components/Style/Signup/style';
 import axios from 'axios';
-import {API_URL} from '@env';
+// import {API_URL} from '@env';
+import {API_URL} from '../../env';
 
 const SignUp = () => {
   const [pageIndex, setPageIndex] = useState(0);

@@ -35,7 +35,8 @@ import UserListpage from './MainViewPager/UserListPage';
 import Beaconlistpage from './MainViewPager/BeaconListPage';
 import useBluetoothAdvertiser from '../components/Bluetooth/BluetoothAdvertiser';
 import {useUser} from '../stores/UserContext';
-import {API_URL} from '@env';
+// import {API_URL} from '@env';
+import {API_URL} from './../env';
 import axios from 'axios';
 const MainScreen = props => {
   const theme = useTheme();

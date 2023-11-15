@@ -12,7 +12,6 @@ const useBluetoothScanner = () => {
     const handleDiscoverPeripheral = device => {
       setDevices(prevDevices => {
         const devices = prevDevices || []; // 기존 devices 값이 undefined인 경우 빈 배열로 초기화
-
         // Check if the serviceUUIDs is a valid UUID format
         const uuidPattern =
           /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -31,6 +30,7 @@ const useBluetoothScanner = () => {
           }
           return false;
         });
+        console.log(device);
 
         if (!isDeviceExist && Array.isArray(device.advertising.serviceUUIDs)) {
           // Check if the service UUIDs array is defined and not empty and has a valid UUID
