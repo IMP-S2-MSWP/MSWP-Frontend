@@ -6,7 +6,7 @@ export default StyleSheet.create({
     height: 50
   },
  invalidName : {
-    width: 32,
+    width: 60,
     height: 20,
     fontFamily: "LeferiBaseType",
     fontSize: 16,
@@ -52,5 +52,12 @@ export default StyleSheet.create({
     letterSpacing: 0.36,
     textAlign: "left",
     color: "#868686"
+  },
+  login_button_style : {
+    backgroundColor: "#2679ff",
+    borderRadius: 8,
+    width: 335,
+    height: 56,
+    bottom: 20,
   },
 });

@@ -28,7 +28,7 @@ const NameGenderDOBPage = ({ userData, handleInputChange }) => {
       <FormControl >
         <Stack width= "335" mx="5" mt ='60'>
           <FormControl.Label><Text style={style.form_title_style}>이름</Text></FormControl.Label>
-          <Input size="xl" variant ='underlined' onChangeText={handleInputChange('name')} value={userData.name} placeholder="이름 입력" style={style.form_input_style}/>
+          <Input size="xl" variant ='underlined' onChangeText={handleInputChange('name')} value={userData.name} placeholder="이름 입력" style={style.form_input_style} />
           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             Atleast 6 characters are required.
           </FormControl.ErrorMessage>
