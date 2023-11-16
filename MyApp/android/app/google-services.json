@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "90598864197",
+    "project_id": "moblieproject-a2aac",
+    "storage_bucket": "moblieproject-a2aac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90598864197:android:49002a243c4e24bf7d3a2c",
+        "android_client_info": {
+          "package_name": "com.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90598864197-htd5eff1kf2dd8spke2asofkf2idrkrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR-RW0lbPPRLPwLdCuiMwkupmA9daCtQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90598864197-htd5eff1kf2dd8spke2asofkf2idrkrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90598864197:android:9b3cb57a5acfff897d3a2c",
+        "android_client_info": {
+          "package_name": "com.realtimedb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90598864197-htd5eff1kf2dd8spke2asofkf2idrkrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR-RW0lbPPRLPwLdCuiMwkupmA9daCtQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90598864197-htd5eff1kf2dd8spke2asofkf2idrkrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

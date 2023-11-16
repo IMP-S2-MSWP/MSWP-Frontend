@@ -28,11 +28,15 @@ import {
   VStack,
 } from 'native-base';
 import {TextInput} from 'react-native-gesture-handler';
+<<<<<<< HEAD
 import LottieView from 'lottie-react-native';
+=======
+>>>>>>> MOB-34--
 import PagerView from 'react-native-pager-view';
 import {NavigationContainer} from '@react-navigation/native';
 import UserListpage from './MainViewPager/UserListPage';
 import Beaconlistpage from './MainViewPager/BeaconListPage';
+<<<<<<< HEAD
 import useBluetoothAdvertiser from '../components/Bluetooth/BluetoothAdvertiser';
 import {useUser} from '../stores/UserContext';
 // import {API_URL} from '@env';
@@ -57,10 +61,19 @@ const MainScreen = props => {
       clearInterval(scanInterval);
     };
   }, []);
+=======
+const MainScreen = props => {
+  const theme = useTheme();
+  const [user, setUser] = useState([]);
+  const [pageIndex, setPageIndex] = useState(0);
+  const pagerRef = useRef(null);
+
+>>>>>>> MOB-34--
   const handleUserTextClick = () => {
     if (pageIndex == 1) {
       setPageIndex(prevPageIndex => prevPageIndex - 1);
       pagerRef.current.setPage(pageIndex - 1);
+<<<<<<< HEAD
     }
   };
   const handleBeaconTextClick = () => {
@@ -95,6 +108,16 @@ const MainScreen = props => {
       return error; // Returning error for handling it appropriately in the calling context
     }
   }
+=======
+    }
+  };
+  const handleBeaconTextClick = () => {
+    if (pageIndex == 0) {
+      setPageIndex(prevPageIndex => prevPageIndex + 1);
+      pagerRef.current.setPage(pageIndex + 1);
+    }
+  };
+>>>>>>> MOB-34--
 
   const toggleList = () => {
     // 스위치를 토글할 때 호출되는 함수
@@ -113,7 +136,11 @@ const MainScreen = props => {
           <HStack alignItems="center">
             <Image
               source={{
+<<<<<<< HEAD
                 uri: API_URL + '/images/' + user.image,
+=======
+                uri: 'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg',
+>>>>>>> MOB-34--
               }}
               alt="Alternate Text"
               borderRadius="50"
@@ -123,6 +150,7 @@ const MainScreen = props => {
             />
 
             <VStack ml="3">
+<<<<<<< HEAD
               <Text style={{fontWeight: 'bold', fontSize: 16}}>
                 {user.name}
               </Text>
@@ -136,6 +164,22 @@ const MainScreen = props => {
               autoPlay
             />
             <Text style={{fontSize: 16, fontWeight: 'bold'}}>{heartcount}</Text>
+=======
+              <Text style={{fontWeight: 'bold', fontSize: 16}}>카리나나</Text>
+              <Text>저는 이상용을 좋아해요</Text>
+            </VStack>
+            <Spacer />
+            <Image
+              source={{
+                uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Coraz%C3%B3n.svg/800px-Coraz%C3%B3n.svg.png',
+              }}
+              alt="Alternate Text"
+              size="xs"
+              resizeMode="contain"
+              h="16"
+              w="16"
+            />
+>>>>>>> MOB-34--
           </HStack>
         </Box>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -171,10 +215,17 @@ const MainScreen = props => {
       <PagerView
         ref={pagerRef}
         style={styles.container}
+<<<<<<< HEAD
         initialPage={1}
         onPageSelected={e => setPageIndex(e.nativeEvent.position)}>
         <Beaconlistpage key="0" />
         <UserListpage key="1" list={list} setList={setList} />
+=======
+        initialPage={0}
+        onPageSelected={e => setPageIndex(e.nativeEvent.position)}>
+        <UserListpage key="0" />
+        <Beaconlistpage key="1" />
+>>>>>>> MOB-34--
       </PagerView>
     </View>
   );
