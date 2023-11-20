@@ -29,6 +29,7 @@ import {useUser} from '../../stores/UserContext';
 
 const UserListPage = props => {
   const [users, setUsers] = useState([]); // Initialize users as empty array
+
   const {devices, startScan, scanning} = useBluetoothScanner();
   const {statues, setStatues} = useState(false);
   const [heartList, setHeartList] = useState([]);
@@ -59,7 +60,6 @@ const UserListPage = props => {
 
   useEffect(() => {
     if (!scanning) {
-      console.log('devices', devices);
       const userUUIDsArray = users.map(user => user.uuid);
 
       // 스캔된 디바이스 중에서 users 배열에 없는 UUIDs만 가진 디바이스를 필터링합니다.
@@ -92,6 +92,7 @@ const UserListPage = props => {
 
   useEffect(() => {
     props.setList(users.map(user => user.id));
+    props.setUsers(users.map(user => user));
   }, [users]);
 
   // Re-run effect when devices changes
@@ -209,51 +210,53 @@ const UserListPage = props => {
   return (
     <View>
       <Text style={{marginLeft: 10, padding: 7, fontSize: 16}}>
-        근처 유저 수 : {users.length}
+        근처 유저 수 : {users.filter(user => user.gender !== 'P').length}
       </Text>
       <ScrollView>
-        {users.map(user => (
-          <Pressable
-            key={user.id}
-            p="1"
-            marginBottom={1}
-            borderWidth="0"
-            onPress={() => {
-              navigation.navigate('Chat', {
-                name: user.name,
-              });
-            }}>
-            <HStack
-              space={3}
-              alignItems="center"
-              justifyContent="space-between">
-              <HStack space={3} alignItems="center" marginLeft={4} flex={1}>
-                <Image
-                  style={{borderRadius: 14}}
-                  source={{uri: API_URL + '/images/' + user.image}}
-                  alt={user.name}
-                  boxSize={10}
-                />
-                <VStack>
-                  <Text style={{fontSize: 16}}>{user.name}</Text>
-                  <Text>{user.message}</Text>
-                  {/* Replace with actual heart icon */}
-                  {/*<Button title={user.filled ? '❤️' : '♡'} onPress={() => toggleFill(user.id)} />*/}
-                </VStack>
+        {users
+          .filter(user => user.gender !== 'P')
+          .map(user => (
+            <Pressable
+              key={user.id}
+              p="1"
+              marginBottom={1}
+              borderWidth="0"
+              onPress={() => {
+                navigation.navigate('Chat', {
+                  name: user.name,
+                });
+              }}>
+              <HStack
+                space={3}
+                alignItems="center"
+                justifyContent="space-between">
+                <HStack space={3} alignItems="center" marginLeft={4} flex={1}>
+                  <Image
+                    style={{borderRadius: 14}}
+                    source={{uri: API_URL + '/images/' + user.image}}
+                    alt={user.name}
+                    boxSize={10}
+                  />
+                  <VStack>
+                    <Text style={{fontSize: 16}}>{user.name}</Text>
+                    <Text>{user.message}</Text>
+                    {/* Replace with actual heart icon */}
+                    {/*<Button title={user.filled ? '❤️' : '♡'} onPress={() => toggleFill(user.id)} />*/}
+                  </VStack>
+                </HStack>
+                <Pressable key={user.id} onPress={() => toggleFill(user.id)}>
+                  <LottieView
+                    ref={el => (lottieRefs.current[user.id] = el)} // 참조 할당
+                    style={{height: 50, width: 50}}
+                    source={require('../../components/Lottie/source/heartpicker')}
+                    loop={false}
+                    autoPlay={false}
+                    progress={user.filled ? 1 : 0}
+                  />
+                </Pressable>
               </HStack>
-              <Pressable key={user.id} onPress={() => toggleFill(user.id)}>
-                <LottieView
-                  ref={el => (lottieRefs.current[user.id] = el)} // 참조 할당
-                  style={{height: 50, width: 50}}
-                  source={require('../../components/Lottie/source/heartpicker')}
-                  loop={false}
-                  autoPlay={false}
-                  progress={user.filled ? 1 : 0}
-                />
-              </Pressable>
-            </HStack>
-          </Pressable>
-        ))}
+            </Pressable>
+          ))}
       </ScrollView>
     </View>
   );

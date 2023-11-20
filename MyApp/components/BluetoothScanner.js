@@ -5,11 +5,16 @@ import BleManager from 'react-native-ble-manager';
 const useBluetoothScanner = () => {
   const [devices, setDevices] = useState([]);
   const [scanning, setScanning] = useState(false);
+  const [beacon, setBeacon] = useState([]); // beacon 상태 추가
 
   useEffect(() => {
     BleManager.start({showAlert: false});
 
     const handleDiscoverPeripheral = device => {
+      if (device.name === 'Plutocon') {
+        console.log('Plutocon found', device);
+        device.advertising.serviceUUIDs = [device.id];
+      }
       setDevices(prevDevices => {
         const devices = prevDevices || []; // 기존 devices 값이 undefined인 경우 빈 배열로 초기화
         // Check if the serviceUUIDs is a valid UUID format
@@ -30,8 +35,6 @@ const useBluetoothScanner = () => {
           }
           return false;
         });
-        console.log(device);
-
         if (!isDeviceExist && Array.isArray(device.advertising.serviceUUIDs)) {
           // Check if the service UUIDs array is defined and not empty and has a valid UUID
           if (
@@ -84,7 +87,7 @@ const useBluetoothScanner = () => {
     });
   };
 
-  return {devices, scanning, startScan};
+  return {devices, beacon, scanning, startScan};
 };
 
 export default useBluetoothScanner;
