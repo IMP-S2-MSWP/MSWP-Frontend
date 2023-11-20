@@ -19,13 +19,18 @@ import {
   Image,
   Center,
 } from 'native-base';
+/// 스타일 임포트
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
+
+/// 네트워크 통신 임포트
+
 const BeaconListPage = props => {
   const [numUsers, setNumUsers] = useState(13); // Declare numUsers and setNumUsers
   const [users, setUsers] = useState([]); // Initialize users as empty array
   const uid = 'test';
   const lottieRefs = useRef({});
+
   useEffect(() => {
     const newUsers = Array.from({length: numUsers}, (_, i) => ({
       id: i + 1,

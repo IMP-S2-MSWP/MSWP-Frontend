@@ -59,7 +59,8 @@ function App() {
             <Stack.Screen
               name="Main"
               component={Main_Tab_Navigator}
-              options={{headerTitle: '블투러브'}}
+              //options={{headerTitle: '블투러브'}}
+              options={{headerShown: false}}
             />
             <Stack.Screen
               name="Start"

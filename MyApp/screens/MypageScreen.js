@@ -4,7 +4,8 @@ import CustomButton from '../components/Button/CustomButton';
 import {useIsFocused} from '@react-navigation/native';
 import {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   Button,
   Checkbox,
@@ -21,8 +22,8 @@ import {
   Modal,
 } from 'native-base';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
-import Svg, {Path} from 'react-native-svg';
 import axios from 'axios';
+import Svg, {Path} from 'react-native-svg';
 
 const Screen1 = () => {
   return (
@@ -120,121 +121,165 @@ const MypageScreen = props => {
     </Pressable>
   );
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        textAlign: 'center',
-        backgroundColor: '#ffffff',
-      }}>
-      <Image
-        source={{
-          uri: 'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg',
-        }}
-        alt="Alternate Text"
-        borderRadius="150"
-        w="140"
-        h="140"
-        mt="81"
-      />
-      <HStack alignItems="center">
-        <VStack>
+    <LinearGradient
+      //colors={['#ffdde1', '#ee9ca7']} // 핑크색 그라데이션 설정
+      colors={['white', 'white']} // 핑크색 그라데이션 설정
+      style={{flex: 1}}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          textAlign: 'center',
+        }}>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            margin: 20,
+            fontSize: 20,
+            alignSelf: 'flex-start',
+          }}>
+          YOU&ME
+        </Text>
+
+        <Image
+          source={{
+            uri: 'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg',
+          }}
+          alt="Alternate Text"
+          borderRadius="150"
+          w="140"
+          h="140"
+          mt="81"
+        />
+
+        <HStack alignItems="center">
           <TextInput
-            style={{fontWeight: 'bold', fontSize: 20, marginTop: 17}}
+            style={{
+              color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
+              fontWeight: 'bold',
+              fontSize: 20,
+              marginTop: 17,
+            }}
             value={name}
             onChangeText={setName}
             editable={isEditable}
           />
-        </VStack>
-        <Image
-          source={{
-            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK2vvhR8lML6uk1lXn7cgBrZXjwC7JA_Ildw&usqp=CAU',
-          }}
-          alt="Alternate Text"
-          style={{width: 20, height: 20, marginTop: 18, marginLeft: 7}}
-        />
-      </HStack>
-      <TextInput
-        value={introduce}
-        onChangeText={setIntroduce}
-        editable={isEditable}
-      />
+          <TextInput
+            style={{
+              color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
 
-      <Pressable
-        p="2"
-        borderWidth="1"
-        onPress={() => setIsEditable(!isEditable)}>
-        <Text>개인정보 수정하기</Text>
-      </Pressable>
-      <HStack p="12" rounded="lg" w="370" h="110">
-        <Pressable
-          style={{
-            borderWidth: 1,
-            borderRadius: 150,
-            width: 50,
-            height: 50,
-            backgroundColor: 'grey',
-            textAlign: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={() => setIsBeaconModalVisible(true)}>
-          <Text>비콘</Text>
-        </Pressable>
-
-        <Spacer />
-        <Pressable
-          style={{
-            borderWidth: 1,
-            borderRadius: 150,
-            width: 70,
-            height: 70,
-            backgroundColor: 'pink',
-          }}
-          onPress={() => {
-            console.log('hello2');
-          }}></Pressable>
-        <Spacer />
-
-        <Pressable
-          style={{
-            borderWidth: 1,
-            borderRadius: 150,
-            width: 50,
-            height: 50,
-            marginBottom: 5,
-            backgroundColor: 'grey',
-          }}
-          onPress={() => {
-            console.log('hello2');
-            setIsEditable(!isEditable);
-          }}>
-          <Text>설정</Text>
-        </Pressable>
-      </HStack>
-      <Modal
-        isOpen={isBeaconModalVisible}
-        onClose={() => setIsBeaconModalVisible(false)}>
-        <Modal.Content>
-          <Modal.CloseButton />
-          <Modal.Header>비콘 리스트</Modal.Header>
-          <FlatList
-            data={beacons}
-            renderItem={renderBeaconItem}
-            keyExtractor={item => item.id}
+              fontWeight: 'bold',
+              fontSize: 20,
+              marginTop: 17,
+            }}
+            value={age}
+            onChangeText={setAge}
+            editable={isEditable}
           />
-          <Modal.Footer>
-            <Button
-              onPress={() => {
-                /* 비콘 등록 로직 */
-                navigation.navigate('비콘등록');
-              }}>
-              비콘 등록
-            </Button>
-          </Modal.Footer>
-        </Modal.Content>
-      </Modal>
-    </View>
+        </HStack>
+        <TextInput
+          style={{
+            color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
+
+            fontWeight: 'bold',
+            fontSize: 14,
+          }}
+          value={introduce}
+          onChangeText={setIntroduce}
+          editable={isEditable}
+        />
+
+        <HStack p="12" rounded="lg" w="370" h="110">
+          <Pressable
+            style={{
+              borderWidth: 1,
+              borderRadius: 150,
+              width: 50,
+              height: 50,
+              backgroundColor: 'grey',
+              borderColor: 'grey',
+              textAlign: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => setIsBeaconModalVisible(true)}>
+            <Ionicons name="bluetooth" size={30} color="white" />
+          </Pressable>
+
+          <Spacer />
+          <Pressable
+            style={{
+              borderWidth: 0,
+              borderRadius: 150,
+              width: 90,
+              height: 90,
+              textAlign: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => {
+              console.log('hello2');
+            }}>
+            <Ionicons name="heart" size={90} color="#FA5858" />
+          </Pressable>
+          <Spacer />
+
+          <Pressable
+            style={{
+              borderWidth: 1,
+              borderRadius: 150,
+              borderColor: 'grey',
+              width: 50,
+              height: 50,
+              backgroundColor: 'grey',
+              textAlign: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => {
+              console.log('change profile');
+              setIsEditable(!isEditable);
+            }}>
+            <Ionicons name="settings" size={30} color="white" />
+          </Pressable>
+        </HStack>
+        <Svg height="28%" width="140%" viewBox="0 0 200 100">
+          <Path
+            d="M0 20 Q 95 90 200 20 L 200 120 L 0 120 Z"
+            fill="#E6E6E6" // 그림자 색상
+          />
+          <Path
+            d="M0 20 Q 95 90 200 20"
+            fill="none"
+            stroke="lightpink"
+            strokeWidth="5"
+            transform="scale(-1, 1) translate(-200, 0)"
+          />
+        </Svg>
+        <Modal
+          isOpen={isBeaconModalVisible}
+          onClose={() => setIsBeaconModalVisible(false)}>
+          <Modal.Content>
+            <Modal.CloseButton />
+            <Modal.Header>비콘 리스트</Modal.Header>
+            <FlatList
+              data={beacons}
+              renderItem={renderBeaconItem}
+              keyExtractor={item => item.id}
+            />
+            <Modal.Footer>
+              <Button
+                onPress={() => {
+                  /* 비콘 등록 로직 */
+                  navigation.navigate('비콘등록');
+                }}>
+                비콘 등록
+              </Button>
+            </Modal.Footer>
+          </Modal.Content>
+        </Modal>
+      </View>
+    </LinearGradient>
   );
 };
 export default MypageScreen;
