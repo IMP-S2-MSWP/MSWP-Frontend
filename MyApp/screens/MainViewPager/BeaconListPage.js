@@ -19,6 +19,7 @@ import {
   Image,
   Center,
 } from 'native-base';
+/// 스타일 임포트
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
 import {API_URL} from '../../env';
@@ -26,6 +27,7 @@ import {API_URL} from '../../env';
 const BeaconListPage = props => {
   const [users, setUsers] = useState([]); // Initialize users as empty array
   const uid = 'test';
+
 
   const navigation = useNavigation();
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import TabBarIcon from '../components/Icon/Tabbar';
 import {useTheme} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import Main_Stack_Navigator from './Main_Stack_Navigator';
@@ -10,6 +9,8 @@ import MypageScreen from '../screens/MypageScreen';
 import SettingScreen from '../screens/SettingScreen';
 import BeaconListScreen from '../screens/BeaconListScreen';
 import Beacon_Stack_Navigator from './Beacon_Stack_Navigator';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   Menu,
   HamburgerIcon,
@@ -21,7 +22,6 @@ import {
   Flex,
 } from 'native-base';
 
-import Icon from 'react-native-vector-icons/Ionicons';
 const Tab = createBottomTabNavigator();
 
 const Main_Tab_Navigator = () => {
@@ -31,18 +31,34 @@ const Main_Tab_Navigator = () => {
     <Tab.Navigator
       initialRouteName="메인"
       tabBarOptions={{
-        activeBackgroundColor: 'grey',
         activeTintColor: 'black',
         inactiveTintColor: 'black',
         inactiveBackgroundColor: 'white',
-        style: {
-          backgroundColor: '#000000',
-        },
         labelPosition: 'below-icon',
       }}
       screenOptions={({route}) => ({
         tabBarLabel: route.name,
-        tabBarIcon: ({focused}) => TabBarIcon(focused, route.name),
+        tabBarStyle: {
+          borderTopWidth: 0,
+          elevation: 0,
+        },
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+
+          if (route.name === '메인') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === '채팅') {
+            iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+          } else if (route.name === '비콘채팅') {
+            iconName = focused ? 'bluetooth' : 'bluetooth-outline';
+          } else if (route.name === '좋아요') {
+            iconName = focused ? 'heart' : 'heart-outline';
+          } else if (route.name === '프로필') {
+            iconName = focused ? 'stepforward' : 'person-outline';
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
       })}>
       <Tab.Screen
         name="메인"
