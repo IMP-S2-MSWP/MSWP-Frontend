@@ -46,6 +46,7 @@ const MainScreen = props => {
   const pagerRef = useRef(null);
   const {startAdvertising} = useBluetoothAdvertiser();
   const [list, setList] = useState([]);
+  const [users, setUsers] = useState([]); // Initialize users as empty array
   const {user} = useUser();
   useEffect(() => {
     startAdvertising();
@@ -73,6 +74,10 @@ const MainScreen = props => {
     const duplicates = list.filter(item => heartList.includes(item));
     setHeartcount(duplicates.length);
   }, [list, heartList]);
+
+  useEffect(() => {
+    console.log('users', users);
+  }, [users]);
 
   async function heartlist(id) {
     try {
@@ -173,9 +178,15 @@ const MainScreen = props => {
         style={styles.container}
         initialPage={0}
         onPageSelected={e => setPageIndex(e.nativeEvent.position)}>
-        <UserListpage key="0" list={list} setList={setList} />
+        <UserListpage
+          key="0"
+          list={list}
+          setList={setList}
+          users={users}
+          setUsers={setUsers}
+        />
 
-        <Beaconlistpage key="1" />
+        <Beaconlistpage key="1" users={users} setUsers={setUsers} />
       </PagerView>
     </View>
   );
