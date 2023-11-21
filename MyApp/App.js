@@ -17,7 +17,7 @@ import StartScreen from './screens/StartScreen';
 import Main_Tab_Navigator from './navigator/Main_Tab_Navigator';
 import BeaconRegist from './screens/BeaconRegist';
 import Advertisement from './screens/Advertisement';
-import groupChat from './screens/groupChat';
+import groupChat from './screens/GroupChat';
 import {UserProvider} from './stores/UserContext';
 const Stack = createStackNavigator();
 

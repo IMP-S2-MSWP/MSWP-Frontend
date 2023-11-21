@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import {Pressable} from 'native-base';
+import {Pressable, HStack, Spacer} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {Box} from 'native-base';
+
 const ChatListScreen = props => {
   //const uid = route.params.uid
   const uid = 'test';
@@ -42,6 +44,22 @@ const ChatListScreen = props => {
 
   return (
     <View style={styles.container}>
+      <HStack>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            margin: 14,
+            fontSize: 20,
+            alignSelf: 'flex-start',
+            color: '#2679ff',
+          }}>
+          Wennect
+        </Text>
+      </HStack>
+      <Box bg="#2679ff" p="2">
+        <Text style={{color: 'white', fontSize: 17}}>채팅</Text>
+      </Box>
+
       <FlatList
         data={chatList}
         renderItem={renderChatItem}
@@ -54,7 +72,7 @@ const ChatListScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#FFFFFF',
   },
   chatItem: {
     flexDirection: 'row',
@@ -67,7 +85,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#FF6B6B',
+    backgroundColor: '#2679ff',
     marginRight: 15,
   },
   chatName: {

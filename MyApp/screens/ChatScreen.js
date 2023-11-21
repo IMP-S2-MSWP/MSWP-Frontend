@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import CustomButton from '../components/Button/CustomButton';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useIsFocused} from '@react-navigation/native';
 import {useState, useEffect} from 'react';
 import {
@@ -24,6 +25,7 @@ import {
   Flex,
 } from 'native-base';
 import {TextInput} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 import {app} from './db.js';
 import {
   getFirestore,
@@ -41,6 +43,8 @@ const ChatScreen = ({route}) => {
   const [newMessage, setNewMessage] = useState('');
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
+  const navigation = useNavigation(); // <-- 여기에 추가
+
   useEffect(() => {
     onSnapshot(
       collection(db, 'room', route.params.chatid, 'chat'),
@@ -94,13 +98,32 @@ const ChatScreen = ({route}) => {
 
   return (
     <View style={styles.container}>
+      <HStack>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            margin: 14,
+            marginBottom: 22,
+            fontSize: 20,
+            alignSelf: 'flex-start',
+            color: '#2679ff',
+          }}>
+          Wennect
+        </Text>
+      </HStack>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Chat</Text>
-        <TouchableOpacity>
-          {/* SVG for React Native might need another library like react-native-svg */}
-          {/* ... Your SVG goes here */}
-          <Text style={{display: 'none'}}>New chat</Text>
-        </TouchableOpacity>
+        <HStack>
+          <Pressable
+            onPress={() => {
+              console.log('hello');
+              navigation.goBack();
+            }}>
+            <Ionicons name="arrow-back-outline" color="white" size={30} />
+          </Pressable>
+
+          <Spacer />
+          <Text style={styles.headerText}>{uid}님과의 채팅</Text>
+        </HStack>
       </View>
 
       <ScrollView style={styles.main}>
@@ -188,19 +211,22 @@ const ChatScreen = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'linear-gradient(to right, #D291BC, #F6B2D0, #FF6B6B)', // Note: React Native doesn't support linear gradients out of the box. You may need a library like 'react-native-linear-gradient'
+    backgroundColor: '#FFFFFF', // Note: React Native doesn't support linear gradients out of the box. You may need a library like 'react-native-linear-gradient'
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#FFFFFF',
+    padding: 5,
+    borderColor: '#FFFFFF',
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderWidth: 1,
+    width: '100%',
+    height: 40,
+    backgroundColor: '#2679ff',
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
-    color: 'black',
+    color: 'white',
   },
   main: {
     flex: 1,
@@ -222,7 +248,7 @@ const styles = StyleSheet.create({
     maxWidth: '70%',
   },
   myMessageBox: {
-    backgroundColor: '#FFC1D7',
+    backgroundColor: '#2679ff',
     padding: 10,
     borderRadius: 8,
     maxWidth: '70%',
@@ -245,12 +271,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     borderRadius: 8,
+    borderColor: '#2679ff',
+    borderWidth: 1,
     backgroundColor: '#FFFFFF',
     marginRight: 10,
   },
   sendButton: {
     padding: 10,
-    backgroundColor: '#FF6B6B',
+    backgroundColor: '#2679ff',
     borderRadius: 8,
   },
   sendButtonText: {

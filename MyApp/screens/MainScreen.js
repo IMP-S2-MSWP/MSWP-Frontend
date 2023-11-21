@@ -29,12 +29,15 @@ import {
 } from 'native-base';
 import {TextInput} from 'react-native-gesture-handler';
 import LottieView from 'lottie-react-native';
+import {useNavigation} from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import PagerView from 'react-native-pager-view';
 import {NavigationContainer} from '@react-navigation/native';
 import UserListpage from './MainViewPager/UserListPage';
 import Beaconlistpage from './MainViewPager/BeaconListPage';
 import useBluetoothAdvertiser from '../components/Bluetooth/BluetoothAdvertiser';
 import {useUser} from '../stores/UserContext';
+import ProfileSettingsModal from './ProfileSettingsModal';
 // import {API_URL} from '@env';
 import {API_URL} from './../env';
 import axios from 'axios';
@@ -48,6 +51,10 @@ const MainScreen = props => {
   const [list, setList] = useState([]);
   const [users, setUsers] = useState([]); // Initialize users as empty array
   const {user} = useUser();
+  const [isProfileModalVisible, setProfileModalVisible] = useState(false);
+
+  const navigation = useNavigation(); // <-- 여기에 추가
+
   useEffect(() => {
     startAdvertising();
     heartlist(user.id);
@@ -69,6 +76,13 @@ const MainScreen = props => {
       setPageIndex(prevPageIndex => prevPageIndex + 1);
       pagerRef.current.setPage(pageIndex + 1);
     }
+  };
+  const handleOpenProfileModal = () => {
+    setProfileModalVisible(true);
+  };
+
+  const handleCloseProfileModal = () => {
+    setProfileModalVisible(false);
   };
   useEffect(() => {
     const duplicates = list.filter(item => heartList.includes(item));
@@ -100,6 +114,14 @@ const MainScreen = props => {
       return error; // Returning error for handling it appropriately in the calling context
     }
   }
+  const HeartIconWithText = ({text, size, color, textStyle, iconStyle}) => {
+    return (
+      <View style={{alignItems: 'center'}}>
+        <Ionicons name="heart" size={size} color={color} style={iconStyle} />
+        <Text style={textStyle}>{text}</Text>
+      </View>
+    );
+  };
 
   const toggleList = () => {
     // 스위치를 토글할 때 호출되는 함수
@@ -108,13 +130,34 @@ const MainScreen = props => {
   return (
     <View style={{flex: 1}}>
       <View style={styles.center}>
+        <HStack>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              margin: 14,
+              fontSize: 20,
+              alignSelf: 'flex-start',
+              color: '#2679ff',
+            }}>
+            Wennect
+          </Text>
+          <Spacer />
+          <Pressable p="4" onPress={handleOpenProfileModal}>
+            <Ionicons name="settings" size={30} color="#2679ff" />
+          </Pressable>
+          <ProfileSettingsModal
+            isVisible={isProfileModalVisible}
+            onClose={handleCloseProfileModal}
+          />
+        </HStack>
         <Box
-          borderColor="black"
+          borderColor="#2679ff"
           p="5"
-          borderBottomWidth="1"
+          borderBottomWidth="0.4"
+          //borderTopWidth="5"
           mb="5"
           w="370"
-          h="120">
+          h="110">
           <HStack alignItems="center">
             <Image
               source={{
@@ -122,32 +165,34 @@ const MainScreen = props => {
               }}
               alt="Alternate Text"
               borderRadius="50"
-              w="20"
-              h="20"
+              w="60"
+              h="60"
               mb="1"
             />
 
             <VStack ml="3">
-              <Text style={{fontWeight: 'bold', fontSize: 16}}>
+              <Text style={{fontWeight: 'bold', fontSize: 18, marginLeft: 6}}>
                 {user.name}
               </Text>
-              <Text>{user.birth}</Text>
-              <Text>{heartcount}</Text>
+              <Text style={{marginLeft: 6, fontSize: 13}}>{user.message}</Text>
             </VStack>
             <Spacer />
-            <LottieView
-              style={{height: '90%', width: '100%', marginLeft: -50}}
-              source={require('../components/Lottie/source/heart.json')}
-              autoPlay
+            <HeartIconWithText
+              text={heartcount} // 여기에 표시할 텍스트 입력
+              size={30}
+              color="#DE3163"
+              textStyle={{fontSize: 20, marginRight: 20}} // 텍스트에 대한 스타일 지정
+              iconStyle={{
+                marginRight: 20,
+              }}
             />
-            <Text style={{fontSize: 16, fontWeight: 'bold'}}>{heartcount}</Text>
           </HStack>
         </Box>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Pressable
             style={{flex: 1, alignItems: 'center'}}
             onPress={handleUserTextClick}>
-            <Text
+            {/* <Text
               style={[
                 {fontSize: 18},
                 pageIndex === 0
@@ -155,13 +200,27 @@ const MainScreen = props => {
                   : null,
               ]}>
               User
-            </Text>
+            </Text> */}
+            <Ionicons
+              style={[
+                pageIndex === 0
+                  ? {
+                      color: '#2679ff',
+                      borderBottomWidth: 1,
+                      borderColor: '#2679ff',
+                    }
+                  : null,
+              ]}
+              name="people"
+              size={30}
+              color="#808588"
+            />
           </Pressable>
 
           <Pressable
             style={{flex: 1, alignItems: 'center'}}
             onPress={handleBeaconTextClick}>
-            <Text
+            {/* <Text
               style={[
                 {fontSize: 18},
                 pageIndex === 1
@@ -169,7 +228,21 @@ const MainScreen = props => {
                   : null,
               ]}>
               Beacon
-            </Text>
+            </Text> */}
+            <Ionicons
+              style={[
+                pageIndex === 1
+                  ? {
+                      color: '#2679ff',
+                      borderBottomWidth: 1,
+                      borderColor: '#2679ff',
+                    }
+                  : null,
+              ]}
+              name="bluetooth"
+              size={30}
+              color="#808588"
+            />
           </Pressable>
         </View>
       </View>
