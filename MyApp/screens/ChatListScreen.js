@@ -3,8 +3,10 @@ import {View, Text, StyleSheet, FlatList} from 'react-native';
 import {Pressable, HStack, Spacer} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {API_URL} from '../env';
 import {Box} from 'native-base';
 import {useUser} from '../stores/UserContext';
+
 const ChatListScreen = props => {
   //const uid = route.params.uid
   const {user} = useUser();
@@ -12,7 +14,8 @@ const ChatListScreen = props => {
   const [chatList, setChatList] = useState([]);
   useEffect(() => {
     axios
-      .post('http://192.168.0.17:8080/api/room/list', {id: uid, state: '1'})
+      .post(API_URL + '/api/room/list', {id: 'test', state: '1'})
+
       .then(response => {
         if (response.data != null) {
           console.log(response.data);

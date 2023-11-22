@@ -26,13 +26,12 @@ import {API_URL} from '../../env';
 
 const BeaconListPage = props => {
   const [users, setUsers] = useState([]); // Initialize users as empty array
-
   const uid = 'test';
 
   const navigation = useNavigation();
 
   const eventHandler = async (uuid, state) => {
-    const res = await axios.post('http://192.168.0.17:8080/api/beacon/join', {
+    const res = await axios.post(API_URL + '/api/beacon/join', {
       id: uid,
       state: state,
       uuid: uuid,

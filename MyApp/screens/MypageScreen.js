@@ -5,7 +5,8 @@ import {useIsFocused} from '@react-navigation/native';
 import {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import LinearGradient from 'react-native-linear-gradient';
+import {useUser} from '../stores/UserContext';
+
 import {
   Button,
   Checkbox,
@@ -60,6 +61,7 @@ const Screen4 = () => {
 export {Screen1, Screen2, Screen3, Screen4};
 
 const MypageScreen = props => {
+  const {user} = useUser();
   const [name, setName] = useState('카리나');
   const [introduce, setIntroduce] = useState('나는 이상용이 좋아');
   const [age, setAge] = useState('24');
@@ -81,7 +83,7 @@ const MypageScreen = props => {
   ];
   useEffect(() => {
     axios
-      .post('http://192.168.0.17:8080/api/beacon/mybeacon', {id: uid})
+      .post('http://192.168.0.3:8080/api/beacon/mybeacon', {creator: user.id})
       .then(response => {
         setBeacons(response.data);
         console.log(response.data);
@@ -121,11 +123,14 @@ const MypageScreen = props => {
     </Pressable>
   );
   return (
+
     <View style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <HStack>
         <Text
           style={{
+            color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
             fontWeight: 'bold',
+
             margin: 14,
             marginBottom: 34,
             fontSize: 20,

@@ -54,6 +54,10 @@ const SignUp = () => {
   };
 
   const handleNextClick = async () => {
+    if (!canGoNext()) {
+      alert('Please fill out all fields.');
+      return;
+    }
     if (pageIndex === 1) {
       if ('400' == (await checkUsernameAvailability(userData.username))) {
         alert('중복된 아이디입니다.');
@@ -156,15 +160,17 @@ const SignUp = () => {
         />
         <Completepage key="5" />
       </PagerView>
-      {true && (
-        <Button
-          title="next"
-          onPress={() => {
-            handleNextClick();
-          }}
-          style={style.button_style}>
-          <Text style={style.invalidName}>다음</Text>
-        </Button>
+      {pageIndex !== 4 && (
+        <View style={{alignItems: 'center'}}>
+          <Button
+            title="next"
+            onPress={() => {
+              handleNextClick();
+            }}
+            style={style.button_style}>
+            <Text style={style.invalidName}>다음</Text>
+          </Button>
+        </View>
       )}
     </View>
   );

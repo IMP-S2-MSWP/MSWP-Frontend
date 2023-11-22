@@ -3,10 +3,12 @@ import {View, Text, StyleSheet, FlatList, Button} from 'react-native';
 import {Pressable, HStack, Box} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {useUser} from '../stores/UserContext';
 import {TextInput} from 'react-native-gesture-handler';
+import {API_URL} from '../env';
 const BeaconListScreen = props => {
   //const uid = route.params.uid
-  const uid = 'test';
+  const {user} = useUser();
   const [selectedTab, setSelectedTab] = useState('groupChat'); // 기본 탭 설정
   const [chatList, setChatList] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState(''); // New state for search keyword
@@ -22,13 +24,11 @@ const BeaconListScreen = props => {
           stateValue = '3';
         }
 
-        const response = await axios.post(
-          'http://192.168.0.17:8080/api/beacon/beaconlist',
-          {
-            id: 'test',
-            state: stateValue,
-          },
-        );
+        const response = await axios.post(API_URL + '/api/room/list', {
+          id: user.id,
+          state: stateValue,
+        });
+
 
         if (response.data != null) {
           setChatList(response.data);
@@ -54,7 +54,7 @@ const BeaconListScreen = props => {
     <Pressable
       style={styles.chatItem}
       onPress={() =>
-        navigation.navigate('Chat', {chatid: item.number, uid: uid})
+        navigation.navigate('Chat', {chatid: item.number, uid: user.id})
       }>
       <View style={styles.avatar} />
       <Text style={styles.chatName}>{item.number} 비콘</Text>
@@ -64,7 +64,7 @@ const BeaconListScreen = props => {
     <Pressable
       style={styles.chatItem}
       onPress={() =>
-        navigation.navigate('EventBeacon', {chatid: item.number, uid: uid})
+        navigation.navigate('EventBeacon', {chatid: item.number, uid: user.id})
       }>
       <View style={styles.avatar} />
       <Text style={styles.chatName}>{item.number} 비콘</Text>

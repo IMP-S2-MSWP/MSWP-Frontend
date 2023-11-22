@@ -1,13 +1,13 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
-const CustomButton = ({ title, onPress }) => {
+const CustomButton = ({title, onPress}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -19,16 +19,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-
-    bottom:70,
-    left:20
   },
   buttonText: {
     color: '#ffffff', // 텍스트 색상
     fontSize: 16, // 텍스트 크기
-    alignItems : 'center',
-    fontFamily:'BMJUA_ttf',
-    letterSpacing : 0.42
+    alignItems: 'center',
+    fontFamily: 'BMJUA_ttf',
+    letterSpacing: 0.42,
   },
 });
 
