@@ -4,15 +4,15 @@ import {Pressable, HStack, Spacer} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {Box} from 'native-base';
-
+import {useUser} from '../stores/UserContext';
 const ChatListScreen = props => {
   //const uid = route.params.uid
-  const uid = 'test';
-
+  const {user} = useUser();
+  const uid = user.id;
   const [chatList, setChatList] = useState([]);
   useEffect(() => {
     axios
-      .post('http://192.168.0.17:8080/api/room/list', {id: 'test', state: '1'})
+      .post('http://192.168.0.17:8080/api/room/list', {id: uid, state: '1'})
       .then(response => {
         if (response.data != null) {
           console.log(response.data);
@@ -33,7 +33,10 @@ const ChatListScreen = props => {
     <Pressable
       style={styles.chatItem}
       onPress={() =>
-        navigation.navigate('Chat', {chatid: item.number, uid: uid})
+        navigation.navigate('Chat', {
+          number: item.number,
+          rname: item.number.split(`@`)[3].split(uid),
+        })
       }>
       <View style={styles.avatar} />
       <Text style={styles.chatName}>

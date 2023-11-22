@@ -36,18 +36,20 @@ import {
   Timestamp,
   addDoc,
 } from 'firebase/firestore';
+import {useUser} from '../stores/UserContext';
 const db = getFirestore(app);
 const ChatScreen = ({route}) => {
-  //const uid = "route.params.uid"
-  const uid = 'test';
+  const {user} = useUser();
+  const uid = user.id;
   const [newMessage, setNewMessage] = useState('');
   const [data, setData] = useState([]);
-  const [user, setUser] = useState([]);
+  const [users, setUsers] = useState([]);
   const navigation = useNavigation(); // <-- 여기에 추가
-
+  const rname = route.params.rname;
   useEffect(() => {
+    console.log(route.params.number);
     onSnapshot(
-      collection(db, 'room', route.params.chatid, 'chat'),
+      collection(db, 'room', route.params.number, 'chat'),
       docSnapshot => {
         let documents = [];
         docSnapshot.forEach(document => {
@@ -62,22 +64,22 @@ const ChatScreen = ({route}) => {
         setData(documents);
       },
     );
-    onSnapshot(
-      collection(db, 'room', route.params.chatid, 'user'),
-      docSnapshot => {
-        console.log('유저내역');
-        let documents = [];
-        docSnapshot.forEach(document => {
-          const type = uid == document.data().name ? true : false;
-          documents.push({
-            id: document.id,
-            ...document.data(),
-            isMine: type,
-          });
-        });
-        setUser(documents);
-      },
-    );
+    // onSnapshot(
+    //   collection(db, 'room', route.params.number, 'user'),
+    //   docSnapshot => {
+    //     console.log('유저내역');
+    //     let documents = [];
+    //     docSnapshot.forEach(document => {
+    //       const type = uid == document.data().name ? true : false;
+    //       documents.push({
+    //         id: document.id,
+    //         ...document.data(),
+    //         isMine: type,
+    //       });
+    //     });
+    //     setUser(documents);
+    //   },
+    // );
   }, []);
   const sendMessage = async () => {
     // if (newMessage.trim().length > 0) {
@@ -85,7 +87,7 @@ const ChatScreen = ({route}) => {
     //   setNewMessage('');
     // }
     if (newMessage.length > 0) {
-      await addDoc(collection(db, 'room', route.params.chatid, 'chat'), {
+      await addDoc(collection(db, 'room', route.params.number, 'chat'), {
         name: uid,
         text: newMessage,
         date: Timestamp.now(),
@@ -122,7 +124,7 @@ const ChatScreen = ({route}) => {
           </Pressable>
 
           <Spacer />
-          <Text style={styles.headerText}>{uid}님과의 채팅</Text>
+          <Text style={styles.headerText}>{rname}님과의 채팅</Text>
         </HStack>
       </View>
 
@@ -159,7 +161,7 @@ const ChatScreen = ({route}) => {
             )}
           </View>
         ))}
-        {user.map(message => (
+        {users.map(message => (
           <View
             key={message.id}
             style={{

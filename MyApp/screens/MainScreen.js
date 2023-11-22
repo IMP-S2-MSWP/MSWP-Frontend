@@ -153,8 +153,9 @@ const MainScreen = props => {
         <Box
           borderColor="#2679ff"
           p="5"
-          borderBottomWidth="0.4"
-          //borderTopWidth="5"
+          //borderBottomWidth="0.4"
+          borderBottomWidth="2"
+          //borderTopWidth="2"
           mb="5"
           w="370"
           h="110">
