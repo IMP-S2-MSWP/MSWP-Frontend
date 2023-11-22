@@ -37,6 +37,7 @@ const UserListPage = props => {
   const lottieRefs = useRef({});
 
   const {user} = useUser();
+
   useEffect(() => {
     heartlist(user.id);
     // 컴포넌트 마운트 시 1회 스캔을 수행합니다.
@@ -206,7 +207,22 @@ const UserListPage = props => {
   // 예시로 device.advertising.serviceUUIDs가 다음과 같다고 가정합니다.
 
   // 함수를 호출하여 서비스 UUIDs를 검사합니다.
-
+  const moveChat = async id => {
+    const response = await axios.post(
+      'http://192.168.0.17:8080/api/room/create',
+      {
+        idList: [user.id, id],
+        state: '1',
+      },
+    );
+    //console.log(response.data); {"number": "2023@11@21@qaztest", "rname": "test", "sc": 200}
+    if (response.data.sc == 200) {
+      navigation.navigate('채팅', {
+        screen: 'Chat',
+        params: {rname: response.data.rname, number: response.data.number},
+      });
+    }
+  };
   return (
     <View>
       <Text style={{marginLeft: 10, padding: 7, fontSize: 16}}>
@@ -221,11 +237,7 @@ const UserListPage = props => {
               p="1"
               marginBottom={1}
               borderWidth="0"
-              onPress={() => {
-                navigation.navigate('Chat', {
-                  name: user.name,
-                });
-              }}>
+              onPress={() => moveChat(user.id)}>
               <HStack
                 space={3}
                 alignItems="center"

@@ -18,6 +18,7 @@ const useBluetoothScanner = () => {
             device.advertising.serviceData?.['180a']?.data.substring(0, 11),
           ];
         }
+
       }
       setDevices(prevDevices => {
         const devices = prevDevices || []; // 기존 devices 값이 undefined인 경우 빈 배열로 초기화

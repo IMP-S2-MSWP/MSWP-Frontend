@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, FlatList, Button} from 'react-native';
-import {Pressable} from 'native-base';
+import {Pressable, HStack, Box} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {useUser} from '../stores/UserContext';
@@ -28,6 +28,7 @@ const BeaconListScreen = props => {
           id: user.id,
           state: stateValue,
         });
+
 
         if (response.data != null) {
           setChatList(response.data);
@@ -72,6 +73,21 @@ const BeaconListScreen = props => {
 
   return (
     <View style={styles.container}>
+      <HStack>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            margin: 14,
+            fontSize: 20,
+            alignSelf: 'flex-start',
+            color: '#2679ff',
+          }}>
+          Wennect
+        </Text>
+      </HStack>
+      <Box bg="#2679ff" p="2">
+        <Text style={{color: 'white', fontSize: 17}}>비콘</Text>
+      </Box>
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -109,7 +125,7 @@ const BeaconListScreen = props => {
       </View>
       {selectedTab === 'groupChat' && (
         <>
-          <Text>그룹채팅</Text>
+          <Text style={styles.selectText}>그룹채팅</Text>
           <FlatList
             data={chatList}
             renderItem={renderChatItem}
@@ -120,7 +136,7 @@ const BeaconListScreen = props => {
 
       {selectedTab === 'event' && (
         <>
-          <Text>이벤트</Text>
+          <Text style={styles.selectText}>이벤트</Text>
           <FlatList
             data={chatList}
             renderItem={renderChatItem2}
@@ -135,7 +151,7 @@ const BeaconListScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#FFFFFF',
   },
   chatItem: {
     flexDirection: 'row',
@@ -148,7 +164,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#FF6B6B',
+    backgroundColor: '#2679ff',
     marginRight: 15,
   },
   chatName: {
@@ -172,6 +188,10 @@ const styles = StyleSheet.create({
     borderColor: '#E0E0E0',
     borderRadius: 5,
     padding: 8,
+  },
+  selectText: {
+    marginLeft: 20,
+    fontSize: 14,
   },
 });
 

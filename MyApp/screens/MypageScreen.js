@@ -123,160 +123,213 @@ const MypageScreen = props => {
     </Pressable>
   );
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        textAlign: 'center',
-      }}>
+
+    <View style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+      <HStack>
+        <Text
+          style={{
+            color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
+            fontWeight: 'bold',
+
+            margin: 14,
+            marginBottom: 34,
+            fontSize: 20,
+            alignSelf: 'flex-start',
+            color: '#2679ff',
+          }}>
+          Wennect
+        </Text>
+      </HStack>
       <Text
         style={{
+          alignSelf: 'center',
+          fontSize: 40,
           fontWeight: 'bold',
-          margin: 20,
-          fontSize: 20,
-          alignSelf: 'flex-start',
+          color: '#2679ff',
         }}>
-        YOU&ME
+        Profile
       </Text>
-
-      <Image
-        source={{
-          uri: 'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg',
-        }}
-        alt="Alternate Text"
-        borderRadius="150"
-        w="140"
-        h="140"
-        mt="81"
-      />
-
-      <HStack alignItems="center">
-        <TextInput
-          style={{
-            color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
-            fontWeight: 'bold',
-            fontSize: 20,
-            marginTop: 17,
-          }}
-          value={name}
-          onChangeText={setName}
-          editable={isEditable}
-        />
-        <TextInput
-          style={{
-            color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
-
-            fontWeight: 'bold',
-            fontSize: 20,
-            marginTop: 17,
-          }}
-          value={age}
-          onChangeText={setAge}
-          editable={isEditable}
-        />
-      </HStack>
-      <TextInput
+      <Box
         style={{
-          color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
-
-          fontWeight: 'bold',
-          fontSize: 14,
-        }}
-        value={introduce}
-        onChangeText={setIntroduce}
-        editable={isEditable}
-      />
-
-      <HStack p="12" rounded="lg" w="370" h="110">
-        <Pressable
+          borderWidth: 10,
+          borderColor: '#2679ff',
+          borderRadius: 300,
+          height: 550,
+          width: 550,
+          marginTop: 2,
+          alignSelf: 'center',
+        }}>
+        <View
           style={{
-            borderWidth: 1,
-            borderRadius: 150,
-            width: 50,
-            height: 50,
-            backgroundColor: 'grey',
-            borderColor: 'grey',
-            textAlign: 'center',
             alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={() => setIsBeaconModalVisible(true)}>
-          <Ionicons name="bluetooth" size={30} color="white" />
-        </Pressable>
-
-        <Spacer />
-        <Pressable
-          style={{
-            borderWidth: 0,
-            borderRadius: 150,
-            width: 90,
-            height: 90,
             textAlign: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={() => {
-            console.log('hello2');
           }}>
-          <Ionicons name="heart" size={90} color="#FA5858" />
-        </Pressable>
-        <Spacer />
-
-        <Pressable
-          style={{
-            borderWidth: 1,
-            borderRadius: 150,
-            borderColor: 'grey',
-            width: 50,
-            height: 50,
-            backgroundColor: 'grey',
-            textAlign: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={() => {
-            console.log('change profile');
-            setIsEditable(!isEditable);
-          }}>
-          <Ionicons name="settings" size={30} color="white" />
-        </Pressable>
-      </HStack>
-      <Svg height="28%" width="140%" viewBox="0 0 200 100">
-        <Path
-          d="M0 20 Q 95 90 200 20 L 200 120 L 0 120 Z"
-          fill="#E6E6E6" // 그림자 색상
-        />
-        <Path
-          d="M0 20 Q 95 90 200 20"
-          fill="none"
-          stroke="lightpink"
-          strokeWidth="5"
-          transform="scale(-1, 1) translate(-200, 0)"
-        />
-      </Svg>
-      <Modal
-        isOpen={isBeaconModalVisible}
-        onClose={() => setIsBeaconModalVisible(false)}>
-        <Modal.Content>
-          <Modal.CloseButton />
-          <Modal.Header>비콘 리스트</Modal.Header>
-          <FlatList
-            data={beacons}
-            renderItem={renderBeaconItem}
-            keyExtractor={item => item.id}
+          <Image
+            source={{
+              uri: 'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg',
+            }}
+            alt="Alternate Text"
+            borderRadius="150"
+            w="140"
+            h="140"
+            mt="81"
           />
-          <Modal.Footer>
-            <Button
+
+          <HStack alignItems="center">
+            <TextInput
+              style={{
+                color: isEditable ? '#808588' : 'black', // 버튼을 눌렀을 때 색상 변경
+                fontWeight: 'bold',
+                fontSize: 20,
+                marginTop: 17,
+              }}
+              value={name}
+              onChangeText={setName}
+              editable={isEditable}
+            />
+            <TextInput
+              style={{
+                color: isEditable ? '#808588' : 'black', // 버튼을 눌렀을 때 색상 변경
+
+                fontWeight: 'bold',
+                fontSize: 20,
+                marginTop: 17,
+              }}
+              value={age}
+              onChangeText={setAge}
+              editable={isEditable}
+            />
+          </HStack>
+          <TextInput
+            style={{
+              color: isEditable ? '#808588' : 'black', // 버튼을 눌렀을 때 색상 변경
+
+              fontWeight: 'bold',
+              fontSize: 14,
+            }}
+            value={introduce}
+            onChangeText={setIntroduce}
+            editable={isEditable}
+          />
+
+          <HStack p="9" rounded="lg" w="370" h="110">
+            <VStack>
+              <Pressable
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 150,
+                  width: 50,
+                  height: 50,
+                  backgroundColor: '#808588',
+                  borderColor: 'grey',
+                  textAlign: 'center',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onPress={() => setIsBeaconModalVisible(true)}>
+                <Ionicons name="bluetooth" size={30} color="white" />
+              </Pressable>
+              <Text style={{alignSelf: 'center', color: '#808588'}}>비콘</Text>
+            </VStack>
+            <Spacer />
+            <Pressable
+              style={{
+                borderWidth: 0,
+                borderRadius: 150,
+                width: 90,
+                height: 90,
+                textAlign: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
               onPress={() => {
-                /* 비콘 등록 로직 */
-                navigation.navigate('비콘등록');
+                console.log('hello2');
               }}>
-              비콘 등록
-            </Button>
-          </Modal.Footer>
-        </Modal.Content>
-      </Modal>
+              <Ionicons name="heart" size={90} color="#DE3163" />
+            </Pressable>
+
+            <Spacer />
+            <VStack>
+              <Pressable
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 150,
+                  borderColor: 'grey',
+                  width: 50,
+                  height: 50,
+                  backgroundColor: '#808588',
+                  textAlign: 'center',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onPress={() => {
+                  console.log('change profile');
+                  setIsEditable(!isEditable);
+                }}>
+                <Ionicons name="settings" size={30} color="white" />
+              </Pressable>
+              <Text style={{alignSelf: 'center', color: '#808588'}}>설정 </Text>
+            </VStack>
+          </HStack>
+          {/* <Svg height="28%" width="140%" viewBox="0 0 200 100">
+            <Path
+              d="M0 20 Q 95 90 200 20 L 200 120 L 0 120 Z"
+              fill="#E6E6E6" // 그림자 색상
+            />
+            <Path
+              d="M0 20 Q 95 90 200 20"
+              fill="none"
+              stroke="#2679ff"
+              strokeWidth="5"
+              transform="scale(-1, 1) translate(-200, 0)"
+            />
+          </Svg> */}
+          <Modal
+            isOpen={isBeaconModalVisible}
+            onClose={() => setIsBeaconModalVisible(false)}>
+            <Modal.Content>
+              <Modal.CloseButton />
+              <Modal.Header>비콘 리스트</Modal.Header>
+              <FlatList
+                data={beacons}
+                renderItem={renderBeaconItem}
+                keyExtractor={item => item.id}
+              />
+              <Modal.Footer>
+                <Button
+                  onPress={() => {
+                    /* 비콘 등록 로직 */
+                    navigation.navigate('비콘등록');
+                  }}>
+                  비콘 등록
+                </Button>
+              </Modal.Footer>
+            </Modal.Content>
+          </Modal>
+        </View>
+      </Box>
     </View>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  box: {
+    width: 200,
+    height: 200,
+    backgroundColor: '#2679ff',
+    position: 'relative', // 절대적인 위치 사용을 위해 필요
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover', // 이미지가 Box에 맞게 크기 조정
+    position: 'absolute', // 절대적인 위치 사용
+    top: 0,
+    left: 0,
+  },
+});
 export default MypageScreen;

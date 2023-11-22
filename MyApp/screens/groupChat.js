@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {API_URL} from '../env';
 
-const groupChat = ({route}) => {
+const GroupChat = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;
   const uid = 'test';
   const navigation = useNavigation();
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default groupChat;
+export default GroupChat;

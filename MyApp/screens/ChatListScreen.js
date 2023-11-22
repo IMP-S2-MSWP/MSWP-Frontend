@@ -1,18 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import {Pressable} from 'native-base';
+import {Pressable, HStack, Spacer} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {API_URL} from '../env';
+import {Box} from 'native-base';
+import {useUser} from '../stores/UserContext';
 
 const ChatListScreen = props => {
   //const uid = route.params.uid
-  const uid = 'test';
-
+  const {user} = useUser();
+  const uid = user.id;
   const [chatList, setChatList] = useState([]);
   useEffect(() => {
     axios
       .post(API_URL + '/api/room/list', {id: 'test', state: '1'})
+
       .then(response => {
         if (response.data != null) {
           console.log(response.data);
@@ -33,7 +36,10 @@ const ChatListScreen = props => {
     <Pressable
       style={styles.chatItem}
       onPress={() =>
-        navigation.navigate('Chat', {chatid: item.number, uid: uid})
+        navigation.navigate('Chat', {
+          number: item.number,
+          rname: item.number.split(`@`)[3].split(uid),
+        })
       }>
       <View style={styles.avatar} />
       <Text style={styles.chatName}>
@@ -44,6 +50,22 @@ const ChatListScreen = props => {
 
   return (
     <View style={styles.container}>
+      <HStack>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            margin: 14,
+            fontSize: 20,
+            alignSelf: 'flex-start',
+            color: '#2679ff',
+          }}>
+          Wennect
+        </Text>
+      </HStack>
+      <Box bg="#2679ff" p="2">
+        <Text style={{color: 'white', fontSize: 17}}>채팅</Text>
+      </Box>
+
       <FlatList
         data={chatList}
         renderItem={renderChatItem}
@@ -56,7 +78,7 @@ const ChatListScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#FFFFFF',
   },
   chatItem: {
     flexDirection: 'row',
@@ -69,7 +91,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#FF6B6B',
+    backgroundColor: '#2679ff',
     marginRight: 15,
   },
   chatName: {

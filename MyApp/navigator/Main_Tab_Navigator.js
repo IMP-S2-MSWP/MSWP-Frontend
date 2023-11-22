@@ -6,10 +6,10 @@ import Main_Stack_Navigator from './Main_Stack_Navigator';
 import Chat_Stack_Navigator from './Chat_Stack_Navigator';
 import Profile_Stack_Navigator from './Profile_Stack_Navigator';
 import MypageScreen from '../screens/MypageScreen';
-import SettingScreen from '../screens/SettingScreen';
+import SettingScreen from '../screens/ProfileSettingsModal';
 import BeaconListScreen from '../screens/BeaconListScreen';
 import Beacon_Stack_Navigator from './Beacon_Stack_Navigator';
-
+import LikeListScreen from '../screens/LikeListScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   Menu,
@@ -44,20 +44,25 @@ const Main_Tab_Navigator = () => {
         },
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
-
+          let iconColor;
           if (route.name === '메인') {
             iconName = focused ? 'home' : 'home-outline';
+            iconColor = focused ? '#2679ff' : '#808588'; // 갈색
           } else if (route.name === '채팅') {
             iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+            iconColor = focused ? '#2679ff' : '#808588'; // 갈색
           } else if (route.name === '비콘채팅') {
             iconName = focused ? 'bluetooth' : 'bluetooth-outline';
+            iconColor = focused ? '#2679ff' : '#808588'; // 갈색
           } else if (route.name === '좋아요') {
             iconName = focused ? 'heart' : 'heart-outline';
+            iconColor = focused ? '#2679ff' : '#808588'; // 갈색
           } else if (route.name === '프로필') {
             iconName = focused ? 'stepforward' : 'person-outline';
+            iconColor = focused ? '#2679ff' : '#808588'; // 갈색
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={size} color={iconColor} />;
         },
       })}>
       <Tab.Screen
@@ -89,7 +94,7 @@ const Main_Tab_Navigator = () => {
       />
       <Tab.Screen
         name="좋아요"
-        component={Main_Stack_Navigator}
+        component={LikeListScreen}
         options={{headerShown: false}}
       />
       <Tab.Screen
