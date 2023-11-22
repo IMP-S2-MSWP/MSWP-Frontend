@@ -12,15 +12,19 @@ const useBluetoothScanner = () => {
 
     const handleDiscoverPeripheral = device => {
       if (device.name === 'Plutocon') {
-        console.log('Plutocon found', device);
-        device.advertising.serviceUUIDs = [device.id];
+        console.log(device.advertising.serviceData?.['180a']);
+        if (device.advertising.serviceData?.['180a']?.data !== undefined) {
+          device.advertising.serviceUUIDs = [
+            device.advertising.serviceData?.['180a']?.data.substring(0, 11),
+          ];
+        }
       }
       setDevices(prevDevices => {
         const devices = prevDevices || []; // 기존 devices 값이 undefined인 경우 빈 배열로 초기화
         // Check if the serviceUUIDs is a valid UUID format
         const uuidPattern =
           /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
+        const regex = /^AQP/;
         // Check if the device is already in the list and has a valid UUID
         const isDeviceExist = devices.some(existingDevice => {
           if (
@@ -29,8 +33,7 @@ const useBluetoothScanner = () => {
           ) {
             return (
               existingDevice.advertising.serviceUUIDs[0] ===
-                device.advertising.serviceUUIDs[0] &&
-              uuidPattern.test(device.advertising.serviceUUIDs[0])
+              device.advertising.serviceUUIDs[0]
             );
           }
           return false;
@@ -42,6 +45,11 @@ const useBluetoothScanner = () => {
             uuidPattern.test(device.advertising.serviceUUIDs[0])
           ) {
             // Add the new device to the list
+            return [...devices, device];
+          } else if (
+            device.advertising.serviceUUIDs.length > 0 &&
+            regex.test(device.advertising.serviceUUIDs[0])
+          ) {
             return [...devices, device];
           }
         }

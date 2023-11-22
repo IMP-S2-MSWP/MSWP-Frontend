@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {API_URL} from '../env';
 
 const groupChat = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;
@@ -31,7 +32,7 @@ const groupChat = ({route}) => {
   const createChat = () => {
     // 업로드 로직 구현
     axios
-      .post('http://192.168.0.17:8080/api/beacon/create', {
+      .post(API_URL + '/api/beacon/create', {
         uuid: uuid,
         id: uid,
         state: beaconType,

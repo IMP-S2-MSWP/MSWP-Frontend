@@ -5,7 +5,8 @@ import {useIsFocused} from '@react-navigation/native';
 import {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import LinearGradient from 'react-native-linear-gradient';
+import {useUser} from '../stores/UserContext';
+
 import {
   Button,
   Checkbox,
@@ -60,6 +61,7 @@ const Screen4 = () => {
 export {Screen1, Screen2, Screen3, Screen4};
 
 const MypageScreen = props => {
+  const {user} = useUser();
   const [name, setName] = useState('카리나');
   const [introduce, setIntroduce] = useState('나는 이상용이 좋아');
   const [age, setAge] = useState('24');
@@ -81,7 +83,7 @@ const MypageScreen = props => {
   ];
   useEffect(() => {
     axios
-      .post('http://192.168.0.17:8080/api/beacon/mybeacon', {id: uid})
+      .post('http://192.168.0.3:8080/api/beacon/mybeacon', {creator: user.id})
       .then(response => {
         setBeacons(response.data);
         console.log(response.data);
@@ -121,165 +123,160 @@ const MypageScreen = props => {
     </Pressable>
   );
   return (
-    <LinearGradient
-      //colors={['#ffdde1', '#ee9ca7']} // 핑크색 그라데이션 설정
-      colors={['white', 'white']} // 핑크색 그라데이션 설정
-      style={{flex: 1}}>
-      <View
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        textAlign: 'center',
+      }}>
+      <Text
         style={{
-          flex: 1,
-          alignItems: 'center',
-          textAlign: 'center',
+          fontWeight: 'bold',
+          margin: 20,
+          fontSize: 20,
+          alignSelf: 'flex-start',
         }}>
-        <Text
+        YOU&ME
+      </Text>
+
+      <Image
+        source={{
+          uri: 'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg',
+        }}
+        alt="Alternate Text"
+        borderRadius="150"
+        w="140"
+        h="140"
+        mt="81"
+      />
+
+      <HStack alignItems="center">
+        <TextInput
           style={{
+            color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
             fontWeight: 'bold',
-            margin: 20,
             fontSize: 20,
-            alignSelf: 'flex-start',
-          }}>
-          YOU&ME
-        </Text>
-
-        <Image
-          source={{
-            uri: 'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg',
+            marginTop: 17,
           }}
-          alt="Alternate Text"
-          borderRadius="150"
-          w="140"
-          h="140"
-          mt="81"
+          value={name}
+          onChangeText={setName}
+          editable={isEditable}
         />
-
-        <HStack alignItems="center">
-          <TextInput
-            style={{
-              color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
-              fontWeight: 'bold',
-              fontSize: 20,
-              marginTop: 17,
-            }}
-            value={name}
-            onChangeText={setName}
-            editable={isEditable}
-          />
-          <TextInput
-            style={{
-              color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
-
-              fontWeight: 'bold',
-              fontSize: 20,
-              marginTop: 17,
-            }}
-            value={age}
-            onChangeText={setAge}
-            editable={isEditable}
-          />
-        </HStack>
         <TextInput
           style={{
             color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
 
             fontWeight: 'bold',
-            fontSize: 14,
+            fontSize: 20,
+            marginTop: 17,
           }}
-          value={introduce}
-          onChangeText={setIntroduce}
+          value={age}
+          onChangeText={setAge}
           editable={isEditable}
         />
+      </HStack>
+      <TextInput
+        style={{
+          color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
 
-        <HStack p="12" rounded="lg" w="370" h="110">
-          <Pressable
-            style={{
-              borderWidth: 1,
-              borderRadius: 150,
-              width: 50,
-              height: 50,
-              backgroundColor: 'grey',
-              borderColor: 'grey',
-              textAlign: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => setIsBeaconModalVisible(true)}>
-            <Ionicons name="bluetooth" size={30} color="white" />
-          </Pressable>
+          fontWeight: 'bold',
+          fontSize: 14,
+        }}
+        value={introduce}
+        onChangeText={setIntroduce}
+        editable={isEditable}
+      />
 
-          <Spacer />
-          <Pressable
-            style={{
-              borderWidth: 0,
-              borderRadius: 150,
-              width: 90,
-              height: 90,
-              textAlign: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => {
-              console.log('hello2');
-            }}>
-            <Ionicons name="heart" size={90} color="#FA5858" />
-          </Pressable>
-          <Spacer />
+      <HStack p="12" rounded="lg" w="370" h="110">
+        <Pressable
+          style={{
+            borderWidth: 1,
+            borderRadius: 150,
+            width: 50,
+            height: 50,
+            backgroundColor: 'grey',
+            borderColor: 'grey',
+            textAlign: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => setIsBeaconModalVisible(true)}>
+          <Ionicons name="bluetooth" size={30} color="white" />
+        </Pressable>
 
-          <Pressable
-            style={{
-              borderWidth: 1,
-              borderRadius: 150,
-              borderColor: 'grey',
-              width: 50,
-              height: 50,
-              backgroundColor: 'grey',
-              textAlign: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => {
-              console.log('change profile');
-              setIsEditable(!isEditable);
-            }}>
-            <Ionicons name="settings" size={30} color="white" />
-          </Pressable>
-        </HStack>
-        <Svg height="28%" width="140%" viewBox="0 0 200 100">
-          <Path
-            d="M0 20 Q 95 90 200 20 L 200 120 L 0 120 Z"
-            fill="#E6E6E6" // 그림자 색상
+        <Spacer />
+        <Pressable
+          style={{
+            borderWidth: 0,
+            borderRadius: 150,
+            width: 90,
+            height: 90,
+            textAlign: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => {
+            console.log('hello2');
+          }}>
+          <Ionicons name="heart" size={90} color="#FA5858" />
+        </Pressable>
+        <Spacer />
+
+        <Pressable
+          style={{
+            borderWidth: 1,
+            borderRadius: 150,
+            borderColor: 'grey',
+            width: 50,
+            height: 50,
+            backgroundColor: 'grey',
+            textAlign: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => {
+            console.log('change profile');
+            setIsEditable(!isEditable);
+          }}>
+          <Ionicons name="settings" size={30} color="white" />
+        </Pressable>
+      </HStack>
+      <Svg height="28%" width="140%" viewBox="0 0 200 100">
+        <Path
+          d="M0 20 Q 95 90 200 20 L 200 120 L 0 120 Z"
+          fill="#E6E6E6" // 그림자 색상
+        />
+        <Path
+          d="M0 20 Q 95 90 200 20"
+          fill="none"
+          stroke="lightpink"
+          strokeWidth="5"
+          transform="scale(-1, 1) translate(-200, 0)"
+        />
+      </Svg>
+      <Modal
+        isOpen={isBeaconModalVisible}
+        onClose={() => setIsBeaconModalVisible(false)}>
+        <Modal.Content>
+          <Modal.CloseButton />
+          <Modal.Header>비콘 리스트</Modal.Header>
+          <FlatList
+            data={beacons}
+            renderItem={renderBeaconItem}
+            keyExtractor={item => item.id}
           />
-          <Path
-            d="M0 20 Q 95 90 200 20"
-            fill="none"
-            stroke="lightpink"
-            strokeWidth="5"
-            transform="scale(-1, 1) translate(-200, 0)"
-          />
-        </Svg>
-        <Modal
-          isOpen={isBeaconModalVisible}
-          onClose={() => setIsBeaconModalVisible(false)}>
-          <Modal.Content>
-            <Modal.CloseButton />
-            <Modal.Header>비콘 리스트</Modal.Header>
-            <FlatList
-              data={beacons}
-              renderItem={renderBeaconItem}
-              keyExtractor={item => item.id}
-            />
-            <Modal.Footer>
-              <Button
-                onPress={() => {
-                  /* 비콘 등록 로직 */
-                  navigation.navigate('비콘등록');
-                }}>
-                비콘 등록
-              </Button>
-            </Modal.Footer>
-          </Modal.Content>
-        </Modal>
-      </View>
-    </LinearGradient>
+          <Modal.Footer>
+            <Button
+              onPress={() => {
+                /* 비콘 등록 로직 */
+                navigation.navigate('비콘등록');
+              }}>
+              비콘 등록
+            </Button>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+    </View>
   );
 };
 export default MypageScreen;

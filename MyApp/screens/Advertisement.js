@@ -10,33 +10,79 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {API_URL} from '../env';
+import {useUser} from '../stores/UserContext';
+import {launchImageLibrary} from 'react-native-image-picker';
 const Advertisement = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;
-  const uid = 'test';
-  const navigation = useNavigation();
 
+  const {user} = useUser();
+  const navigation = useNavigation();
+  const formData = new FormData();
+  const [fileSource, setFileSource] = useState(null);
+  const [fileType, setFileType] = useState('');
+  const [fileData, setFileData] = useState('');
   const [imageUri, setImageUri] = useState(
     'https://i.ytimg.com/vi/TqBXWlVKXrs/maxresdefault.jpg',
   );
   const [adText, setAdText] = useState('');
 
   const handleChoosePhoto = () => {
+    let options = {
+      mediaType: 'photo',
+      maxWidth: 500,
+      maxHeight: 500,
+    };
     // 이미지 선택 로직 (예: ImagePicker 라이브러리 사용)
-    setImageUri(
-      'https://blog.kakaocdn.net/dn/badX3j/btq1dzBajoB/oNCqkBMAGjZyXuVXgw5jn0/img.webp',
-    );
+    launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.errorCode == 'camera_unavailable') {
+        console.log('Camera not available on device');
+      } else if (response.errorCode == 'permission') {
+        console.log('Permission not satisfied');
+      } else if (response.errorCode == 'others') {
+        console.log(response.errorMessage);
+      } else {
+        setFileSource(response.assets[0].uri);
+        setFileType(response.assets[0].type);
+        setFileData(response.assets[0]);
+      }
+    });
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
+    const uploaderString = JSON.stringify({
+      uuid: user.uuid,
+      creator: user.id,
+      state: beaconType,
+      message: adText,
+      beaconname: beaconname,
+      gender: 'P',
+    });
+
+    // 이미지 파일 추가 (여기서는 URL에서 파일을 가져옵니다)
+    // 실제 사용 시에는 File 객체 또는 Blob 객체를 사용해야 합니다.
+    formData.append('uuid', user.uuid);
+    formData.append('creator', user.id);
+    formData.append('state', beaconType);
+    formData.append('message', adText);
+    formData.append('beaconname', beaconname);
+    formData.append('gender', 'P');
+    var photo = {
+      uri: fileSource,
+      type: 'multipart/form-data',
+      name: `image.jpg`,
+    };
+    formData.append('file', photo); // 두 번째 인자는 Blob, 세 번째 인자는 파일명
+    console.log(formData);
     // 업로드 로직 구현
     axios
-      .post('http://192.168.0.17:8080/api/beacon/create', {
-        uuid: uuid,
-        id: uid,
-        state: beaconType,
-        message: adText,
-        image: imageUri,
-        beaconname: beaconname,
+      .post(API_URL + '/api/beacon/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: formData,
       })
       .then(response => {
         console.log(response.data);
@@ -62,7 +108,7 @@ const Advertisement = ({route}) => {
         <Text>
           {uuid}, {beaconname}, {beaconType}
         </Text>
-        <Button title="사진 선택" onPress={handleChoosePhoto} />
+        <Button title="사진 선" onPress={handleChoosePhoto} />
         <TextInput
           style={styles.input}
           placeholder="광고 문구 입력"
