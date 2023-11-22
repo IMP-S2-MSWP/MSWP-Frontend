@@ -24,8 +24,8 @@ import {API_URL} from '../env';
 
 const LoginScreen = () => {
   const [userData, setUserData] = useState({
-    id: 'qaz',
-    password: 'qq',
+    id: '',
+    password: '',
   });
   const navigation = useNavigation();
 

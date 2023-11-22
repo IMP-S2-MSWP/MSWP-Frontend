@@ -208,13 +208,10 @@ const UserListPage = props => {
 
   // 함수를 호출하여 서비스 UUIDs를 검사합니다.
   const moveChat = async id => {
-    const response = await axios.post(
-      'http://192.168.0.17:8080/api/room/create',
-      {
-        idList: [user.id, id],
-        state: '1',
-      },
-    );
+    const response = await axios.post(API_URL + '/api/room/create', {
+      idList: [user.id, id],
+      state: '1',
+    });
     //console.log(response.data); {"number": "2023@11@21@qaztest", "rname": "test", "sc": 200}
     if (response.data.sc == 200) {
       navigation.navigate('채팅', {
@@ -245,7 +242,7 @@ const UserListPage = props => {
                 <HStack space={3} alignItems="center" marginLeft={4} flex={1}>
                   <Image
                     style={{borderRadius: 14}}
-                    source={{uri: API_URL + '/images/' + user.image}}
+                    source={{uri: API_URL + '/images/user/' + user.image}}
                     alt={user.name}
                     boxSize={10}
                   />
