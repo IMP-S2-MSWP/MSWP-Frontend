@@ -12,7 +12,7 @@ const useBluetoothScanner = () => {
 
     const handleDiscoverPeripheral = device => {
       if (device.name === 'Plutocon') {
-        console.log('Plutocon found', device);
+        console.log('Plutocon found', device.advertising.serviceData);
         device.advertising.serviceUUIDs = [device.id];
       }
       setDevices(prevDevices => {

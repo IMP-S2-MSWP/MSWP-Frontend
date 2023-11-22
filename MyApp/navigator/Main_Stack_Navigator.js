@@ -6,7 +6,7 @@ import BeaconRegist from '../screens/BeaconRegist';
 import Main from '../screens/MainScreen';
 import BeaconScreen from '../screens/BeaconScreen';
 import MypageScreen from '../screens/MypageScreen';
-import SettingScreen from '../screens/SettingScreen';
+import SettingScreen from '../screens/ProfileSettingsModal';
 
 const Stack = createStackNavigator();
 
