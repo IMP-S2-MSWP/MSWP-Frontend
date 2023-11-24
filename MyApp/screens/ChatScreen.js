@@ -1,91 +1,63 @@
-import React from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   View,
   Text,
-  Image,
+  TextInput,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
-import CustomButton from '../components/Button/CustomButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useIsFocused} from '@react-navigation/native';
-import {useState, useEffect} from 'react';
-import {
-  Button,
-  Checkbox,
-  Input,
-  useTheme,
-  Pressable,
-  Box,
-  HStack,
-  Badge,
-  Spacer,
-  Flex,
-} from 'native-base';
-import {TextInput} from 'react-native-gesture-handler';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation} from '@react-navigation/native';
+import {Image, HStack} from 'native-base';
 import {app} from './db.js';
 import {
   getFirestore,
-  doc,
-  onSnapshot,
-  query,
   collection,
-  Timestamp,
+  onSnapshot,
   addDoc,
+  Timestamp,
 } from 'firebase/firestore';
 import {useUser} from '../stores/UserContext';
+import {API_URL, Image_URL} from './../env';
+
 const db = getFirestore(app);
+
 const ChatScreen = ({route}) => {
   const {user} = useUser();
   const uid = user.id;
   const [newMessage, setNewMessage] = useState('');
   const [data, setData] = useState([]);
-  const [users, setUsers] = useState([]);
-  const navigation = useNavigation(); // <-- 여기에 추가
+  const scrollViewRef = useRef();
+  const navigation = useNavigation();
   const rname = route.params.rname;
   useEffect(() => {
-    console.log(route.params.number);
-    onSnapshot(
+    const unsubscribe = onSnapshot(
       collection(db, 'room', route.params.number, 'chat'),
       docSnapshot => {
         let documents = [];
         docSnapshot.forEach(document => {
-          const type = uid == document.data().name ? true : false;
+          const type = uid === document.data().name;
           documents.push({
             id: document.id,
             ...document.data(),
             isMine: type,
           });
         });
-        documents = documents.sort((a, b) => a.date - b.date);
+        documents.sort((a, b) => a.date - b.date);
+        console.log(documents);
         setData(documents);
       },
     );
-    // onSnapshot(
-    //   collection(db, 'room', route.params.number, 'user'),
-    //   docSnapshot => {
-    //     console.log('유저내역');
-    //     let documents = [];
-    //     docSnapshot.forEach(document => {
-    //       const type = uid == document.data().name ? true : false;
-    //       documents.push({
-    //         id: document.id,
-    //         ...document.data(),
-    //         isMine: type,
-    //       });
-    //     });
-    //     setUser(documents);
-    //   },
-    // );
-  }, []);
+
+    return () => unsubscribe();
+  }, [route.params.number, uid]);
+
   const sendMessage = async () => {
-    // if (newMessage.trim().length > 0) {
-    //   setMessages([...messages, { id: Date.now(), text: newMessage, isMine: true }]);
-    //   setNewMessage('');
-    // }
     if (newMessage.length > 0) {
       await addDoc(collection(db, 'room', route.params.number, 'chat'), {
         name: uid,
@@ -94,7 +66,7 @@ const ChatScreen = ({route}) => {
       });
       setNewMessage('');
     } else {
-      Alert.alert('보낼 메세지 입력 하시요');
+      Alert.alert('Please enter a message to send.');
     }
   };
 
@@ -113,179 +85,169 @@ const ChatScreen = ({route}) => {
           Wennect
         </Text>
       </HStack>
-      <View style={styles.header}>
-        <HStack>
-          <Pressable
-            onPress={() => {
-              console.log('hello');
-              navigation.goBack();
-            }}>
-            <Ionicons name="arrow-back-outline" color="white" size={30} />
-          </Pressable>
-
-          <Spacer />
-          <Text style={styles.headerText}>{rname}님과의 채팅</Text>
-        </HStack>
-      </View>
-
-      <ScrollView style={styles.main}>
-        {data.map(message => (
-          <View
-            key={message.id}
-            style={{
-              ...styles.chat,
-              justifyContent: message.isMine ? 'flex-end' : 'flex-start',
-            }}>
-            {!message.isMine && (
-              <Image
-                source={{uri: '/placeholder.svg'}}
-                style={styles.avatar}
-                resizeMode="cover"
-              />
-            )}
-            <View
-              style={message.isMine ? styles.myMessageBox : styles.messageBox}>
-              <Text
-                style={
-                  message.isMine ? styles.myMessageText : styles.messageText
-                }>
-                {message.text}
-              </Text>
-            </View>
-            {message.isMine && (
-              <Image
-                source={{uri: '/placeholder.svg'}}
-                style={styles.avatar}
-                resizeMode="cover"
-              />
-            )}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{flex: 1}}>
+        <View style={{flex: 1}}>
+          {/* Header */}
+          <View style={styles.header}>
+            <Ionicons
+              name="arrow-back-outline"
+              color="white"
+              size={30}
+              onPress={navigation.goBack}
+            />
+            <Text style={styles.headerText}>{rname}</Text>
           </View>
-        ))}
-        {users.map(message => (
-          <View
-            key={message.id}
-            style={{
-              ...styles.chat,
-              justifyContent: message.isMine ? 'flex-end' : 'flex-start',
-            }}>
-            {!message.isMine && (
-              <Image
-                source={{uri: '/placeholder.svg'}}
-                style={styles.avatar}
-                resizeMode="cover"
-              />
-            )}
-            <View
-              style={message.isMine ? styles.myMessageBox : styles.messageBox}>
-              <Text
-                style={
-                  message.isMine ? styles.myMessageText : styles.messageText
-                }>
-                {message.name}
-              </Text>
-            </View>
-            {message.isMine && (
-              <Image
-                source={{uri: '/placeholder.svg'}}
-                style={styles.avatar}
-                resizeMode="cover"
-              />
-            )}
-          </View>
-        ))}
-      </ScrollView>
 
-      <View style={styles.footer}>
-        <TextInput
-          value={newMessage}
-          onChangeText={setNewMessage}
-          style={styles.input}
-          placeholder="Type a message"
-        />
-        <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
-          <Text style={styles.sendButtonText}>보내기</Text>
-        </TouchableOpacity>
-      </View>
+          {/* Messages */}
+          <ScrollView
+            ref={scrollViewRef}
+            onContentSizeChange={() =>
+              scrollViewRef.current?.scrollToEnd({animated: true})
+            }
+            onLayout={() =>
+              scrollViewRef.current?.scrollToEnd({animated: true})
+            }
+            style={{flex: 1}}
+            contentContainerStyle={styles.messagesContainer}>
+            {data.map(message => (
+              <View
+                key={message.id}
+                style={[
+                  styles.messageContainer,
+                  message.isMine
+                    ? styles.myMessageContainer
+                    : styles.theirMessageContainer,
+                ]}>
+                {!message.isMine && (
+                  <Image
+                    style={styles.userImage}
+                    source={{
+                      uri: Image_URL + '/user/' + message.name + '.jpg',
+                    }}
+                    alt={message.name}
+                  />
+                )}
+                <View
+                  style={[
+                    styles.message,
+                    message.isMine ? styles.myMessage : styles.theirMessage,
+                  ]}>
+                  <Text
+                    style={
+                      message.isMine
+                        ? styles.myMessageText
+                        : styles.theirMessageText
+                    }>
+                    {message.text}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+
+          {/* Message input */}
+          <View style={styles.footer}>
+            <TextInput
+              value={newMessage}
+              onChangeText={setNewMessage}
+              style={styles.input}
+              placeholder="Type a message"
+              returnKeyType="send"
+              onSubmitEditing={sendMessage}
+              blurOnSubmit={false}
+            />
+            <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
+              <Text style={styles.sendButtonText}>Send</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+      <View style={{marginBottom: 20}} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF', // Note: React Native doesn't support linear gradients out of the box. You may need a library like 'react-native-linear-gradient'
+    flexGrow: 1,
+    backgroundColor: '#FFFFFF',
   },
   header: {
-    padding: 5,
-    borderColor: '#FFFFFF',
+    flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'center',
-    borderWidth: 1,
-    width: '100%',
-    height: 40,
+    justifyContent: 'space-between',
+    padding: 10,
     backgroundColor: '#2679ff',
   },
   headerText: {
-    fontSize: 15,
     fontWeight: 'bold',
+    fontSize: 20,
     color: 'white',
-  },
-  main: {
     flex: 1,
-    padding: 10,
+    textAlign: 'center',
   },
-  chat: {
+  messageContainer: {
     flexDirection: 'row',
-    marginVertical: 10,
+    alignItems: 'flex-end',
+    marginVertical: 0.5,
+    paddingHorizontal: 15,
   },
-  avatar: {
+  myMessageContainer: {
+    justifyContent: 'flex-end',
+  },
+  theirMessageContainer: {
+    justifyContent: 'flex-start',
+  },
+  userImage: {
     width: 40,
     height: 40,
     borderRadius: 20,
+    marginRight: 10,
   },
-  messageBox: {
-    backgroundColor: '#FFFFFF',
+  message: {
+    marginVertical: 5,
     padding: 10,
-    borderRadius: 8,
-    maxWidth: '70%',
+    borderRadius: 10,
+    maxWidth: '80%',
   },
-  myMessageBox: {
+  myMessage: {
     backgroundColor: '#2679ff',
-    padding: 10,
-    borderRadius: 8,
-    maxWidth: '70%',
+    alignSelf: 'flex-end',
   },
-  messageText: {
-    fontSize: 16,
-    color: '#000',
+  theirMessage: {
+    backgroundColor: '#ccc',
+    alignSelf: 'flex-start',
   },
   myMessageText: {
-    fontSize: 16,
-    color: '#FFFFFF',
+    color: 'white',
+  },
+  theirMessageText: {
+    color: 'black',
   },
   footer: {
     flexDirection: 'row',
     padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#FFFFFF',
+    backgroundColor: '#fff',
   },
   input: {
     flex: 1,
     padding: 10,
-    borderRadius: 8,
-    borderColor: '#2679ff',
-    borderWidth: 1,
-    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    backgroundColor: '#f1f1f1',
     marginRight: 10,
   },
   sendButton: {
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     backgroundColor: '#2679ff',
-    borderRadius: 8,
+    borderRadius: 20,
   },
   sendButtonText: {
-    color: '#FFFFFF',
+    color: '#fff',
     fontWeight: 'bold',
   },
 });
+
 export default ChatScreen;

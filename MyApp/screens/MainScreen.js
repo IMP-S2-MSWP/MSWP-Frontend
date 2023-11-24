@@ -39,7 +39,7 @@ import useBluetoothAdvertiser from '../components/Bluetooth/BluetoothAdvertiser'
 import {useUser} from '../stores/UserContext';
 import ProfileSettingsModal from './ProfileSettingsModal';
 // import {API_URL} from '@env';
-import {API_URL} from './../env';
+import {API_URL, Image_URL} from './../env';
 import axios from 'axios';
 const MainScreen = props => {
   const theme = useTheme();
@@ -57,9 +57,9 @@ const MainScreen = props => {
 
   useEffect(() => {
     startAdvertising();
-    heartlist(user.id);
+    fheartlist(user.id);
     const scanInterval = setInterval(() => {
-      heartlist(user.id);
+      fheartlist(user.id);
     }, 6000);
     return () => {
       clearInterval(scanInterval);
@@ -93,7 +93,7 @@ const MainScreen = props => {
     console.log('users', users);
   }, [users]);
 
-  async function heartlist(id) {
+  async function fheartlist(id) {
     try {
       const response = await axios.post(API_URL + '/api/test', {
         id: id,
@@ -162,7 +162,7 @@ const MainScreen = props => {
           <HStack alignItems="center">
             <Image
               source={{
-                uri: API_URL + '/images/user/' + user.image,
+                uri: Image_URL + '/user/' + user.image,
               }}
               alt="Alternate Text"
               borderRadius="50"

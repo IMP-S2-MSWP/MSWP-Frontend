@@ -22,7 +22,7 @@ import {
 /// 스타일 임포트
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
-import {API_URL} from '../../env';
+import {API_URL, Image_URL} from '../../env';
 
 const BeaconListPage = props => {
   const [users, setUsers] = useState([]); // Initialize users as empty array
@@ -74,8 +74,8 @@ const BeaconListPage = props => {
                 <HStack space={3} alignItems="center" marginLeft={4} flex={1}>
                   <Image
                     style={{borderRadius: 14}}
-                    source={{uri: API_URL + '/images/' + user.image}}
-                    alt={user.name}
+                    source={{uri: Image_URL + '/beacon/' + user.image}}
+                    alt={'x'}
                     boxSize={10}
                   />
                   <VStack>

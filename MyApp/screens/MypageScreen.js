@@ -25,6 +25,7 @@ import {
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import axios from 'axios';
 import Svg, {Path} from 'react-native-svg';
+import {API_URL, Image_URL} from './../env';
 
 const Screen1 = () => {
   return (
@@ -123,7 +124,6 @@ const MypageScreen = props => {
     </Pressable>
   );
   return (
-
     <View style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <HStack>
         <Text
@@ -166,7 +166,7 @@ const MypageScreen = props => {
           }}>
           <Image
             source={{
-              uri: 'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg',
+              uri: Image_URL + '/user/' + user.image,
             }}
             alt="Alternate Text"
             borderRadius="150"
@@ -183,7 +183,7 @@ const MypageScreen = props => {
                 fontSize: 20,
                 marginTop: 17,
               }}
-              value={name}
+              value={user.name}
               onChangeText={setName}
               editable={isEditable}
             />
@@ -207,7 +207,7 @@ const MypageScreen = props => {
               fontWeight: 'bold',
               fontSize: 14,
             }}
-            value={introduce}
+            value={user.message}
             onChangeText={setIntroduce}
             editable={isEditable}
           />

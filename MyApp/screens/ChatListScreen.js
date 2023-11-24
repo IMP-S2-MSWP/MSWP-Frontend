@@ -14,7 +14,7 @@ const ChatListScreen = props => {
   const [chatList, setChatList] = useState([]);
   useEffect(() => {
     axios
-      .post(API_URL + '/api/room/list', {id: 'test', state: '1'})
+      .post(API_URL + '/api/room/list', {id: uid, state: '1'})
 
       .then(response => {
         if (response.data != null) {

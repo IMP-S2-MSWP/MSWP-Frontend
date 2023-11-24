@@ -22,7 +22,7 @@ import {
 import axios from 'axios';
 import useBluetoothScanner from '../../components/BluetoothScanner';
 // import {API_URL} from '@env';
-import {API_URL} from '../../env';
+import {API_URL, Image_URL} from '../../env';
 import LottieView from 'lottie-react-native';
 import {useUser} from '../../stores/UserContext';
 // Dummy data for demonstration
@@ -242,8 +242,8 @@ const UserListPage = props => {
                 <HStack space={3} alignItems="center" marginLeft={4} flex={1}>
                   <Image
                     style={{borderRadius: 14}}
-                    source={{uri: API_URL + '/images/user/' + user.image}}
-                    alt={user.name}
+                    source={{uri: Image_URL + '/user/' + user.image}}
+                    alt={'test'}
                     boxSize={10}
                   />
                   <VStack>

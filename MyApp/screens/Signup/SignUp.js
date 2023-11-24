@@ -1,6 +1,6 @@
 // SignUp.js
 import React, {useState, useRef} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, KeyboardAvoidingView} from 'react-native';
 import PagerView from 'react-native-pager-view';
 import NameGenderDOBpage from './NameGenderDobPage';
 import UserNamepage from './UsernamePage';
@@ -161,7 +161,10 @@ const SignUp = () => {
         <Completepage key="5" />
       </PagerView>
       {pageIndex !== 4 && (
-        <View style={{alignItems: 'center'}}>
+        <KeyboardAvoidingView
+          style={{alignItems: 'center'}}
+          behavior={'padding'}
+          keyboardVerticalOffset={60}>
           <Button
             title="next"
             onPress={() => {
@@ -170,7 +173,7 @@ const SignUp = () => {
             style={style.button_style}>
             <Text style={style.invalidName}>다음</Text>
           </Button>
-        </View>
+        </KeyboardAvoidingView>
       )}
     </View>
   );

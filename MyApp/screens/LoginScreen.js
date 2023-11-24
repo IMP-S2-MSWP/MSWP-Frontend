@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
+} from 'react-native';
 import CustomButton from '../components/Button/CustomButton';
 import {useIsFocused} from '@react-navigation/native';
 import {useState, useEffect} from 'react';
@@ -66,46 +72,53 @@ const LoginScreen = () => {
   };
   return (
     <View style={{flex: 1, backgroundColor: 'white', alignItems: 'center'}}>
-      <FormControl>
-        <Stack width="335" mx="5" mt="60">
-          <FormControl.Label>
-            <Text style={style.form_title_style}>아이디</Text>
-          </FormControl.Label>
-          <Input
-            size="xl"
-            variant="underlined"
-            onChangeText={handleInputChange('id')}
-            value={userData.username}
-            placeholder="아이디 입력"
-            style={style.form_input_style}
-          />
-        </Stack>
-      </FormControl>
-      <FormControl>
-        <Stack width="335" mx="5" mt="30">
-          <FormControl.Label>
-            <Text style={style.form_title_style}>비밀번호</Text>
-          </FormControl.Label>
-          <Input
-            size="xl"
-            variant="underlined"
-            type="password"
-            onChangeText={handleInputChange('password')}
-            value={userData.password}
-            placeholder="비밀번호 입력"
-            style={style.form_input_style}
-          />
-        </Stack>
-      </FormControl>
-      <Text>{API_URL}</Text>
-      <Button
-        title="next"
-        onPress={() => {
-          handleLogin();
-        }}
-        style={{...style.login_button_style, position: 'absolute', bottom: 30}}>
-        <Text style={style.invalidName}>로그인</Text>
-      </Button>
+      <View style={{flex: 1, alignItems: 'center'}}>
+        <FormControl>
+          <Stack width="335" mx="5" mt="60">
+            <FormControl.Label>
+              <Text style={style.form_title_style}>아이디</Text>
+            </FormControl.Label>
+            <Input
+              size="xl"
+              variant="underlined"
+              onChangeText={handleInputChange('id')}
+              value={userData.username}
+              placeholder="아이디 입력"
+              style={style.form_input_style}
+            />
+          </Stack>
+        </FormControl>
+        <FormControl>
+          <Stack width="335" mx="5" mt="30">
+            <FormControl.Label>
+              <Text style={style.form_title_style}>비밀번호</Text>
+            </FormControl.Label>
+            <Input
+              size="xl"
+              variant="underlined"
+              type="password"
+              onChangeText={handleInputChange('password')}
+              value={userData.password}
+              placeholder="비밀번호 입력"
+              style={style.form_input_style}
+            />
+          </Stack>
+        </FormControl>
+        <Text>{API_URL}</Text>
+      </View>
+      <KeyboardAvoidingView
+        style={{justifyContent: 'flex-end', alignItems: 'center'}}
+        behavior={'padding'}
+        keyboardVerticalOffset={90}>
+        <Button
+          title="next"
+          onPress={() => {
+            handleLogin();
+          }}
+          style={style.login_button_style}>
+          <Text style={style.invalidName}>로그인</Text>
+        </Button>
+      </KeyboardAvoidingView>
     </View>
   );
 };

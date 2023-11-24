@@ -99,7 +99,7 @@ const MainScreen2 = props => {
                 source={{
                   uri: 'https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg',
                 }}
-                alt="Alternate Text"
+                accessibilityLabel="Alternate Text"
                 borderRadius="50"
                 w="20"
                 h="20"
@@ -115,7 +115,7 @@ const MainScreen2 = props => {
                 source={{
                   uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Coraz%C3%B3n.svg/800px-Coraz%C3%B3n.svg.png',
                 }}
-                alt="Alternate Text"
+                accessibilityLabel="Alternate Text"
                 size="xs"
                 resizeMode="contain"
                 h="16"
