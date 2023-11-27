@@ -128,7 +128,6 @@ const MypageScreen = props => {
       <HStack>
         <Text
           style={{
-            color: isEditable ? 'grey' : 'black', // 버튼을 눌렀을 때 색상 변경
             fontWeight: 'bold',
 
             margin: 14,
