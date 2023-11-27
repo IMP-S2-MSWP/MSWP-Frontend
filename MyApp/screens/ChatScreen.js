@@ -9,6 +9,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -71,7 +72,7 @@ const ChatScreen = ({route}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <HStack>
         <Text
           style={{
@@ -165,7 +166,7 @@ const ChatScreen = ({route}) => {
         </View>
       </KeyboardAvoidingView>
       <View style={{marginBottom: 20}} />
-    </View>
+    </SafeAreaView>
   );
 };
 

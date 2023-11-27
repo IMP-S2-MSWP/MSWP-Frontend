@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, SafeAreaView} from 'react-native';
 import CustomButton from '../components/Button/CustomButton';
 import {useIsFocused} from '@react-navigation/native';
 import {useState, useEffect} from 'react';
@@ -124,7 +124,7 @@ const MypageScreen = props => {
     </Pressable>
   );
   return (
-    <View style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <HStack>
         <Text
           style={{
@@ -308,7 +308,7 @@ const MypageScreen = props => {
           </Modal>
         </View>
       </Box>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({

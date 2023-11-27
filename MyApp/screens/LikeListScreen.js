@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, SafeAreaView} from 'react-native';
 import {Pressable, HStack, Spacer} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import PagerView from 'react-native-pager-view';
@@ -12,7 +12,7 @@ const LikeListScreen = props => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <HStack>
         <Text
           style={{
@@ -35,7 +35,7 @@ const LikeListScreen = props => {
         }}>
         WHO LIKES ME
       </Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

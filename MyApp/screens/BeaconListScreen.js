@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList, Button} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Butto,
+  SafeAreaView,
+} from 'react-native';
 import {Pressable, HStack, Box} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
@@ -28,7 +35,6 @@ const BeaconListScreen = props => {
           id: user.id,
           state: stateValue,
         });
-
 
         if (response.data != null) {
           setChatList(response.data);
@@ -72,7 +78,7 @@ const BeaconListScreen = props => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <HStack>
         <Text
           style={{
@@ -144,7 +150,7 @@ const BeaconListScreen = props => {
           />
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

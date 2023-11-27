@@ -1,9 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  Image,
+} from 'react-native';
 import {Pressable, HStack, Spacer} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import {API_URL} from '../env';
+import {API_URL, Image_URL} from '../env';
 import {Box} from 'native-base';
 import {useUser} from '../stores/UserContext';
 
@@ -41,7 +48,13 @@ const ChatListScreen = props => {
           rname: item.number.split(`@`)[3].split(uid),
         })
       }>
-      <View style={styles.avatar} />
+      <Image
+        source={{
+          uri: Image_URL + '/user/' + item.number.split(`@`)[3].split(uid),
+        }}
+        style={styles.avatar}
+      />
+      {console.log(Image_URL + '/user/' + item.number.split(`@`)[3].split(uid))}
       <Text style={styles.chatName}>
         {item.number.split(`@`)[3].split(uid)}사용자님
       </Text>
@@ -49,7 +62,7 @@ const ChatListScreen = props => {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <HStack>
         <Text
           style={{
@@ -71,7 +84,7 @@ const ChatListScreen = props => {
         renderItem={renderChatItem}
         keyExtractor={item => item.number}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -91,7 +104,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#2679ff',
     marginRight: 15,
   },
   chatName: {

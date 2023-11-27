@@ -7,6 +7,7 @@ import {
   Animated,
   StatusBar,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import CustomButton from '../components/Button/CustomButton';
 import {useIsFocused} from '@react-navigation/native';
@@ -128,7 +129,7 @@ const MainScreen = props => {
     setIsFirstListVisible(!isFirstListVisible); // 현재 상태를 반대로 설정
   };
   return (
-    <View style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
       <View style={styles.center}>
         <HStack>
           <Text
@@ -262,7 +263,7 @@ const MainScreen = props => {
 
         <Beaconlistpage key="1" users={users} setUsers={setUsers} />
       </PagerView>
-    </View>
+    </SafeAreaView>
   );
 };
 
