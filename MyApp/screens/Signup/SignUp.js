@@ -10,6 +10,7 @@ import Completepage from './Completepage';
 import {Button} from 'native-base';
 import style from '../../components/Style/Signup/style';
 import axios from 'axios';
+import SignUpButton from '../../components/Button/SignUp/SignUpButton';
 // import {API_URL} from '@env';
 import {API_URL} from '../../env';
 
@@ -160,21 +161,7 @@ const SignUp = () => {
         />
         <Completepage key="5" />
       </PagerView>
-      {pageIndex !== 4 && (
-        <KeyboardAvoidingView
-          style={{alignItems: 'center'}}
-          behavior={'padding'}
-          keyboardVerticalOffset={60}>
-          <Button
-            title="next"
-            onPress={() => {
-              handleNextClick();
-            }}
-            style={style.button_style}>
-            <Text style={style.invalidName}>다음</Text>
-          </Button>
-        </KeyboardAvoidingView>
-      )}
+      {pageIndex !== 4 && <SignUpButton handleNextClick={handleNextClick} />}
     </View>
   );
 };

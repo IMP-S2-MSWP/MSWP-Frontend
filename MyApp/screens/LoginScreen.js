@@ -1,26 +1,10 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  KeyboardAvoidingView,
-} from 'react-native';
-import CustomButton from '../components/Button/CustomButton';
-import {useIsFocused} from '@react-navigation/native';
-import {useState, useEffect} from 'react';
-import {
-  Input,
-  FormControl,
-  WarningOutlineIcon,
-  Stack,
-  Button,
-} from 'native-base';
-import LoginButton from '../components/Button/Login/LoginButton';
 import {useNavigation} from '@react-navigation/native';
-import style from '../components/Style/Signup/style';
+import React, {useState} from 'react';
+import {Text, View} from 'react-native';
+import LoginButton from '../components/Button/Login/LoginButton';
 
 import axios from 'axios';
+import LoginFormControl from '../components/Button/Login/LoginFormControl';
 
 import {useUser} from '../stores/UserContext';
 // import {API_URL} from './env';
@@ -71,37 +55,20 @@ const LoginScreen = () => {
   return (
     <View style={{flex: 1, backgroundColor: 'white', alignItems: 'center'}}>
       <View style={{flex: 1, alignItems: 'center'}}>
-        <FormControl>
-          <Stack width="335" mx="5" mt="60">
-            <FormControl.Label>
-              <Text style={style.form_title_style}>아이디</Text>
-            </FormControl.Label>
-            <Input
-              size="xl"
-              variant="underlined"
-              onChangeText={handleInputChange('id')}
-              value={userData.username}
-              placeholder="아이디 입력"
-              style={style.form_input_style}
-            />
-          </Stack>
-        </FormControl>
-        <FormControl>
-          <Stack width="335" mx="5" mt="30">
-            <FormControl.Label>
-              <Text style={style.form_title_style}>비밀번호</Text>
-            </FormControl.Label>
-            <Input
-              size="xl"
-              variant="underlined"
-              type="password"
-              onChangeText={handleInputChange('password')}
-              value={userData.password}
-              placeholder="비밀번호 입력"
-              style={style.form_input_style}
-            />
-          </Stack>
-        </FormControl>
+        <LoginFormControl
+          label="아이디"
+          value={userData.username}
+          onChangeText={handleInputChange('id')}
+          placeholder="아이디 입력"
+        />
+
+        {/* Use the LoginFormControl component for the 'password' input */}
+        <LoginFormControl
+          label="비밀번호"
+          value={userData.password}
+          onChangeText={handleInputChange('password')}
+          placeholder="비밀번호 입력"
+        />
         <Text>{API_URL}</Text>
       </View>
       <LoginButton handleLogin={handleLogin} />
