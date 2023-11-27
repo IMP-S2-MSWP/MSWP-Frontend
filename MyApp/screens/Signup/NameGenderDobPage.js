@@ -1,115 +1,51 @@
-import {
-  FormControl,
-  Input,
-  Pressable,
-  Radio,
-  Stack,
-  WarningOutlineIcon,
-} from 'native-base';
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import style from '../../components/Style/Signup/style';
+import {View} from 'react-native';
+import DobFormControl from './FormControl/DobFormControl';
+import GenderFormControl from './FormControl/GenderFormControl';
+import NameFormControl from './FormControl/NameFormControl';
 
+// 'NameGenderDOBPage' 함수형 컴포넌트를 정의합니다.
 const NameGenderDOBPage = ({userData, handleInputChange}) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [dob, setDob] = useState('');
 
+  // DatePicker를 표시하는 함수입니다.
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
 
+  // DatePicker를 숨기는 함수입니다.
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
 
+  // DatePicker에서 날짜를 선택했을 때의 처리 함수입니다.
   const handleConfirm = selectedDate => {
+    // 선택된 날짜를 ISO 형식으로 변환하여 상태를 업데이트합니다.
     const formattedDate = selectedDate.toISOString().split('T')[0];
     setDob(formattedDate);
     hideDatePicker();
-    handleInputChange('dob')(formattedDate); // 생년월일 상태 업데이트
+    // 'handleInputChange' 함수를 사용하여 생년월일 상태를 업데이트합니다.
+    handleInputChange('dob')(formattedDate);
   };
 
   return (
     <View>
-      <FormControl>
-        <Stack width="335" mx="5" mt="60">
-          <FormControl.Label>
-            <Text style={style.form_title_style}>이름</Text>
-          </FormControl.Label>
-          <Input
-            size="xl"
-            variant="underlined"
-            onChangeText={handleInputChange('name')}
-            value={userData.name}
-            placeholder="이름 입력"
-            style={style.form_input_style}
-          />
-          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            Atleast 6 characters are required.
-          </FormControl.ErrorMessage>
-
-          <FormControl.Label mt="10">
-            <Text style={style.form_title_style}>성별</Text>
-          </FormControl.Label>
-          <Radio.Group
-            name="myRadioGroup"
-            accessibilityLabel="gender"
-            value={userData.gender}
-            onChange={handleInputChange('gender')}>
-            <Radio value="man" my={1}>
-              <Text
-                style={{
-                  ...style.form_input_style,
-                  color: userData.gender == 'man' ? 'black' : '#868686',
-                }}>
-                {' '}
-                남성
-              </Text>
-            </Radio>
-            <Radio value="woman" my={1}>
-              <Text
-                style={{
-                  ...style.form_input_style,
-                  color: userData.gender == 'woman' ? 'black' : '#868686',
-                }}>
-                {' '}
-                여성
-              </Text>
-            </Radio>
-          </Radio.Group>
-
-          {/* 생년월일 입력 */}
-          <FormControl.Label mt="10">
-            <Text style={style.form_title_style}>생년월일</Text>
-          </FormControl.Label>
-          <View style={{borderBottomWidth: 1, borderBottomColor: '#D4D4D4'}}>
-            <Pressable onPress={showDatePicker}>
-              <Text
-                style={{
-                  ...style.form_input_style,
-                  marginBottom: 8,
-                  color: dob ? 'black' : '#868686',
-                }}>
-                {dob ? dob : '생년월일 선택'}
-              </Text>
-            </Pressable>
-          </View>
-          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            Atleast 6 characters are required.
-          </FormControl.ErrorMessage>
-
-          {/* DatePicker 모달 */}
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="date"
-            onConfirm={handleConfirm}
-            onCancel={() => setDatePickerVisibility(false)}
-          />
-        </Stack>
-      </FormControl>
+      {/* 이름 입력 폼을 표시하는 'NameFormControl' 컴포넌트입니다. */}
+      <NameFormControl
+        userData={userData}
+        handleInputChange={handleInputChange}
+      />
+      {/* 성별 입력 폼을 표시하는 'GenderFormControl' 컴포넌트입니다. */}
+      <GenderFormControl
+        userData={userData}
+        handleInputChange={handleInputChange}
+      />
+      {/* 생년월일 입력 폼을 표시하는 'DobFormControl' 컴포넌트입니다. */}
+      <DobFormControl handleInputChange={handleInputChange} />
     </View>
   );
 };
 
+// 'NameGenderDOBPage' 컴포넌트를 내보냅니다.
 export default NameGenderDOBPage;
