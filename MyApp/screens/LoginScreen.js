@@ -16,14 +16,12 @@ import {
   Stack,
   Button,
 } from 'native-base';
-import {TextInput} from 'react-native-gesture-handler';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import Mainstyle from '../components/Style/Mainstyle';
+import LoginButton from '../components/Button/Login/LoginButton';
 import {useNavigation} from '@react-navigation/native';
 import style from '../components/Style/Signup/style';
-import LoginForm from '../components/LoginForm';
+
 import axios from 'axios';
-import {StackNavigationProp} from '@react-navigation/stack';
+
 import {useUser} from '../stores/UserContext';
 // import {API_URL} from './env';
 import {API_URL} from '../env';
@@ -106,19 +104,7 @@ const LoginScreen = () => {
         </FormControl>
         <Text>{API_URL}</Text>
       </View>
-      <KeyboardAvoidingView
-        style={{justifyContent: 'flex-end', alignItems: 'center'}}
-        behavior={'padding'}
-        keyboardVerticalOffset={90}>
-        <Button
-          title="next"
-          onPress={() => {
-            handleLogin();
-          }}
-          style={style.login_button_style}>
-          <Text style={style.invalidName}>로그인</Text>
-        </Button>
-      </KeyboardAvoidingView>
+      <LoginButton handleLogin={handleLogin} />
     </View>
   );
 };
