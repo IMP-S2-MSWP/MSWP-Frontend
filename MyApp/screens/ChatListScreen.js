@@ -50,13 +50,16 @@ const ChatListScreen = props => {
       }>
       <Image
         source={{
-          uri: Image_URL + '/user/' + item.number.split(`@`)[3].split(uid),
+          uri:
+            Image_URL +
+            '/user/' +
+            item.number.split(`@`)[3].split(uid) +
+            '.jpg',
         }}
         style={styles.avatar}
       />
-      {console.log(Image_URL + '/user/' + item.number.split(`@`)[3].split(uid))}
       <Text style={styles.chatName}>
-        {item.number.split(`@`)[3].split(uid)}사용자님
+        {item.number.split('@')[3].split(uid)}사용자님
       </Text>
     </Pressable>
   );

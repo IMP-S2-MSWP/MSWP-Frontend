@@ -145,7 +145,7 @@ const UserListPage = props => {
   }
   async function addHeart(idFrom, idTo) {
     try {
-      const response = await axios.post(API_URL + '/api/click', {
+      const response = await axios.post(API_URL + '/api/like/click', {
         idFrom: idFrom, // Only the new service UUIDs
         idTo: idTo, // Only the new service UUIDs
       });
@@ -167,7 +167,7 @@ const UserListPage = props => {
   }
   async function heartlist(id) {
     try {
-      const response = await axios.get(API_URL + '/api/count?id=' + id);
+      const response = await axios.get(API_URL + '/api/like/count?id=' + id);
       console.log(response.data);
       // Handle the server response
       if (response.data) {

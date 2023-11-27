@@ -17,7 +17,7 @@ const StartScreen = props => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://3.37.127.142:8080/api/count?id=test`,
+          `http://3.37.127.142:8080/api/like/count?id=test`,
         );
       } catch (error) {
         console.log(error);

@@ -26,6 +26,7 @@ import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import axios from 'axios';
 import Svg, {Path} from 'react-native-svg';
 import {API_URL, Image_URL} from './../env';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const Screen1 = () => {
   return (
@@ -64,24 +65,19 @@ export {Screen1, Screen2, Screen3, Screen4};
 const MypageScreen = props => {
   const {user} = useUser();
   const [name, setName] = useState('카리나');
-  const [introduce, setIntroduce] = useState('나는 이상용이 좋아');
+  const [introduce, setIntroduce] = useState(user.message);
   const [age, setAge] = useState('24');
   const [dob, setDob] = useState('00.04.28');
   const [isEditable, setIsEditable] = useState(false);
   const navigation = useNavigation();
   const [isBeaconModalVisible, setIsBeaconModalVisible] = useState(false);
-  const uid = 'test';
   const [beacons, setBeacons] = useState([]);
-  const dummyBeacons = [
-    {
-      id: '1',
-      name: '비콘 1',
-      detail: '세부정보 1',
-      beaconType: '광고',
-      screen: 'Screen1',
-    },
-    // ... 추가적인 더미 데이터
-  ];
+  const [fileSource, setFileSource] = useState(
+    Image_URL + '/user/' + user.image,
+  );
+  const [fileType, setFileType] = useState('');
+  const [fileData, setFileData] = useState('');
+
   useEffect(() => {
     axios
       .post('http://192.168.0.3:8080/api/beacon/mybeacon', {creator: user.id})
@@ -93,6 +89,77 @@ const MypageScreen = props => {
         console.log(error);
       });
   }, [isBeaconModalVisible]);
+
+  const handleEditable = () => {
+    axios
+      .post(API_URL + '/api/message', {
+        id: user.id,
+        message: introduce,
+      })
+      .then(response => {
+        console.log(response.data);
+        if (response.data.sc == '200') {
+          console.log('업데이트 성공');
+        } else {
+          console.log('업데이트 실패');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  const handleChoosePhoto = () => {
+    let options = {
+      mediaType: 'photo',
+      maxWidth: 500,
+      maxHeight: 500,
+    };
+    // 이미지 선택 로직 (예: ImagePicker 라이브러리 사용)
+    launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.errorCode == 'camera_unavailable') {
+        console.log('Camera not available on device');
+      } else if (response.errorCode == 'permission') {
+        console.log('Permission not satisfied');
+      } else if (response.errorCode == 'others') {
+        console.log(response.errorMessage);
+      } else {
+        console.log(response.assets[0].uri);
+        var photo = {
+          uri: response.assets[0].uri,
+          type: 'multipart/form-data',
+          name: `image.jpg`,
+        };
+        const formData = new FormData();
+        formData.append('id', user.id);
+        formData.append('file', photo);
+        axios
+          .post(API_URL + '/api/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+            data: formData,
+          })
+          .then(response => {
+            console.log(response.data);
+            if (response.data.sc == '200') {
+              console.log('만드는데 성공함');
+              setFileSource(photo.uri);
+              setFileType(response.assets[0].type);
+              setFileData(response.assets[0]);
+            } else {
+              console.log('너 이미 그 기기 등록함 ');
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    });
+  };
+
   const renderBeaconItem = ({item}) => (
     <Pressable
       //onPress={() => navigation.navigate(item.screen)}
@@ -163,16 +230,18 @@ const MypageScreen = props => {
             alignItems: 'center',
             textAlign: 'center',
           }}>
-          <Image
-            source={{
-              uri: Image_URL + '/user/' + user.image,
-            }}
-            alt="Alternate Text"
-            borderRadius="150"
-            w="140"
-            h="140"
-            mt="81"
-          />
+          <Pressable onPress={handleChoosePhoto}>
+            <Image
+              source={{
+                uri: fileSource,
+              }}
+              alt="Alternate Text"
+              borderRadius="150"
+              w="140"
+              h="140"
+              mt="81"
+            />
+          </Pressable>
 
           <HStack alignItems="center">
             <TextInput
@@ -206,7 +275,7 @@ const MypageScreen = props => {
               fontWeight: 'bold',
               fontSize: 14,
             }}
-            value={user.message}
+            value={introduce}
             onChangeText={setIntroduce}
             editable={isEditable}
           />
@@ -263,6 +332,7 @@ const MypageScreen = props => {
                 }}
                 onPress={() => {
                   console.log('change profile');
+                  isEditable ? handleEditable() : null;
                   setIsEditable(!isEditable);
                 }}>
                 <Ionicons name="settings" size={30} color="white" />

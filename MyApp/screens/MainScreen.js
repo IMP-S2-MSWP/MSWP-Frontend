@@ -96,7 +96,7 @@ const MainScreen = props => {
 
   async function fheartlist(id) {
     try {
-      const response = await axios.post(API_URL + '/api/test', {
+      const response = await axios.post(API_URL + '/api/like/me', {
         id: id,
       });
       // Handle the server response
