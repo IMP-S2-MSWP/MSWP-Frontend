@@ -16,8 +16,8 @@ import {NativeBaseProvider} from 'native-base';
 import StartScreen from './screens/StartScreen';
 import Main_Tab_Navigator from './navigator/Main_Tab_Navigator';
 import BeaconRegist from './screens/BeaconRegist';
-import Advertisement from './screens/Advertisement';
-import groupChat from './screens/GroupChat';
+import Advertisement from './screens/Ad_Beacon_Create';
+import groupChat from './screens/Gc_Beacon_Create';
 import {UserProvider} from './stores/UserContext';
 const Stack = createStackNavigator();
 

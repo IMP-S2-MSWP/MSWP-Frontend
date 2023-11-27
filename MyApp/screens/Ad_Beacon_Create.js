@@ -7,18 +7,33 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {API_URL} from '../env';
 import {useUser} from '../stores/UserContext';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {
+  Checkbox,
+  Input,
+  useTheme,
+  Pressable,
+  Box,
+  HStack,
+  Badge,
+  Spacer,
+  Flex,
+  Switch,
+  Center,
+  VStack,
+} from 'native-base';
 const Advertisement = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;
 
   const {user} = useUser();
   const navigation = useNavigation();
-  const formData = new FormData();
+
   const [fileSource, setFileSource] = useState(null);
   const [fileType, setFileType] = useState('');
   const [fileData, setFileData] = useState('');
@@ -52,18 +67,10 @@ const Advertisement = ({route}) => {
   };
 
   const handleUpload = async () => {
-    const uploaderString = JSON.stringify({
-      uuid: user.uuid,
-      creator: user.id,
-      state: beaconType,
-      message: adText,
-      beaconname: beaconname,
-      gender: 'P',
-    });
-
+    const formData = new FormData();
     // 이미지 파일 추가 (여기서는 URL에서 파일을 가져옵니다)
     // 실제 사용 시에는 File 객체 또는 Blob 객체를 사용해야 합니다.
-    formData.append('uuid', user.uuid);
+    formData.append('uuid', uuid);
     formData.append('creator', user.id);
     formData.append('state', beaconType);
     formData.append('message', adText);
@@ -95,30 +102,72 @@ const Advertisement = ({route}) => {
       .catch(error => {
         console.log(error);
       });
+    navigation.navigate('마이페이지');
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.text1}>광고 생성</Text>
-      <Text style={styles.text2}>광고 이름 : {beaconname}</Text>
-      {imageUri && (
-        <Image source={{uri: imageUri}} style={styles.bannerImage} />
-      )}
-      <View style={styles.formContainer}>
-        <Text>
-          {uuid}, {beaconname}, {beaconType}
-        </Text>
-        <Button title="사진 선" onPress={handleChoosePhoto} />
-        <TextInput
-          style={styles.input}
-          placeholder="광고 문구 입력"
-          value={adText}
-          onChangeText={setAdText}
-          maxLength={30} // 여기에서 최대 길이를 30으로 설정
-        />
-        <Button title="업로드" onPress={handleUpload} />
-      </View>
-    </ScrollView>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
+      <ScrollView style={styles.container}>
+        <HStack>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              margin: 14,
+              fontSize: 20,
+              alignSelf: 'flex-start',
+              color: '#2679ff',
+            }}>
+            Wennect
+          </Text>
+        </HStack>
+        <Text style={styles.text1}>광고 생성</Text>
+        <Box
+          bg="#ffffff"
+          p="5"
+          borderRightWidth="6"
+          rounded="23"
+          w="320"
+          alignSelf="center"
+          borderLeftWidth="6"
+          borderColor="#2679ff">
+          <Text style={styles.text2}>{beaconname}</Text>
+        </Box>
+        <Pressable
+          p="2"
+          m="4"
+          rounded="20"
+          alignSelf="center"
+          backgroundColor="#2679ff"
+          onPress={handleChoosePhoto}>
+          <Text style={{color: '#ffffff'}}>앨범에서 사진 선택</Text>
+        </Pressable>
+
+        {fileSource ? (
+          <Image source={{uri: fileSource}} style={styles.bannerImage} />
+        ) : (
+          <Image
+            source={{
+              uri: 'https://www.genittiottici.com/wp-content/uploads/2018/11/blog-ph-1.jpg', // 기본 이미지 URL
+            }}
+            style={styles.bannerImage}
+          />
+        )}
+
+        <View style={styles.formContainer}>
+          <Text>
+            {uuid}, {beaconname}, {beaconType}
+          </Text>
+          <TextInput
+            style={styles.input}
+            placeholder="광고 문구 입력"
+            value={adText}
+            onChangeText={setAdText}
+            maxLength={30} // 여기에서 최대 길이를 30으로 설정
+          />
+          <Button title="업로드" onPress={handleUpload} />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -127,8 +176,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bannerImage: {
-    width: '100%',
-    height: 300,
+    width: 250,
+    height: 250,
+    borderRadius: 400,
+    alignSelf: 'center',
+    borderWidth: 1,
   },
   formContainer: {
     padding: 20,
@@ -140,18 +192,25 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     borderWidth: 1,
     padding: 10,
-    width: '100%',
+    width: 320,
+    borderRightWidth: 6,
+    borderLeftWidth: 6,
+    borderColor: '#2679ff',
+    borderRadius: 20,
   },
   text1: {
     justifyContent: 'center',
     alignSelf: 'center',
     fontSize: 40,
+    marginBottom: 14,
+    color: '#2679ff',
   },
   text2: {
     justifyContent: 'center',
     alignSelf: 'center',
     fontSize: 30,
     margin: 10,
+    color: '#2679ff',
   },
 });
 

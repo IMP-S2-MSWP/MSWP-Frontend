@@ -7,9 +7,8 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 import MypageScreen from '../screens/MypageScreen';
 import BeaconRegist from '../screens/BeaconRegist';
-import GroupChat from '../screens/GroupChat';
-import Advertisement from '../screens/Advertisement';
-import {Screen1, Screen2, Screen3, Screen4} from '../screens/MypageScreen';
+import GroupChat from '../screens/Gc_Beacon_Create';
+import Advertisement from '../screens/Ad_Beacon_Create';
 const Stack = createStackNavigator();
 
 const screenOptionStyle = {
@@ -57,26 +56,6 @@ const Profile_Stack_Navigator = ({navigation, route}) => {
       <Stack.Screen
         name="그룹채팅생성"
         component={GroupChat}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Screen1"
-        component={Screen1}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Screen2"
-        component={Screen2}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Screen3"
-        component={Screen3}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Screen4"
-        component={Screen4}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

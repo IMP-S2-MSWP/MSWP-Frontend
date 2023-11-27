@@ -28,40 +28,6 @@ import Svg, {Path} from 'react-native-svg';
 import {API_URL, Image_URL} from './../env';
 import {launchImageLibrary} from 'react-native-image-picker';
 
-const Screen1 = () => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>비콘 1의 상세 정보</Text>
-    </View>
-  );
-};
-
-const Screen2 = () => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>비콘 2의 상세 정보</Text>
-    </View>
-  );
-};
-
-const Screen3 = () => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>비콘 3의 상세 정보</Text>
-    </View>
-  );
-};
-
-const Screen4 = () => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>비콘 4의 상세 정보</Text>
-    </View>
-  );
-};
-
-export {Screen1, Screen2, Screen3, Screen4};
-
 const MypageScreen = props => {
   const {user} = useUser();
   const [name, setName] = useState('카리나');
@@ -80,7 +46,7 @@ const MypageScreen = props => {
 
   useEffect(() => {
     axios
-      .post('http://192.168.0.3:8080/api/beacon/mybeacon', {creator: user.id})
+      .post(API_URL + '/api/beacon/mybeacon', {creator: user.id})
       .then(response => {
         setBeacons(response.data);
         console.log(response.data);

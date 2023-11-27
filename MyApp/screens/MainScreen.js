@@ -144,7 +144,7 @@ const MainScreen = props => {
           </Text>
           <Spacer />
           <Pressable p="4" onPress={handleOpenProfileModal}>
-            <Ionicons name="settings" size={30} color="#2679ff" />
+            <Ionicons name="settings" size={30} color="grey" />
           </Pressable>
           <ProfileSettingsModal
             isVisible={isProfileModalVisible}
