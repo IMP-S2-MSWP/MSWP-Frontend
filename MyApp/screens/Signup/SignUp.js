@@ -1,24 +1,28 @@
 // SignUp.js
-import React, {useState, useRef} from 'react';
-import {View, Text, KeyboardAvoidingView} from 'react-native';
-import PagerView from 'react-native-pager-view';
-import NameGenderDOBpage from './NameGenderDobPage';
-import UserNamepage from './UsernamePage';
-import Passwordpage from './PasswordPage';
-import NickNamepage from './NickNamePage';
-import Completepage from './Completepage';
-import {Button} from 'native-base';
-import style from '../../components/Style/Signup/style';
+
 import axios from 'axios';
+import React, {useRef, useState} from 'react';
+import {View} from 'react-native';
+import PagerView from 'react-native-pager-view';
 import SignUpButton from '../../components/Button/SignUp/SignUpButton';
+import Completepage from './Completepage';
+import NameGenderDOBpage from './NameGenderDobPage';
+import NickNamepage from './NickNamePage';
+import Passwordpage from './PasswordPage';
+import UserNamepage from './UsernamePage';
 // import {API_URL} from '@env';
 import {API_URL} from '../../env';
 
+// 'SignUp' 함수형 컴포넌트를 정의합니다.
 const SignUp = () => {
+  // 페이지 인덱스와 리프 객체를 상태로 관리합니다.
   const [pageIndex, setPageIndex] = useState(0);
   const pagerRef = useRef(null);
+
+  // 비밀번호 확인을 위한 상태를 관리합니다.
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
+  // 사용자 정보를 저장하기 위한 상태를 초기화합니다.
   const [userData, setUserData] = useState({
     name: '',
     gender: '',
@@ -27,13 +31,19 @@ const SignUp = () => {
     password: '',
     nickname: '',
   });
+
+  // 비밀번호 일치 여부를 확인하는 상태를 관리합니다.
   const [passwordsDoNotMatch, setpasswordsDoNotMatch] = useState(false);
+
+  // 입력 값이 변경될 때 실행되는 함수를 정의합니다.
   const handleInputChange = name => text => {
     setUserData(prevData => ({
       ...prevData,
       [name]: text,
     }));
   };
+
+  // 성별이 변경될 때 실행되는 함수를 정의합니다.
   const handleGenderChange = nextValue => {
     setUserData(prevData => ({
       ...prevData,
@@ -41,6 +51,7 @@ const SignUp = () => {
     }));
   };
 
+  // 다음 페이지로 이동 가능 여부를 확인하는 함수를 정의합니다.
   const canGoNext = () => {
     switch (pageIndex) {
       case 0:
@@ -54,6 +65,7 @@ const SignUp = () => {
     }
   };
 
+  // 다음 버튼을 클릭했을 때 실행되는 함수를 정의합니다.
   const handleNextClick = async () => {
     if (!canGoNext()) {
       alert('Please fill out all fields.');
@@ -65,7 +77,6 @@ const SignUp = () => {
         return;
       }
     } else if (pageIndex === 2 && userData.password !== passwordConfirmation) {
-      // 추가된 부분
       setpasswordsDoNotMatch(true);
       alert('Passwords do not match.');
       return;
@@ -76,34 +87,27 @@ const SignUp = () => {
       }
     }
 
+    // 다음 페이지로 이동합니다.
     setPageIndex(prevPageIndex => prevPageIndex + 1);
     pagerRef.current.setPage(pageIndex + 1);
   };
 
+  // 서버에서 사용자 아이디 중복을 확인하는 함수를 정의합니다.
   async function checkUsernameAvailability(username) {
     try {
-      // '/api/register/validation' 엔드포인트로 POST 요청을 보냄
       const response = await axios.post(API_URL + '/api/register/validation', {
-        id: username, // 중복 확인을 위한 사용자 아이디
+        id: username,
       });
       console.log(response.data);
-      // 서버 응답 처리
-      if (response.data) {
-        console.log('Username is available.');
-      } else {
-        console.log('Username is already taken.');
-      }
-      console.log(response.data.sc);
       return response.data.sc;
     } catch (error) {
-      // 에러 발생 시 처리
       console.error('An error occurred while checking the username:', error);
     }
   }
 
+  // 서버에 회원가입을 요청하는 함수를 정의합니다.
   const handleRegister = async () => {
     try {
-      // 서버에 회원가입 요청을 보냄
       const response = await axios.post(API_URL + '/api/register', {
         id: userData.username,
         password: userData.password,
@@ -112,25 +116,23 @@ const SignUp = () => {
         birth: userData.dob,
         gender: userData.gender == 'man' ? 'M' : 'W',
       });
-      console.log(response.data);
 
-      // 회원가입 요청 성공
       if (response.data.sc === '200') {
-        // 회원가입 성공 후 로직 구현 (예: 로그인 화면으로 이동)
+        // 회원가입 성공 후 로직을 구현합니다. (예: 로그인 화면으로 이동)
       } else {
-        // 서버에서 정의된 오류 처리
         alert('Registration Failed', response.data.message);
       }
       console.log(response.data.sc);
       return response.data.sc;
     } catch (error) {
-      // 네트워크 오류, 서버 오류 등을 처리
       console.error('An error occurred while checking the username:', error);
     }
   };
 
+  // JSX를 반환합니다.
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
+      {/* 페이지마다 다른 컴포넌트를 표시합니다. */}
       <PagerView
         ref={pagerRef}
         style={{flex: 1}}
@@ -161,9 +163,12 @@ const SignUp = () => {
         />
         <Completepage key="5" />
       </PagerView>
+
+      {/* 마지막 페이지가 아니면 회원가입 버튼을 표시합니다. */}
       {pageIndex !== 4 && <SignUpButton handleNextClick={handleNextClick} />}
     </View>
   );
 };
 
+// 'SignUp' 컴포넌트를 내보냅니다.
 export default SignUp;

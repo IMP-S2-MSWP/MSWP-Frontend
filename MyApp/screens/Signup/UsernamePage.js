@@ -1,27 +1,25 @@
 // UsernamePage.js
+
+// React에서 필요한 컴포넌트를 불러옵니다.
 import React from 'react';
-import { View, Text, TextInput } from 'react-native';
-import { Input,FormControl,WarningOutlineIcon,Stack} from "native-base";
-import style from "../../components/Style/Signup/style"
-//import {inputStyle} from "../../components/Style/Signup/style"
-const UsernamePage = ({ userData, handleInputChange }) => {
-     
+import {View} from 'react-native';
+
+// UsernameFormControl 컴포넌트를 불러옵니다.
+import UsernameFormControl from './FormControl/UsernameFormControl';
+
+// 'UsernamePage' 함수형 컴포넌트를 정의합니다.
+const UsernamePage = ({userData, handleInputChange}) => {
   return (
+    // 뷰 컴포넌트를 렌더링합니다.
     <View pointerEvents="box-none">
-       <FormControl >
-          <Stack width= "335" mx="5" mt ='60'>
-            <FormControl.Label><Text style={style.form_title_style}>아이디</Text></FormControl.Label>
-            <Input size="xl" variant ='underlined' onChangeText={handleInputChange('username')} value={userData.username} placeholder="아이디 입력" style={style.form_input_style} />
-            <FormControl.HelperText>
-            <Text style={style.form_helpertext_style}>영문, 숫자 조합 2~10자리</Text>
-            </FormControl.HelperText>
-            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-              Atleast 6 characters are required.
-            </FormControl.ErrorMessage>
-          </Stack>
-        </FormControl>
+      {/* UsernameFormControl 컴포넌트를 사용하여 아이디 입력 페이지를 구성합니다. */}
+      <UsernameFormControl
+        userData={userData}
+        handleInputChange={handleInputChange}
+      />
     </View>
   );
 };
 
+// 'UsernamePage' 컴포넌트를 내보냅니다.
 export default UsernamePage;

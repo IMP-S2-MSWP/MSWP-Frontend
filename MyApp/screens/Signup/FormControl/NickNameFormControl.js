@@ -3,7 +3,7 @@
 import React from 'react';
 import {FormControl, Input, Stack, WarningOutlineIcon} from 'native-base';
 import {Text, View} from 'react-native';
-import style from '../NickNameFormControl.style';
+import style from './NickNameFormControl.style';
 // 'NickNameFormControl'이라는 함수형 컴포넌트를 정의합니다. 이 컴포넌트는 'userData'와 'handleInputChange'를 props로 받습니다.
 const NickNameFormControl = props => {
   return (

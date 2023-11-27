@@ -1,13 +1,14 @@
 // NicknamePage.js
-import {FormControl, Input, Stack, WarningOutlineIcon} from 'native-base';
+
 import React from 'react';
-import {Text, View} from 'react-native';
-import style from '../../components/Style/Signup/style';
+import {View} from 'react-native';
 import NickNameFormControl from './FormControl/NickNameFormControl';
-//import {inputStyle} from "../../components/Style/Signup/style"
+
+// 'NicknamePage' 함수형 컴포넌트를 정의합니다.
 const NicknamePage = ({userData, handleInputChange}) => {
   return (
     <View pointerEvents="box-none">
+      {/* 'NickNameFormControl' 컴포넌트를 사용하여 닉네임 입력 폼을 표시합니다. */}
       <NickNameFormControl
         handleInputChange={handleInputChange}
         userData={userData}
@@ -16,4 +17,5 @@ const NicknamePage = ({userData, handleInputChange}) => {
   );
 };
 
+// 'NicknamePage' 컴포넌트를 내보냅니다.
 export default NicknamePage;
