@@ -25,6 +25,7 @@ import useBluetoothScanner from '../../components/BluetoothScanner';
 import {API_URL, Image_URL} from '../../env';
 import LottieView from 'lottie-react-native';
 import {useUser} from '../../stores/UserContext';
+import {insertUserInfo} from '../../components/firebase/roomService';
 // Dummy data for demonstration
 
 const UserListPage = props => {
@@ -212,12 +213,23 @@ const UserListPage = props => {
       idList: [user.id, id],
       state: '1',
     });
-    //console.log(response.data); {"number": "2023@11@21@qaztest", "rname": "test", "sc": 200}
-    if (response.data.sc == 200) {
+    if (response.data.sc == 201) {
+      insertUserInfo(
+        response.data.number,
+        [user.id, response.data.id],
+        [user.nickname, response.data.rname],
+      );
       navigation.navigate('채팅', {
         screen: 'Chat',
         params: {rname: response.data.rname, number: response.data.number},
       });
+    } else if (response.data.sc == 200) {
+      navigation.navigate('채팅', {
+        screen: 'Chat',
+        params: {rname: response.data.rname, number: response.data.number},
+      });
+    } else {
+      console.log('야 이상함');
     }
   };
   return (

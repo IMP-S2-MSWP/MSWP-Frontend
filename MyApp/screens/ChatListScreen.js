@@ -45,22 +45,16 @@ const ChatListScreen = props => {
       onPress={() =>
         navigation.navigate('Chat', {
           number: item.number,
-          rname: item.number.split(`@`)[3].split(uid),
+          rname: item.rname,
         })
       }>
       <Image
         source={{
-          uri:
-            Image_URL +
-            '/user/' +
-            item.number.split(`@`)[3].split(uid) +
-            '.jpg',
+          uri: Image_URL + '/user/' + item.id + '.jpg',
         }}
         style={styles.avatar}
       />
-      <Text style={styles.chatName}>
-        {item.number.split('@')[3].split(uid)}사용자님
-      </Text>
+      <Text style={styles.chatName}>{item.rname}사용자님</Text>
     </Pressable>
   );
 

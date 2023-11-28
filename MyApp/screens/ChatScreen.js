@@ -15,7 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation} from '@react-navigation/native';
 import {Image, HStack} from 'native-base';
-import {app} from './db.js';
+import {app} from '../components/firebase/db.js';
 import {
   getFirestore,
   collection,
@@ -30,7 +30,6 @@ const db = getFirestore(app);
 
 const ChatScreen = ({route}) => {
   const {user} = useUser();
-  const uid = user.id;
   const [newMessage, setNewMessage] = useState('');
   const [data, setData] = useState([]);
   const scrollViewRef = useRef();
@@ -42,7 +41,7 @@ const ChatScreen = ({route}) => {
       docSnapshot => {
         let documents = [];
         docSnapshot.forEach(document => {
-          const type = uid === document.data().name;
+          const type = user.id === document.data().name;
           documents.push({
             id: document.id,
             ...document.data(),
@@ -56,12 +55,12 @@ const ChatScreen = ({route}) => {
     );
 
     return () => unsubscribe();
-  }, [route.params.number, uid]);
+  }, [route.params.number, user.id]);
 
   const sendMessage = async () => {
     if (newMessage.length > 0) {
       await addDoc(collection(db, 'room', route.params.number, 'chat'), {
-        name: uid,
+        name: user.nickname,
         text: newMessage,
         date: Timestamp.now(),
       });

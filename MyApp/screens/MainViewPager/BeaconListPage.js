@@ -23,27 +23,39 @@ import {
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
 import {API_URL, Image_URL} from '../../env';
-
+import {useUser} from '../../stores/UserContext';
+import {insertUserInfo} from '../../components/firebase/roomService';
 const BeaconListPage = props => {
   const [users, setUsers] = useState([]); // Initialize users as empty array
-  const uid = 'test';
+  const {user} = useUser();
 
   const navigation = useNavigation();
 
-  const eventHandler = async (uuid, state) => {
-    const res = await axios.post(API_URL + '/api/beacon/join', {
-      id: uid,
+  const eventHandler = async (uuid, state, beaconname) => {
+    const response = await axios.post(API_URL + '/api/beacon/join', {
+      id: user.id,
       state: state,
       uuid: uuid,
     });
-    console.log(res.data);
+    console.log(response.data);
 
     if (state == 2) {
-      navigation.navigate('채팅', {
-        screen: 'Chat',
-        params: {uid: 'test', chatid: res.data.number},
-      });
+      if (response.data.sc == 201) {
+        insertUserInfo(response.data.number, [user.id], [user.nickname]);
+        navigation.navigate('채팅', {
+          screen: 'Chat',
+          params: {rname: beaconname, number: response.data.number},
+        });
+      } else if (response.data.sc == 200) {
+        navigation.navigate('채팅', {
+          screen: 'Chat',
+          params: {rname: beaconname, number: response.data.number},
+        });
+      } else {
+        console.log('비콘 join 에러');
+      }
     } else {
+      //광고 로직 추가 필요
       console.log('광고인듯');
     }
   };
@@ -62,11 +74,9 @@ const BeaconListPage = props => {
               p="1"
               marginBottom={1}
               borderWidth="0"
-              onPress={() => {
-                navigation.navigate('Chat', {
-                  name: user.name,
-                });
-              }}>
+              onPress={() =>
+                eventHandler(user.uuid, user.state, user.beaconname)
+              }>
               <HStack
                 space={3}
                 alignItems="center"

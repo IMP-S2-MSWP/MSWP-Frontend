@@ -23,7 +23,7 @@ import {
   Flex,
 } from 'native-base';
 import {TextInput} from 'react-native-gesture-handler';
-import {app} from './db.js';
+import {app} from '../components/firebase/db.js';
 import {
   getFirestore,
   doc,
