@@ -163,7 +163,8 @@ const MainScreen = props => {
           <HStack alignItems="center">
             <Image
               source={{
-                uri: Image_URL + '/user/' + user.image,
+                uri:
+                  Image_URL + '/user/' + user.image + '?cache=' + Math.random(),
               }}
               alt="Alternate Text"
               borderRadius="50"

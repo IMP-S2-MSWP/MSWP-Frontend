@@ -26,7 +26,6 @@ const LoginScreen = () => {
   const {user, setUser} = useUser();
   const handleLogin = () => {
     console.log(API_URL + '/api/login');
-
     axios
       .post(API_URL + '/api/login', userData)
       .then(response => {

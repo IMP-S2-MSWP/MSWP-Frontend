@@ -25,7 +25,6 @@ import useBluetoothScanner from '../../components/BluetoothScanner';
 import {API_URL, Image_URL} from '../../env';
 import LottieView from 'lottie-react-native';
 import {useUser} from '../../stores/UserContext';
-import {insertUserInfo} from '../../components/firebase/roomService';
 // Dummy data for demonstration
 
 const UserListPage = props => {
@@ -190,7 +189,7 @@ const UserListPage = props => {
   const updateUsers = data => {
     // 필터링하여 null이 아닌 유저 객체만 추출하고 배열로 변환
     const newUsers = Object.values(data).filter(
-      user => user && typeof user === 'object',
+      user => user && typeof user === 'object' && user !== null,
     );
     const plusUser = newUsers.map(user => {
       return {
@@ -213,23 +212,12 @@ const UserListPage = props => {
       idList: [user.id, id],
       state: '1',
     });
-    if (response.data.sc == 201) {
-      insertUserInfo(
-        response.data.number,
-        [user.id, response.data.id],
-        [user.nickname, response.data.rname],
-      );
+    //console.log(response.data); {"number": "2023@11@21@qaztest", "rname": "test", "sc": 200}
+    if (response.data.sc == 200) {
       navigation.navigate('채팅', {
         screen: 'Chat',
         params: {rname: response.data.rname, number: response.data.number},
       });
-    } else if (response.data.sc == 200) {
-      navigation.navigate('채팅', {
-        screen: 'Chat',
-        params: {rname: response.data.rname, number: response.data.number},
-      });
-    } else {
-      console.log('야 이상함');
     }
   };
   return (
