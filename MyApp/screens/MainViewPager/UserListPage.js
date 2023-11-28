@@ -22,7 +22,7 @@ import {
 import axios from 'axios';
 import useBluetoothScanner from '../../components/BluetoothScanner';
 // import {API_URL} from '@env';
-import {API_URL, Image_URL} from '../../env';
+import {API_URL, Image_URL} from '@env';
 import LottieView from 'lottie-react-native';
 import {useUser} from '../../stores/UserContext';
 // Dummy data for demonstration

@@ -10,7 +10,7 @@ import {
 import {Pressable, HStack, Spacer} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import {API_URL, Image_URL} from '../env';
+import {API_URL, Image_URL} from '@env';
 import {Box} from 'native-base';
 import {useUser} from '../stores/UserContext';
 

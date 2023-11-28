@@ -8,7 +8,7 @@ import LoginFormControl from '../components/Button/Login/LoginFormControl';
 
 import {useUser} from '../stores/UserContext';
 // import {API_URL} from './env';
-import {API_URL} from '../env';
+import {API_URL} from '@env';
 
 const LoginScreen = () => {
   const [userData, setUserData] = useState({
