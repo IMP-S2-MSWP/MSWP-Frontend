@@ -29,7 +29,7 @@ import {API_URL, Image_URL} from './../env';
 import {launchImageLibrary} from 'react-native-image-picker';
 
 const MypageScreen = props => {
-  const {user} = useUser();
+  const {user, setUser} = useUser();
   const [name, setName] = useState('카리나');
   const [introduce, setIntroduce] = useState(user.message);
   const [age, setAge] = useState('24');
@@ -113,6 +113,7 @@ const MypageScreen = props => {
             if (response.data.sc == '200') {
               console.log('만드는데 성공함');
               setFileSource(photo.uri);
+
               setFileType(response.assets[0].type);
               setFileData(response.assets[0]);
             } else {
@@ -126,36 +127,56 @@ const MypageScreen = props => {
     });
   };
 
-  const renderBeaconItem = ({item}) => (
-    <Pressable
-      //onPress={() => navigation.navigate(item.screen)}
-      borderBottomWidth="1"
-      borderColor="coolGray.200"
-      pl="4"
-      pr="5"
-      py="2">
-      <Box
+  const renderBeaconItem = ({item}) => {
+    const uuid = item.uuid;
+    const beaconname = item.beaconname;
+    const beaconType = item.state;
+    return (
+      <Pressable
+        onPress={() =>
+          navigation.navigate('광고수정', {uuid, beaconname, beaconType})
+        }
         borderBottomWidth="1"
         borderColor="coolGray.200"
         pl="4"
         pr="5"
         py="2">
-        <HStack space={3} justifyContent="space-between">
-          <VStack>
-            <Text _dark={{color: 'warmGray.50'}} color="coolGray.800" bold>
-              {item.beaconname} 타입 :{' '}
-              {item.state === '2'
-                ? '그룹채팅'
-                : item.state === '3'
-                ? '이벤트'
-                : ''}
-            </Text>
-            <Text color="coolGray.600">{item.message}</Text>
-          </VStack>
-        </HStack>
-      </Box>
-    </Pressable>
-  );
+        <Box
+          borderBottomWidth="1"
+          borderColor="coolGray.200"
+          pl="4"
+          pr="5"
+          py="2">
+          <HStack space={3} justifyContent="space-between">
+            <VStack>
+              <Image
+                style={{borderRadius: 14}}
+                source={{
+                  uri:
+                    Image_URL +
+                    '/beacon/' +
+                    item.image +
+                    '?cache=' +
+                    Math.random(),
+                }}
+                alt={'x'}
+                boxSize={10}
+              />
+              <Text _dark={{color: 'warmGray.50'}} color="coolGray.800" bold>
+                {item.beaconname} 타입 :{' '}
+                {item.state === '2'
+                  ? '그룹채팅'
+                  : item.state === '3'
+                  ? '이벤트'
+                  : ''}
+              </Text>
+              <Text color="coolGray.600">{item.message}</Text>
+            </VStack>
+          </HStack>
+        </Box>
+      </Pressable>
+    );
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <HStack>
@@ -199,7 +220,7 @@ const MypageScreen = props => {
           <Pressable onPress={handleChoosePhoto}>
             <Image
               source={{
-                uri: fileSource,
+                uri: fileSource + '?cache=' + Math.random(),
               }}
               alt="Alternate Text"
               borderRadius="150"

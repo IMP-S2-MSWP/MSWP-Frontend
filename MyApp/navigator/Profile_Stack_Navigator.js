@@ -9,6 +9,7 @@ import MypageScreen from '../screens/MypageScreen';
 import BeaconRegist from '../screens/BeaconRegist';
 import GroupChat from '../screens/Gc_Beacon_Create';
 import Advertisement from '../screens/Ad_Beacon_Create';
+import Ad_Beacon_Update from '../screens/Ad_Beacon_Update';
 const Stack = createStackNavigator();
 
 const screenOptionStyle = {
@@ -41,6 +42,11 @@ const Profile_Stack_Navigator = ({navigation, route}) => {
       <Stack.Screen
         name="마이페이지"
         component={MypageScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="광고수정"
+        component={Ad_Beacon_Update}
         options={{headerShown: false}}
       />
       <Stack.Screen

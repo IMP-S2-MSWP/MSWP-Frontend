@@ -43,7 +43,7 @@ const ChatScreen = ({route}) => {
         docSnapshot.forEach(document => {
           const type = user.id === document.data().name;
           documents.push({
-            id: document.id,
+            docid: document.id,
             ...document.data(),
             isMine: type,
           });
@@ -63,6 +63,7 @@ const ChatScreen = ({route}) => {
         name: user.nickname,
         text: newMessage,
         date: Timestamp.now(),
+        id: user.id,
       });
       setNewMessage('');
     } else {
@@ -105,7 +106,7 @@ const ChatScreen = ({route}) => {
           automaticallyAdjustKeyboardInsets={true}>
           {data.map(message => (
             <View
-              key={message.id}
+              key={message.docid}
               style={[
                 styles.messageContainer,
                 message.isMine
@@ -116,7 +117,7 @@ const ChatScreen = ({route}) => {
                 <Image
                   style={styles.userImage}
                   source={{
-                    uri: Image_URL + '/user/' + message.name + '.jpg',
+                    uri: Image_URL + '/user/' + message.id + '.jpg',
                   }}
                   alt={message.name}
                 />
