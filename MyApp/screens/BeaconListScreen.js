@@ -30,13 +30,14 @@ const BeaconListScreen = props => {
         } else if (selectedTab === 'event') {
           stateValue = '3';
         }
-
-        const response = await axios.post(API_URL + '/api/room/list', {
+        console.log(user.id, stateValue);
+        const response = await axios.post(API_URL + '/api/beacon/list', {
           id: user.id,
           state: stateValue,
         });
 
         if (response.data != null) {
+          console.log(response.data);
           setChatList(response.data);
         } else {
           console.log('방없음');
@@ -60,20 +61,23 @@ const BeaconListScreen = props => {
     <Pressable
       style={styles.chatItem}
       onPress={() =>
-        navigation.navigate('Chat', {chatid: item.number, uid: user.id})
+        navigation.navigate('Chat', {number: item.uuid, rname: item.beaconname})
       }>
       <View style={styles.avatar} />
-      <Text style={styles.chatName}>{item.number} 비콘</Text>
+      <Text style={styles.chatName}>{item.beaconname} 비콘</Text>
     </Pressable>
   );
   const renderChatItem2 = ({item}) => (
     <Pressable
       style={styles.chatItem}
       onPress={() =>
-        navigation.navigate('EventBeacon', {chatid: item.number, uid: user.id})
+        navigation.navigate('EventBeacon', {
+          number: item.uuid,
+          rname: item.beaconname,
+        })
       }>
       <View style={styles.avatar} />
-      <Text style={styles.chatName}>{item.number} 비콘</Text>
+      <Text style={styles.chatName}>{item.beaconname} 비콘</Text>
     </Pressable>
   );
 
@@ -135,7 +139,7 @@ const BeaconListScreen = props => {
           <FlatList
             data={chatList}
             renderItem={renderChatItem}
-            keyExtractor={item => item.number}
+            keyExtractor={item => item.uuid}
           />
         </>
       )}
@@ -146,7 +150,7 @@ const BeaconListScreen = props => {
           <FlatList
             data={chatList}
             renderItem={renderChatItem2}
-            keyExtractor={item => item.number}
+            keyExtractor={item => item.uuid}
           />
         </>
       )}
