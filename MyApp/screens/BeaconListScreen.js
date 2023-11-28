@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {useUser} from '../stores/UserContext';
 import {TextInput} from 'react-native-gesture-handler';
-import {API_URL} from '../env';
+import {API_URL} from '@env';
 const BeaconListScreen = props => {
   //const uid = route.params.uid
   const {user} = useUser();

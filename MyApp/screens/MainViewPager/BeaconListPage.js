@@ -23,7 +23,7 @@ import {
 /// 스타일 임포트
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
-import {API_URL, Image_URL} from '../../env';
+import {API_URL, Image_URL} from '@env';
 import {useUser} from '../../stores/UserContext';
 import {insertUserInfo} from '../../components/firebase/roomService';
 const BeaconListPage = props => {

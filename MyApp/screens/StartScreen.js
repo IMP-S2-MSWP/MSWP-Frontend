@@ -9,7 +9,7 @@ import PermissionUtil, {
   APP_PERMISSION_CODE,
 } from '../components/permission/PermissionUtil';
 import axios from 'axios';
-import {API_URL} from '../env';
+import {API_URL} from '@env';
 
 const StartScreen = props => {
   useEffect(() => {

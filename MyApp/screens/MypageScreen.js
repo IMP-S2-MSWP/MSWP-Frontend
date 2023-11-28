@@ -25,7 +25,7 @@ import {
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import axios from 'axios';
 import Svg, {Path} from 'react-native-svg';
-import {API_URL, Image_URL} from './../env';
+import {API_URL, Image_URL} from '@env';
 import {launchImageLibrary} from 'react-native-image-picker';
 
 const MypageScreen = props => {

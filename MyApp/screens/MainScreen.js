@@ -40,7 +40,7 @@ import useBluetoothAdvertiser from '../components/Bluetooth/BluetoothAdvertiser'
 import {useUser} from '../stores/UserContext';
 import ProfileSettingsModal from './ProfileSettingsModal';
 // import {API_URL} from '@env';
-import {API_URL, Image_URL} from './../env';
+import {API_URL, Image_URL} from '@env';
 import axios from 'axios';
 const MainScreen = props => {
   const theme = useTheme();

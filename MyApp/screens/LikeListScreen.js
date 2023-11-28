@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import PagerView from 'react-native-pager-view';
 import axios from 'axios';
 import {useUser} from '../stores/UserContext';
-import {API_URL, Image_URL} from '../env';
+import {API_URL, Image_URL} from '@env';
 
 const LikeListScreen = props => {
   const {user} = useUser();

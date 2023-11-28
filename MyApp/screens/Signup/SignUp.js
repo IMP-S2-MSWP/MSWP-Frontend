@@ -11,7 +11,7 @@ import NickNamepage from './NickNamePage';
 import Passwordpage from './PasswordPage';
 import UserNamepage from './UsernamePage';
 // import {API_URL} from '@env';
-import {API_URL} from '../../env';
+import {API_URL} from '@env';
 
 // 'SignUp' 함수형 컴포넌트를 정의합니다.
 const SignUp = () => {
