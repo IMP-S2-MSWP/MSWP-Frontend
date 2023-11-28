@@ -4,7 +4,11 @@ import React from 'react';
 import {View} from 'react-native';
 import NickNameFormControl from './FormControl/NickNameFormControl';
 
-// 'NicknamePage' 함수형 컴포넌트를 정의합니다.
+/**
+ * 닉네임 입력 페이지를 표시하는 페이지입니다.
+ * @param {userData, handleInputChange} param0
+ * @returns
+ */
 const NicknamePage = ({userData, handleInputChange}) => {
   return (
     <View pointerEvents="box-none">
