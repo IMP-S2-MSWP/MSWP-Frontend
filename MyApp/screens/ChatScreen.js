@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   InputAccessoryView,
 } from 'react-native';
+import {VStack} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation} from '@react-navigation/native';
@@ -25,6 +26,8 @@ import {
 } from 'firebase/firestore';
 import {useUser} from '../stores/UserContext';
 import {API_URL, Image_URL} from './../env';
+import ChatInput from '../components/Input/ChatInput';
+import axios from 'axios';
 
 const db = getFirestore(app);
 
@@ -35,15 +38,16 @@ const ChatScreen = ({route}) => {
   const scrollViewRef = useRef();
   const navigation = useNavigation();
   const rname = route.params.rname;
+
   useEffect(() => {
     const unsubscribe = onSnapshot(
       collection(db, 'room', route.params.number, 'chat'),
       docSnapshot => {
         let documents = [];
         docSnapshot.forEach(document => {
-          const type = user.id === document.data().name;
+          const type = user.nickname === document.data().name;
           documents.push({
-            id: document.id,
+            docid: document.id,
             ...document.data(),
             isMine: type,
           });
@@ -63,6 +67,7 @@ const ChatScreen = ({route}) => {
         name: user.nickname,
         text: newMessage,
         date: Timestamp.now(),
+        id: user.id,
       });
       setNewMessage('');
     } else {
@@ -105,7 +110,7 @@ const ChatScreen = ({route}) => {
           automaticallyAdjustKeyboardInsets={true}>
           {data.map(message => (
             <View
-              key={message.id}
+              key={message.docid}
               style={[
                 styles.messageContainer,
                 message.isMine
@@ -113,49 +118,70 @@ const ChatScreen = ({route}) => {
                   : styles.theirMessageContainer,
               ]}>
               {!message.isMine && (
-                <Image
-                  style={styles.userImage}
-                  source={{
-                    uri: Image_URL + '/user/' + message.name + '.jpg',
-                  }}
-                  alt={message.name}
-                />
+                <VStack>
+                  <Image
+                    style={styles.userImage}
+                    // source={{
+                    //   uri:
+                    //     Image_URL + '/user/' + message.id + '.jpg'
+                    //       ? Image_URL + '/user/' + message.id + '.jpg'
+                    //       : Image_URL + '/user/' + message.id + '.png',
+                    // }}
+                    source={
+                      {
+                        uri:
+                          Image_URL +
+                          '/user/' +
+                          message.id +
+                          `.jpg?cache=${Math.random()}`,
+                      } != null
+                        ? {
+                            uri:
+                              Image_URL +
+                              '/user/' +
+                              message.id +
+                              `.jpg?cache=${Math.random()}`,
+                          }
+                        : {uri: Image_URL + '/user/no_image.jpg'}
+                    }
+                    alt={Image_URL + '/user/no_image.jpg'}
+                  />
+                </VStack>
               )}
-              <View
-                style={[
-                  styles.message,
-                  message.isMine ? styles.myMessage : styles.theirMessage,
-                ]}>
-                <Text
-                  style={
-                    message.isMine
-                      ? styles.myMessageText
-                      : styles.theirMessageText
-                  }>
-                  {message.text}
-                </Text>
-              </View>
+              <VStack w="100%">
+                {!message.isMine ? (
+                  <Text style={{color: '#000000'}}>{message.name}</Text>
+                ) : null}
+                <View
+                  style={[
+                    styles.message,
+                    message.isMine ? styles.myMessage : styles.theirMessage,
+                  ]}>
+                  <Text
+                    style={
+                      message.isMine
+                        ? styles.myMessageText
+                        : styles.theirMessageText
+                    }>
+                    {message.text}
+                  </Text>
+                </View>
+              </VStack>
             </View>
           ))}
         </ScrollView>
 
         {/* Message input */}
-        <InputAccessoryView>
-          <View style={styles.footer}>
-            <TextInput
-              value={newMessage}
-              onChangeText={setNewMessage}
-              style={styles.input}
-              placeholder="Type a message"
-              returnKeyType="send"
-              onSubmitEditing={sendMessage}
-              blurOnSubmit={false}
-            />
-            <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
-              <Text style={styles.sendButtonText}>Send</Text>
-            </TouchableOpacity>
-          </View>
-        </InputAccessoryView>
+
+        <ChatInput
+          value={newMessage}
+          onChangeText={setNewMessage}
+          style={styles.input}
+          placeholder="Type a message"
+          returnKeyType="send"
+          onSubmitEditing={sendMessage}
+          blurOnSubmit={false}
+        />
       </View>
       <View style={{marginBottom: 20}} />
     </SafeAreaView>
@@ -198,6 +224,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     marginRight: 10,
+    marginBottom: 24,
   },
   message: {
     marginVertical: 5,
