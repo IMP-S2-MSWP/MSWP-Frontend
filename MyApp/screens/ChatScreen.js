@@ -7,9 +7,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
-  KeyboardAvoidingView,
   Platform,
   SafeAreaView,
+  InputAccessoryView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -85,69 +85,62 @@ const ChatScreen = ({route}) => {
           Wennect
         </Text>
       </HStack>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{flex: 1}}>
-        <View style={{flex: 1}}>
-          {/* Header */}
-          <View style={styles.header}>
-            <Ionicons
-              name="arrow-back-outline"
-              color="white"
-              size={30}
-              onPress={navigation.goBack}
-            />
-            <Text style={styles.headerText}>{rname}</Text>
-          </View>
+      <View style={{flex: 1}}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Ionicons
+            name="arrow-back-outline"
+            color="white"
+            size={30}
+            onPress={navigation.goBack}
+          />
+          <Text style={styles.headerText}>{rname}</Text>
+        </View>
 
-          {/* Messages */}
-          <ScrollView
-            ref={scrollViewRef}
-            onContentSizeChange={() =>
-              scrollViewRef.current?.scrollToEnd({animated: true})
-            }
-            onLayout={() =>
-              scrollViewRef.current?.scrollToEnd({animated: true})
-            }
-            style={{flex: 1}}
-            contentContainerStyle={styles.messagesContainer}>
-            {data.map(message => (
+        {/* Messages */}
+        <ScrollView
+          ref={scrollViewRef}
+          style={{flex: 1}}
+          contentContainerStyle={styles.messagesContainer}
+          automaticallyAdjustKeyboardInsets={true}>
+          {data.map(message => (
+            <View
+              key={message.id}
+              style={[
+                styles.messageContainer,
+                message.isMine
+                  ? styles.myMessageContainer
+                  : styles.theirMessageContainer,
+              ]}>
+              {!message.isMine && (
+                <Image
+                  style={styles.userImage}
+                  source={{
+                    uri: Image_URL + '/user/' + message.name + '.jpg',
+                  }}
+                  alt={message.name}
+                />
+              )}
               <View
-                key={message.id}
                 style={[
-                  styles.messageContainer,
-                  message.isMine
-                    ? styles.myMessageContainer
-                    : styles.theirMessageContainer,
+                  styles.message,
+                  message.isMine ? styles.myMessage : styles.theirMessage,
                 ]}>
-                {!message.isMine && (
-                  <Image
-                    style={styles.userImage}
-                    source={{
-                      uri: Image_URL + '/user/' + message.name + '.jpg',
-                    }}
-                    alt={message.name}
-                  />
-                )}
-                <View
-                  style={[
-                    styles.message,
-                    message.isMine ? styles.myMessage : styles.theirMessage,
-                  ]}>
-                  <Text
-                    style={
-                      message.isMine
-                        ? styles.myMessageText
-                        : styles.theirMessageText
-                    }>
-                    {message.text}
-                  </Text>
-                </View>
+                <Text
+                  style={
+                    message.isMine
+                      ? styles.myMessageText
+                      : styles.theirMessageText
+                  }>
+                  {message.text}
+                </Text>
               </View>
-            ))}
-          </ScrollView>
+            </View>
+          ))}
+        </ScrollView>
 
-          {/* Message input */}
+        {/* Message input */}
+        <InputAccessoryView>
           <View style={styles.footer}>
             <TextInput
               value={newMessage}
@@ -162,8 +155,8 @@ const ChatScreen = ({route}) => {
               <Text style={styles.sendButtonText}>Send</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </KeyboardAvoidingView>
+        </InputAccessoryView>
+      </View>
       <View style={{marginBottom: 20}} />
     </SafeAreaView>
   );
@@ -229,7 +222,7 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#white',
   },
   input: {
     flex: 1,
@@ -239,6 +232,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   sendButton: {
+    flex: 0.15,
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: '#2679ff',
