@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import {Pressable, HStack, Spacer} from 'native-base';
+import {Pressable, HStack, Spacer, Box, Image, VStack} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import PagerView from 'react-native-pager-view';
 import axios from 'axios';
@@ -46,23 +46,55 @@ const LikeListScreen = props => {
           Wennect
         </Text>
       </HStack>
-      <Text
-        style={{
-          alignSelf: 'center',
-          fontSize: 40,
-          fontWeight: 'bold',
-          color: '#2679ff',
-        }}>
-        WHO LIKES ME
-      </Text>
+      <Box
+        borderColor="#2679ff"
+        p="2"
+        //borderBottomWidth="0.4"
+        borderBottomWidth="2"
+        //borderTopWidth="2"
+        mb="5"
+        w="370"
+        h="100"
+        alignSelf="center">
+        <Text
+          style={{
+            alignSelf: 'center',
+            fontSize: 40,
+            fontWeight: 'bold',
+            color: '#2679ff',
+          }}>
+          WHO YOU LIKE
+        </Text>
+      </Box>
       <ScrollView>
         {likeList.map((item, index) => (
-          <View key={index}>
-            <Text>Name: {item.name}</Text>
-            <Text>ID: {item.id}</Text>
-            <Text>Birth: {item.birth}</Text>
-            {/* 다른 필요한 데이터도 여기에 추가 */}
-          </View>
+          <Pressable
+            key={index}
+            p="1"
+            m="1"
+            marginBottom={1}
+            borderBottomWidth="0"
+            onPress={() => moveChat(item.id)}>
+            <HStack
+              space={3}
+              alignItems="center"
+              justifyContent="space-between">
+              <HStack space={3} alignItems="center" marginLeft={4} flex={1}>
+                {/* Assuming you have an 'image' property in your likeList items */}
+                <Image
+                  style={{borderRadius: 14}}
+                  source={{uri: Image_URL + '/user/' + item.image}}
+                  alt={'test'}
+                  boxSize={10}
+                />
+                <VStack>
+                  <Text style={{fontSize: 16}}>{item.name}</Text>
+                  {/* Replace with actual message property */}
+                  <Text>{item.message}</Text>
+                </VStack>
+              </HStack>
+            </HStack>
+          </Pressable>
         ))}
       </ScrollView>
     </SafeAreaView>
