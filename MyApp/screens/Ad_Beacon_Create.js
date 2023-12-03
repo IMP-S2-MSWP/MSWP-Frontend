@@ -29,6 +29,13 @@ import {
   VStack,
 } from 'native-base';
 
+
+/**
+ * 광고 생성 페이지 컴포넌트입니다.
+ * @param {object} route - 라우터 객체.
+ * @returns {JSX.Element} Advertisement 컴포넌트.
+ */
+
 const Advertisement = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;
 
@@ -43,6 +50,9 @@ const Advertisement = ({route}) => {
   );
   const [adText, setAdText] = useState('');
 
+  /**
+   * 앨범에서 사진 선택하는 함수.
+   */
   const handleChoosePhoto = () => {
     let options = {
       mediaType: 'photo',
@@ -67,10 +77,11 @@ const Advertisement = ({route}) => {
     });
   };
 
+  /**
+   * 광고 업로드 처리 함수.
+   */
   const handleUpload = async () => {
     const formData = new FormData();
-    // 이미지 파일 추가 (여기서는 URL에서 파일을 가져옵니다)
-    // 실제 사용 시에는 File 객체 또는 Blob 객체를 사용해야 합니다.
     formData.append('uuid', uuid);
     formData.append('creator', user.id);
     formData.append('state', beaconType);
@@ -83,7 +94,7 @@ const Advertisement = ({route}) => {
       name: `image.jpg`,
     };
     formData.append('file', photo); // 두 번째 인자는 Blob, 세 번째 인자는 파일명
-    console.log(formData);
+
     // 업로드 로직 구현
     axios
       .post(API_URL + '/api/beacon/create', formData, {

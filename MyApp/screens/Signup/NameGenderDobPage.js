@@ -1,34 +1,19 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import DobFormControl from './FormControl/DobFormControl';
-import GenderFormControl from './FormControl/GenderFormControl';
-import NameFormControl from './FormControl/NameFormControl';
+import DobFormControl from '../../components/FormControl/SignUpFormControlStyle/DobFormControl';
+import GenderFormControl from '../../components/FormControl/SignUpFormControl/GenderFormControl';
+import NameFormControl from '../../components/FormControl/SignUpFormControl/NameFormControl';
 
-// 'NameGenderDOBPage' 함수형 컴포넌트를 정의합니다.
+/**
+ * 이름, 성별, 생년월일을 입력받는 페이지를 나타내는 함수형 컴포넌트입니다.
+ *
+ * @param {object} props - 컴포넌트 프로퍼티.
+ * @param {object} props.userData - 사용자 데이터 객체, 입력된 정보를 포함합니다.
+ * @param {function} props.handleInputChange - 입력 변경을 처리하는 콜백 함수.
+ *
+ * @returns {JSX.Element} NameGenderDOBPage 컴포넌트.
+ */
 const NameGenderDOBPage = ({userData, handleInputChange}) => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [dob, setDob] = useState('');
-
-  // DatePicker를 표시하는 함수입니다.
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  // DatePicker를 숨기는 함수입니다.
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  // DatePicker에서 날짜를 선택했을 때의 처리 함수입니다.
-  const handleConfirm = selectedDate => {
-    // 선택된 날짜를 ISO 형식으로 변환하여 상태를 업데이트합니다.
-    const formattedDate = selectedDate.toISOString().split('T')[0];
-    setDob(formattedDate);
-    hideDatePicker();
-    // 'handleInputChange' 함수를 사용하여 생년월일 상태를 업데이트합니다.
-    handleInputChange('dob')(formattedDate);
-  };
-
   return (
     <View>
       {/* 이름 입력 폼을 표시하는 'NameFormControl' 컴포넌트입니다. */}
