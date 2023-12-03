@@ -52,13 +52,9 @@ const PasswordFormControl = props => {
 
       <FormControl isInvalid={props.passwordsDoNotMatch}>
         <Stack width="335" mx="5" mt="10">
-<<<<<<< HEAD:MyApp/screens/Signup/FormControl/PasswordFormControl.js
           {/* 레이블을 표시하는 부분입니다. */}
           <FormControl.Label mt="1" isInvalid>
             {/* 텍스트 스타일을 'style.form_title_style'에서 가져온 스타일로 적용합니다. */}
-=======
-          <FormControl.Label mt="10" isInvalid>
->>>>>>> fa2db9919248d5b2aeba61181a4de401f95b24f3:MyApp/components/FormControl/SignUpFormControl/PasswordFormControl.js
             <Text style={style.form_title_style}>비밀번호 확인</Text>
           </FormControl.Label>
           <Input

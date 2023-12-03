@@ -18,13 +18,9 @@ import style from '../SignUpFormControlStyle/PasswordFormControl.style';
 const UsernameFormControl = props => {
   return (
     <View>
-<<<<<<< HEAD:MyApp/screens/Signup/FormControl/UsernameFormControl.js
       {/* NativeBase의 FormControl을 사용하여 입력 폼을 구성합니다. */}
       <FormControl zIndex={1}>
         {/* Stack을 사용하여 입력 폼의 스타일을 설정합니다. */}
-=======
-      <FormControl>
->>>>>>> fa2db9919248d5b2aeba61181a4de401f95b24f3:MyApp/components/FormControl/SignUpFormControl/UsernameFormControl.js
         <Stack width="335" mx="5" mt="60">
           <FormControl.Label>
             <Text style={style.form_title_style}>아이디</Text>
