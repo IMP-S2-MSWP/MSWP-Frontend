@@ -14,7 +14,7 @@ const UsernameFormControl = props => {
     // 뷰 컴포넌트를 렌더링합니다.
     <View>
       {/* NativeBase의 FormControl을 사용하여 입력 폼을 구성합니다. */}
-      <FormControl>
+      <FormControl zIndex={1}>
         {/* Stack을 사용하여 입력 폼의 스타일을 설정합니다. */}
         <Stack width="335" mx="5" mt="60">
           {/* FormControl.Label을 사용하여 입력 필드의 레이블을 정의합니다. */}

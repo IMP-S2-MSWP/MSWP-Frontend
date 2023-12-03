@@ -1,24 +1,9 @@
 // UserListPage.js
 
 import React, {useRef, useState, useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
-import {View, Text, FlatList, ScrollView, Alert} from 'react-native';
-import {
-  Button,
-  Checkbox,
-  Input,
-  Pressable,
-  Box,
-  HStack,
-  VStack,
-  Badge,
-  Spacer,
-  Flex,
-  Switch,
-  Image,
-  Center,
-} from 'native-base';
+import {View, Text, ScrollView} from 'react-native';
+import {Pressable, HStack, VStack, Image} from 'native-base';
 import axios from 'axios';
 import useBluetoothScanner from '../../components/BluetoothScanner';
 // import {API_URL} from '@env';
@@ -31,9 +16,7 @@ const UserListPage = props => {
   const [users, setUsers] = useState([]); // Initialize users as empty array
 
   const {devices, startScan, scanning} = useBluetoothScanner();
-  const {statues, setStatues} = useState(false);
   const [heartList, setHeartList] = useState([]);
-  const [userIdList, setUserIdList] = useState([]);
   const lottieRefs = useRef({});
 
   const {user} = useUser();
@@ -42,15 +25,11 @@ const UserListPage = props => {
     heartlist(user.id);
     // 컴포넌트 마운트 시 1회 스캔을 수행합니다.
     const initialScanTimeout = setTimeout(() => {
-      startScan(5, scannedDevices => {
-        // console.log('Scanning complete, devices:', scannedDevices);
-      });
+      startScan(5);
     }, 1000);
 
     const scanInterval = setInterval(() => {
-      startScan(5, scannedDevices => {
-        console.log('Scanning complete, devices:', scannedDevices);
-      });
+      startScan(5, scannedDevices => {});
     }, 6000);
 
     return () => {
@@ -62,7 +41,6 @@ const UserListPage = props => {
   useEffect(() => {
     if (!scanning) {
       const userUUIDsArray = users.map(user => user.uuid);
-
       // 스캔된 디바이스 중에서 users 배열에 없는 UUIDs만 가진 디바이스를 필터링합니다.
       // device.advertising.serviceUUIDs가 배열이므로, 배열 내에 userUUIDs가 없는 것을 찾아야 합니다.
       // devices 배열에서 각 device의 serviceUUIDs를 추출하여 하나의 배열로 합칩니다.
@@ -82,7 +60,6 @@ const UserListPage = props => {
         );
         setUsers(updatedUsers); // 필터링된 사용자 목록으로 users 상태를 업데이트
       }
-      console.log('878787878' + delUUIDsToCheck);
 
       // 필터링된 새 디바이스가 있다면, 해당 디바이스의 serviceUUIDs를 확인합니다.
       if (newUUIDsToCheck.length > 0) {
@@ -129,7 +106,6 @@ const UserListPage = props => {
       console.log(response.data);
       // Handle the server response
       if (response.data) {
-        console.log('Service UUIDs check was successful.');
         updateUsers(response.data); // Assuming updateUsers function is designed to handle the response data properly.
       } else {
         console.log('There was a problem checking the Service UUIDs.');
@@ -149,13 +125,6 @@ const UserListPage = props => {
         idFrom: idFrom, // Only the new service UUIDs
         idTo: idTo, // Only the new service UUIDs
       });
-      console.log(response.data);
-      // Handle the server response
-      if (response.data) {
-        console.log('Service UUIDs check was successful.'); // Assuming updateUsers function is designed to handle the response data properly.
-      } else {
-        console.log('There was a problem checking the Service UUIDs.');
-      }
       return response.data; // Return the data for further processing if needed
     } catch (error) {
       console.error(
@@ -168,7 +137,6 @@ const UserListPage = props => {
   async function heartlist(id) {
     try {
       const response = await axios.get(API_URL + '/api/like/count?id=' + id);
-      console.log(response.data);
       // Handle the server response
       if (response.data) {
         console.log('Service UUIDs check was successful.');

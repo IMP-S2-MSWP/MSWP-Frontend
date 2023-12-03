@@ -54,7 +54,7 @@ const PasswordFormControl = props => {
       <FormControl isInvalid={props.passwordsDoNotMatch}>
         <Stack width="335" mx="5" mt="10">
           {/* 레이블을 표시하는 부분입니다. */}
-          <FormControl.Label mt="10" isInvalid>
+          <FormControl.Label mt="1" isInvalid>
             {/* 텍스트 스타일을 'style.form_title_style'에서 가져온 스타일로 적용합니다. */}
             <Text style={style.form_title_style}>비밀번호 확인</Text>
           </FormControl.Label>

@@ -24,15 +24,13 @@ const PasswordPage = ({
   return (
     <View>
       {/* 'PasswordFormControl' 컴포넌트를 사용하여 비밀번호 입력 폼을 표시합니다. */}
-      <Stack width="335" mx="5" mt="60">
-        <PasswordFormControl
-          userData={userData}
-          handleInputChange={handleInputChange}
-          passwordConfirmation={passwordConfirmation}
-          setPasswordConfirmation={setPasswordConfirmation}
-          passwordsDoNotMatch={passwordsDoNotMatch}
-        />
-      </Stack>
+      <PasswordFormControl
+        userData={userData}
+        handleInputChange={handleInputChange}
+        passwordConfirmation={passwordConfirmation}
+        setPasswordConfirmation={setPasswordConfirmation}
+        passwordsDoNotMatch={passwordsDoNotMatch}
+      />
     </View>
   );
 };

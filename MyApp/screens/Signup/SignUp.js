@@ -31,6 +31,7 @@ const SignUp = () => {
     password: '',
     nickname: '',
   });
+  const [duplicates, setDuplicates] = useState(false);
 
   // 비밀번호 일치 여부를 확인하는 상태를 관리합니다.
   const [passwordsDoNotMatch, setpasswordsDoNotMatch] = useState(false);
@@ -72,9 +73,15 @@ const SignUp = () => {
       return;
     }
     if (pageIndex === 1) {
-      if ('400' == (await checkUsernameAvailability(userData.username))) {
+      const checkId = await checkUsernameAvailability(userData.username);
+
+      if ('400' == checkId) {
         alert('중복된 아이디입니다.');
         return;
+      } else if ('200' == checkId) {
+        setDuplicates(true);
+      } else {
+        alert('아이디 중복체크에 오류가 생겼습니다.');
       }
     } else if (pageIndex === 2 && userData.password !== passwordConfirmation) {
       setpasswordsDoNotMatch(true);
@@ -135,7 +142,12 @@ const SignUp = () => {
       {/* 페이지마다 다른 컴포넌트를 표시합니다. */}
       <PagerView
         ref={pagerRef}
-        style={{flex: 1}}
+        scrollEnabled={false}
+        style={{
+          width: '90%',
+          height: '90%',
+          justifyContent: 'center',
+        }}
         initialPage={0}
         onPageSelected={e => setPageIndex(e.nativeEvent.position)}>
         <NameGenderDOBpage

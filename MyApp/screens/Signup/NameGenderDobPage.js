@@ -42,7 +42,10 @@ const NameGenderDOBPage = ({userData, handleInputChange}) => {
         handleInputChange={handleInputChange}
       />
       {/* 생년월일 입력 폼을 표시하는 'DobFormControl' 컴포넌트입니다. */}
-      <DobFormControl handleInputChange={handleInputChange} />
+      <DobFormControl
+        handleInputChange={handleInputChange}
+        userData={userData}
+      />
     </View>
   );
 };
