@@ -8,12 +8,14 @@ import LoginFormControl from '../components/Button/Login/LoginFormControl';
 
 import {useUser} from '../stores/UserContext';
 // import {API_URL} from './env';
+
 import {API_URL, PUSH_URL} from '../env';
 import fcm from '@react-native-firebase/messaging';
 /**
  * 로그인 화면을 표시하는 스크린입니다.
  * @returns 로그인 화면을 표시합니다.
  */
+
 const LoginScreen = () => {
   const [userData, setUserData] = useState({
     id: '',
@@ -32,9 +34,11 @@ const LoginScreen = () => {
     }));
   };
 
+
   const {user, setUser} = useUser();
   const handleLogin = async () => {
     const fcmToken = await fcm().getToken();
+
     axios
       .post(API_URL + '/api/login', userData)
       .then(response => {

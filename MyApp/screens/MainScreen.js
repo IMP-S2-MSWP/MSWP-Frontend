@@ -40,7 +40,7 @@ import useBluetoothAdvertiser from '../components/Bluetooth/BluetoothAdvertiser'
 import {useUser} from '../stores/UserContext';
 import ProfileSettingsModal from './ProfileSettingsModal';
 // import {API_URL} from '@env';
-import {API_URL, Image_URL} from './../env';
+import {API_URL, Image_URL} from '@env';
 import axios from 'axios';
 const MainScreen = props => {
   const theme = useTheme();
@@ -163,7 +163,8 @@ const MainScreen = props => {
           <HStack alignItems="center">
             <Image
               source={{
-                uri: Image_URL + '/user/' + user.image,
+                uri:
+                  Image_URL + '/user/' + user.image + '?cache=' + Math.random(),
               }}
               alt="Alternate Text"
               borderRadius="50"

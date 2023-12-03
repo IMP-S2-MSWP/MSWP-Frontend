@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import {API_URL} from '../env';
+import {API_URL} from '@env';
 import {useUser} from '../stores/UserContext';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {
@@ -29,11 +29,13 @@ import {
   VStack,
 } from 'native-base';
 
+
 /**
  * 광고 생성 페이지 컴포넌트입니다.
  * @param {object} route - 라우터 객체.
  * @returns {JSX.Element} Advertisement 컴포넌트.
  */
+
 const Advertisement = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;
 

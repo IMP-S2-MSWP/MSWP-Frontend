@@ -18,16 +18,20 @@ import {
   Switch,
   Image,
   Center,
+  Modal,
 } from 'native-base';
 /// 스타일 임포트
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
-import {API_URL, Image_URL} from '../../env';
+import {API_URL, Image_URL} from '@env';
 import {useUser} from '../../stores/UserContext';
 import {insertUserInfo} from '../../components/firebase/roomService';
 const BeaconListPage = props => {
   const [users, setUsers] = useState([]); // Initialize users as empty array
   const {user} = useUser();
+  const [title, setTitle] = useState('');
+  const [fileSource, setFileSource] = useState(null);
+  const [isBeaconModalVisible, setIsBeaconModalVisible] = useState(false);
 
   const navigation = useNavigation();
 
@@ -51,6 +55,28 @@ const BeaconListPage = props => {
           screen: 'Chat',
           params: {rname: beaconname, number: response.data.number},
         });
+      } else {
+        console.log('비콘 join 에러');
+      }
+    } else if (state == 3) {
+      if (response.data.sc == 201 || response.data.sc == 200) {
+        console.log('광고인듯');
+        axios
+          .post(API_URL + '/api/beacon/show', {uuid: uuid})
+          .then(response => {
+            if (response.data != null) {
+              console.log(response.data);
+              setTitle(response.data.title);
+              setFileSource(response.data.advertisementImage);
+              setIsBeaconModalVisible(true);
+            } else {
+              console.log('error');
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            // 에러 처리 로직 작성
+          });
       } else {
         console.log('비콘 join 에러');
       }
@@ -99,6 +125,34 @@ const BeaconListPage = props => {
             </Pressable>
           ))}
       </ScrollView>
+      <Modal
+        isOpen={isBeaconModalVisible}
+        onClose={() => setIsBeaconModalVisible(false)}>
+        <Modal.Content>
+          <Modal.CloseButton />
+          <Modal.Header>광고</Modal.Header>
+          <Modal.Body>
+            {fileSource !== null ? (
+              <Image
+                source={{
+                  uri:
+                    Image_URL +
+                    '/advertisement/' +
+                    fileSource +
+                    '?cache=' +
+                    Math.random(),
+                }}
+                alt={'x'}
+                resizeMode="contain"
+                height={400}
+              />
+            ) : null}
+          </Modal.Body>
+          <Modal.Footer>
+            <Text>{title}</Text>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
     </View>
   );
 };

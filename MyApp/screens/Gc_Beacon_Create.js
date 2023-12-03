@@ -25,7 +25,7 @@ import {
   Center,
   VStack,
 } from 'native-base';
-import {API_URL} from '../env';
+import {API_URL} from '@env';
 
 const GroupChat = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;

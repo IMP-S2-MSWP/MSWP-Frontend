@@ -6,6 +6,7 @@ import React, {useRef, useState} from 'react';
 import {View} from 'react-native';
 import PagerView from 'react-native-pager-view';
 import SignUpButton from '../../components/Button/SignUp/SignUpButton';
+
 import CompletePage from './Completepage';
 import NameGenderDOBPage from './NameGenderDobPage';
 import NickNamePage from './NickNamePage';
@@ -14,6 +15,7 @@ import UserNamePage from './UsernamePage';
 // import { API_URL } from '@env';
 import {API_URL} from '../../env';
 import fcm from '@react-native-firebase/messaging';
+
 
 /**
  * 회원가입을 처리하는 함수형 컴포넌트입니다.
