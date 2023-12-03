@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {View} from 'react-native';
-import NickNameFormControl from './FormControl/NickNameFormControl';
+import NickNameFormControl from '../../components/FormControl/SignUpFormControl/NickNameFormControl';
 
 /**
  * 닉네임 입력 페이지를 표시하는 페이지입니다.

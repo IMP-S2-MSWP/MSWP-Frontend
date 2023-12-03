@@ -1,29 +1,32 @@
-// PasswordFormControl.js
-
 import React from 'react';
 import {FormControl, Input, Stack, WarningOutlineIcon} from 'native-base';
 import {Text, View} from 'react-native';
-import style from './PasswordFormControl.style';
+import style from '../SignUpFormControlStyle/PasswordFormControl.style';
 
-// 'PasswordFormControl'이라는 함수형 컴포넌트를 정의합니다. 이 컴포넌트는 비밀번호와 관련된 입력 폼을 표시합니다.
+/**
+ * 비밀번호와 관련된 입력 폼을 표시하는 함수형 컴포넌트입니다.
+ *
+ * @param {object} props - 컴포넌트 프로퍼티.
+ * @param {object} props.userData - 사용자 데이터 객체, 비밀번호 정보를 포함합니다.
+ * @param {string} props.userData.password - 현재 입력된 비밀번호 값.
+ * @param {function} props.handleInputChange - 입력 변경을 처리하는 콜백 함수.
+ * @param {boolean} props.passwordsDoNotMatch - 비밀번호 확인이 일치하지 않는지 여부.
+ * @param {string} props.passwordConfirmation - 비밀번호 확인 값.
+ * @param {function} props.setPasswordConfirmation - 비밀번호 확인 값을 설정하는 함수.
+ *
+ * @returns {JSX.Element} PasswordFormControl 컴포넌트.
+ */
 const PasswordFormControl = props => {
-  // 비밀번호의 유효성을 검사하는 정규 표현식 패턴입니다.
   const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
-  // 비밀번호가 유효한지 여부를 확인합니다.
   const isPasswordValid = passwordPattern.test(props.userData.password);
 
   return (
     <View>
-      {/* 폼 컨트롤을 사용하여 입력 폼을 감싸는 부분입니다. */}
       <FormControl isInvalid={!isPasswordValid}>
         <Stack width="335" mx="5" mt="60">
-          {/* 레이블을 표시하는 부분입니다. */}
           <FormControl.Label>
-            {/* 텍스트 스타일을 'style.form_title_style'에서 가져온 스타일로 적용합니다. */}
             <Text style={style.form_title_style}>비밀번호</Text>
           </FormControl.Label>
-          {/* 비밀번호 입력 필드를 표시하는 부분입니다. */}
           <Input
             size="xl"
             variant="underlined"
@@ -33,14 +36,11 @@ const PasswordFormControl = props => {
             placeholder="비밀번호 입력"
             style={style.form_input_style}
           />
-          {/* 도움말 텍스트를 표시하는 부분입니다. */}
           <FormControl.HelperText>
-            {/* 텍스트 스타일을 'style.form_helpertext_style'에서 가져온 스타일로 적용합니다. */}
             <Text style={style.form_helpertext_style}>
               영문, 숫자 조합으로만 가능
             </Text>
           </FormControl.HelperText>
-          {/* 비밀번호가 유효하지 않은 경우 에러 메시지를 표시하는 부분입니다. */}
           {!isPasswordValid && (
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon size="xs" />}>
@@ -50,15 +50,17 @@ const PasswordFormControl = props => {
         </Stack>
       </FormControl>
 
-      {/* 비밀번호 확인 부분입니다. */}
       <FormControl isInvalid={props.passwordsDoNotMatch}>
         <Stack width="335" mx="5" mt="10">
+<<<<<<< HEAD:MyApp/screens/Signup/FormControl/PasswordFormControl.js
           {/* 레이블을 표시하는 부분입니다. */}
           <FormControl.Label mt="1" isInvalid>
             {/* 텍스트 스타일을 'style.form_title_style'에서 가져온 스타일로 적용합니다. */}
+=======
+          <FormControl.Label mt="10" isInvalid>
+>>>>>>> fa2db9919248d5b2aeba61181a4de401f95b24f3:MyApp/components/FormControl/SignUpFormControl/PasswordFormControl.js
             <Text style={style.form_title_style}>비밀번호 확인</Text>
           </FormControl.Label>
-          {/* 비밀번호 확인 입력 필드를 표시하는 부분입니다. */}
           <Input
             size="xl"
             type="password"
@@ -68,7 +70,6 @@ const PasswordFormControl = props => {
             placeholder="비밀번호 재입력"
             style={style.form_input_style}
           />
-          {/* 비밀번호 불일치 시 에러 메시지를 표시하는 부분입니다. */}
           {props.passwordsDoNotMatch && (
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon size="xs" />}>

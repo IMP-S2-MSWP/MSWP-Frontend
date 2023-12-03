@@ -1,23 +1,26 @@
-// NameFormControl.js
-
 import React from 'react';
 import {FormControl, Input, WarningOutlineIcon, Stack} from 'native-base';
 import {Text, View} from 'react-native';
-import style from './NameGenderDobFormControl.style';
+import style from '../SignUpFormControlStyle/NameGenderDobFormControl.style';
 
-// 'NameFormControl'이라는 함수형 컴포넌트를 정의합니다.
+/**
+ * 이름을 입력받는 폼 컨트롤을 나타내는 함수형 컴포넌트입니다.
+ *
+ * @param {object} props - 컴포넌트 프로퍼티.
+ * @param {object} props.userData - 사용자 데이터 객체, 이름 정보를 포함합니다.
+ * @param {string} props.userData.name - 현재 입력된 이름 값.
+ * @param {function} props.handleInputChange - 입력 변경을 처리하는 콜백 함수.
+ *
+ * @returns {JSX.Element} NameFormControl 컴포넌트.
+ */
 const NameFormControl = props => {
   return (
     <View>
-      {/* 폼 컨트롤을 사용하여 입력 폼을 감싸는 부분입니다. */}
       <FormControl>
         <Stack width="335" mx="5" mt="60">
-          {/* 레이블을 표시하는 부분입니다. */}
           <FormControl.Label>
-            {/* 텍스트 스타일을 'style.form_title_style'에서 가져온 스타일로 적용합니다. */}
             <Text style={style.form_title_style}>이름</Text>
           </FormControl.Label>
-          {/* 이름을 입력받는 Input을 표시하는 부분입니다. */}
           <Input
             size="xl"
             variant="underlined"
@@ -26,7 +29,6 @@ const NameFormControl = props => {
             placeholder="이름 입력"
             style={style.form_input_style}
           />
-          {/* 이름 입력 에러 메시지를 표시하는 부분입니다. */}
           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             At least 6 characters are required.
           </FormControl.ErrorMessage>

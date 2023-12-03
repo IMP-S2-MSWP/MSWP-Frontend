@@ -1,27 +1,34 @@
-// UsernameFormControl.js
-
 // React 및 NativeBase에서 필요한 컴포넌트를 불러옵니다.
 import React from 'react';
 import {FormControl, Input, WarningOutlineIcon, Stack} from 'native-base';
 import {Text, View} from 'react-native';
 
-// 스타일 파일을 불러옵니다.
-import style from './PasswordFormControl.style';
+import style from '../SignUpFormControlStyle/PasswordFormControl.style';
 
-// 'UsernameFormControl' 함수형 컴포넌트를 정의합니다.
+/**
+ * 사용자명을 입력받는 폼 컨트롤을 나타내는 함수형 컴포넌트입니다.
+ *
+ * @param {object} props - 컴포넌트 프로퍼티.
+ * @param {object} props.userData - 사용자 데이터 객체, 사용자명 정보를 포함합니다.
+ * @param {string} props.userData.username - 현재 입력된 사용자명 값.
+ * @param {function} props.handleInputChange - 입력 변경을 처리하는 콜백 함수.
+ *
+ * @returns {JSX.Element} UsernameFormControl 컴포넌트.
+ */
 const UsernameFormControl = props => {
   return (
-    // 뷰 컴포넌트를 렌더링합니다.
     <View>
+<<<<<<< HEAD:MyApp/screens/Signup/FormControl/UsernameFormControl.js
       {/* NativeBase의 FormControl을 사용하여 입력 폼을 구성합니다. */}
       <FormControl zIndex={1}>
         {/* Stack을 사용하여 입력 폼의 스타일을 설정합니다. */}
+=======
+      <FormControl>
+>>>>>>> fa2db9919248d5b2aeba61181a4de401f95b24f3:MyApp/components/FormControl/SignUpFormControl/UsernameFormControl.js
         <Stack width="335" mx="5" mt="60">
-          {/* FormControl.Label을 사용하여 입력 필드의 레이블을 정의합니다. */}
           <FormControl.Label>
             <Text style={style.form_title_style}>아이디</Text>
           </FormControl.Label>
-          {/* Input 컴포넌트를 사용하여 실제 입력이 가능한 폼을 생성합니다. */}
           <Input
             size="xl"
             variant="underlined"
@@ -30,13 +37,11 @@ const UsernameFormControl = props => {
             placeholder="아이디 입력"
             style={style.form_input_style}
           />
-          {/* FormControl.HelperText를 사용하여 보조 텍스트를 표시합니다. */}
           <FormControl.HelperText>
             <Text style={style.form_helpertext_style}>
               영문, 숫자 조합 2~10자리
             </Text>
           </FormControl.HelperText>
-          {/* FormControl.ErrorMessage를 사용하여 에러 메시지를 표시합니다. */}
           <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
             At least 6 characters are required.
           </FormControl.ErrorMessage>

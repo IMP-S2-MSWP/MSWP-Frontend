@@ -1,19 +1,27 @@
 // SignUp.js
 
+// axios 및 React, useRef, useState를 가져옵니다.
 import axios from 'axios';
 import React, {useRef, useState} from 'react';
 import {View} from 'react-native';
 import PagerView from 'react-native-pager-view';
 import SignUpButton from '../../components/Button/SignUp/SignUpButton';
-import Completepage from './Completepage';
-import NameGenderDOBpage from './NameGenderDobPage';
-import NickNamepage from './NickNamePage';
-import Passwordpage from './PasswordPage';
-import UserNamepage from './UsernamePage';
-// import {API_URL} from '@env';
-import {API_URL} from '@env';
 
-// 'SignUp' 함수형 컴포넌트를 정의합니다.
+import CompletePage from './Completepage';
+import NameGenderDOBPage from './NameGenderDobPage';
+import NickNamePage from './NickNamePage';
+import PasswordPage from './PasswordPage';
+import UserNamePage from './UsernamePage';
+// import { API_URL } from '@env';
+import {API_URL} from '../../env';
+import fcm from '@react-native-firebase/messaging';
+
+
+/**
+ * 회원가입을 처리하는 함수형 컴포넌트입니다.
+ *
+ * @returns {JSX.Element} SignUp 컴포넌트.
+ */
 const SignUp = () => {
   // 페이지 인덱스와 리프 객체를 상태로 관리합니다.
   const [pageIndex, setPageIndex] = useState(0);
@@ -34,7 +42,7 @@ const SignUp = () => {
   const [duplicates, setDuplicates] = useState(false);
 
   // 비밀번호 일치 여부를 확인하는 상태를 관리합니다.
-  const [passwordsDoNotMatch, setpasswordsDoNotMatch] = useState(false);
+  const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
 
   // 입력 값이 변경될 때 실행되는 함수를 정의합니다.
   const handleInputChange = name => text => {
@@ -84,7 +92,7 @@ const SignUp = () => {
         alert('아이디 중복체크에 오류가 생겼습니다.');
       }
     } else if (pageIndex === 2 && userData.password !== passwordConfirmation) {
-      setpasswordsDoNotMatch(true);
+      setPasswordsDoNotMatch(true);
       alert('Passwords do not match.');
       return;
     } else if (pageIndex === 3) {
@@ -115,6 +123,7 @@ const SignUp = () => {
   // 서버에 회원가입을 요청하는 함수를 정의합니다.
   const handleRegister = async () => {
     try {
+      const fcmToken = await fcm().getToken();
       const response = await axios.post(API_URL + '/api/register', {
         id: userData.username,
         password: userData.password,
@@ -122,6 +131,7 @@ const SignUp = () => {
         nickname: userData.nickname,
         birth: userData.dob,
         gender: userData.gender == 'man' ? 'M' : 'W',
+        fcm: fcmToken,
       });
 
       if (response.data.sc === '200') {
@@ -150,17 +160,17 @@ const SignUp = () => {
         }}
         initialPage={0}
         onPageSelected={e => setPageIndex(e.nativeEvent.position)}>
-        <NameGenderDOBpage
+        <NameGenderDOBPage
           key="1"
           handleInputChange={handleInputChange}
           userData={userData}
         />
-        <UserNamepage
+        <UserNamePage
           key="2"
           handleInputChange={handleInputChange}
           userData={userData}
         />
-        <Passwordpage
+        <PasswordPage
           key="3"
           handleInputChange={handleInputChange}
           userData={userData}
@@ -168,12 +178,12 @@ const SignUp = () => {
           setPasswordConfirmation={setPasswordConfirmation}
           passwordsDoNotMatch={passwordsDoNotMatch}
         />
-        <NickNamepage
+        <NickNamePage
           key="4"
           handleInputChange={handleInputChange}
           userData={userData}
         />
-        <Completepage key="5" />
+        <CompletePage key="5" />
       </PagerView>
 
       {/* 마지막 페이지가 아니면 회원가입 버튼을 표시합니다. */}
