@@ -25,10 +25,9 @@ import {
   Timestamp,
 } from 'firebase/firestore';
 import {useUser} from '../stores/UserContext';
-import {API_URL, Image_URL} from './../env';
+import {API_URL, Image_URL, PUSH_URL} from './../env';
 import ChatInput from '../components/Input/ChatInput';
 import axios from 'axios';
-
 const db = getFirestore(app);
 
 const ChatScreen = ({route}) => {
@@ -63,12 +62,22 @@ const ChatScreen = ({route}) => {
 
   const sendMessage = async () => {
     if (newMessage.length > 0) {
-      await addDoc(collection(db, 'room', route.params.number, 'chat'), {
-        name: user.nickname,
-        text: newMessage,
-        date: Timestamp.now(),
-        id: user.id,
-      });
+      try {
+        await addDoc(collection(db, 'room', route.params.number, 'chat'), {
+          name: user.nickname,
+          text: newMessage,
+          date: Timestamp.now(),
+          id: user.id,
+        });
+        axios.post(PUSH_URL + '/fcm/notification', {
+          to: route.params.number,
+          id: user.id,
+          nickname: user.nickname,
+          text: newMessage,
+        });
+      } catch (err) {
+        console.log(err);
+      }
       setNewMessage('');
     } else {
       Alert.alert('Please enter a message to send.');

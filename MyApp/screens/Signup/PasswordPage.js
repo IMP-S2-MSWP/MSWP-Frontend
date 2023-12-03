@@ -1,11 +1,21 @@
-// PasswordPage.js
-
+// React 및 NativeBase에서 필요한 컴포넌트를 불러옵니다.
 import {Stack} from 'native-base';
 import React from 'react';
 import {View} from 'react-native';
-import PasswordFormControl from './FormControl/PasswordFormControl';
+import PasswordFormControl from '../../components/FormControl/SignUpFormControl/PasswordFormControl';
 
-// 'PasswordPage' 함수형 컴포넌트를 정의합니다.
+/**
+ * 비밀번호 입력 페이지를 나타내는 함수형 컴포넌트입니다.
+ *
+ * @param {object} props - 컴포넌트 프로퍼티.
+ * @param {object} props.userData - 사용자 데이터 객체, 비밀번호 정보를 포함합니다.
+ * @param {function} props.handleInputChange - 입력 변경을 처리하는 콜백 함수.
+ * @param {string} props.passwordConfirmation - 비밀번호 확인 값.
+ * @param {function} props.setPasswordConfirmation - 비밀번호 확인 값을 업데이트하는 함수.
+ * @param {boolean} props.passwordsDoNotMatch - 비밀번호와 확인 비밀번호가 일치하지 않는지 여부.
+ *
+ * @returns {JSX.Element} PasswordPage 컴포넌트.
+ */
 const PasswordPage = ({
   userData,
   handleInputChange,

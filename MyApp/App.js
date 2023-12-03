@@ -19,9 +19,16 @@ import BeaconRegist from './screens/BeaconRegist';
 import Advertisement from './screens/Ad_Beacon_Create';
 import groupChat from './screens/Gc_Beacon_Create';
 import {UserProvider} from './stores/UserContext';
+import {Alert} from 'react-native';
+import fcm from '@react-native-firebase/messaging';
+
 const Stack = createStackNavigator();
 
 function App() {
+  // fcm().onMessage(async remoteMessage => {
+  //   const fcmMsg = JSON.stringify(remoteMessage);
+  // });
+
   return (
     <UserProvider>
       <NativeBaseProvider>
