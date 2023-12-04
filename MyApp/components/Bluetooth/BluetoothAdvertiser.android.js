@@ -19,16 +19,5 @@ export default function useBluetoothAdvertiser() {
     }
   };
 
-  // return () => {
-  //   // Stop advertising when the component is unmounted
-  //   if (BlePeripheral.isAdvertising()) {
-  //     BlePeripheral.stop()
-  //       .then(() => console.log('BLE advertising stopped successfully.'))
-  //       .catch(error =>
-  //         console.log('Failed to stop BLE advertising:', error),
-  //       );
-  //   }
-  // };
-
   return {startAdvertising};
 }

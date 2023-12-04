@@ -63,7 +63,7 @@ const UserListPage = props => {
 
       // 필터링된 새 디바이스가 있다면, 해당 디바이스의 serviceUUIDs를 확인합니다.
       if (newUUIDsToCheck.length > 0) {
-        checkNewDeviceServiceUUIDs(newUUIDsToCheck);
+        const newUUID = checkNewDeviceServiceUUIDs(newUUIDsToCheck);
       }
     }
   }, [scanning]);

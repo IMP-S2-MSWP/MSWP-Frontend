@@ -8,10 +8,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './screens/LoginScreen';
 import SignUp from './screens/Signup/SignUp';
-//import Main_Drawer_Navigator from './navigator/Main_Drawer_Navigator'
-//
-//import DeviceScreen from './screens/DeviceScreen';
-//
 import {NativeBaseProvider} from 'native-base';
 import StartScreen from './screens/StartScreen';
 import Main_Tab_Navigator from './navigator/Main_Tab_Navigator';
@@ -21,6 +17,18 @@ import groupChat from './screens/Gc_Beacon_Create';
 import {UserProvider} from './stores/UserContext';
 import {Alert} from 'react-native';
 import fcm from '@react-native-firebase/messaging';
+import messaging from '@react-native-firebase/messaging';
+
+async function requestUserPermission() {
+  const authStatus = await messaging().requestPermission();
+  const enabled =
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  if (enabled) {
+    console.log('Authorization status:', authStatus);
+  }
+}
 
 const Stack = createStackNavigator();
 
@@ -28,6 +36,7 @@ function App() {
   // fcm().onMessage(async remoteMessage => {
   //   const fcmMsg = JSON.stringify(remoteMessage);
   // });
+  requestUserPermission();
 
   return (
     <UserProvider>

@@ -1,15 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
-import {Pressable, HStack, Spacer, Box, Image, VStack} from 'native-base';
+import {Text, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import {Pressable, HStack, Box, Image, VStack} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
-import PagerView from 'react-native-pager-view';
 import axios from 'axios';
 import {useUser} from '../stores/UserContext';
 import {API_URL, Image_URL} from '@env';

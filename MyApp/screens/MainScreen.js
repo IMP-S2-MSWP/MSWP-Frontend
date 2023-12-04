@@ -1,39 +1,18 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Animated,
-  StatusBar,
-  Dimensions,
-  SafeAreaView,
-} from 'react-native';
-import CustomButton from '../components/Button/CustomButton';
-import {useIsFocused} from '@react-navigation/native';
+import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import {useState, useEffect, useRef} from 'react';
 import {
-  Button,
-  Checkbox,
-  Input,
   useTheme,
   Pressable,
   Box,
   HStack,
-  Badge,
   Spacer,
-  Flex,
-  Switch,
   Image,
-  Center,
   VStack,
 } from 'native-base';
-import {TextInput} from 'react-native-gesture-handler';
-import LottieView from 'lottie-react-native';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PagerView from 'react-native-pager-view';
-import {NavigationContainer} from '@react-navigation/native';
 import UserListpage from './MainViewPager/UserListPage';
 import Beaconlistpage from './MainViewPager/BeaconListPage';
 import useBluetoothAdvertiser from '../components/Bluetooth/BluetoothAdvertiser';
@@ -123,11 +102,6 @@ const MainScreen = props => {
       </View>
     );
   };
-
-  const toggleList = () => {
-    // 스위치를 토글할 때 호출되는 함수
-    setIsFirstListVisible(!isFirstListVisible); // 현재 상태를 반대로 설정
-  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
       <View style={styles.center}>
@@ -195,15 +169,6 @@ const MainScreen = props => {
           <Pressable
             style={{flex: 1, alignItems: 'center'}}
             onPress={handleUserTextClick}>
-            {/* <Text
-              style={[
-                {fontSize: 18},
-                pageIndex === 0
-                  ? {fontWeight: 'bold', borderBottomWidth: 1}
-                  : null,
-              ]}>
-              User
-            </Text> */}
             <Ionicons
               style={[
                 pageIndex === 0
@@ -223,15 +188,6 @@ const MainScreen = props => {
           <Pressable
             style={{flex: 1, alignItems: 'center'}}
             onPress={handleBeaconTextClick}>
-            {/* <Text
-              style={[
-                {fontSize: 18},
-                pageIndex === 1
-                  ? {fontWeight: 'bold', borderBottomWidth: 1}
-                  : null,
-              ]}>
-              Beacon
-            </Text> */}
             <Ionicons
               style={[
                 pageIndex === 1

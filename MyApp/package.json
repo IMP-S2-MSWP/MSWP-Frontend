@@ -63,7 +63,8 @@
     "zustand": "^4.4.1"
   },
   "reactNativePermissionsIOS": [
-    "BluetoothPeripheral"
+    "BluetoothPeripheral",
+    "Notifications"
   ],
   "devDependencies": {
     "@babel/core": "^7.20.0",
