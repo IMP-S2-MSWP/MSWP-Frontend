@@ -9,11 +9,21 @@ import PermissionUtil, {
 } from '../components/permission/PermissionUtil';
 import axios from 'axios';
 
+/**
+ * 시작 화면 컴포넌트입니다.
+ * @component
+ * @example
+ * // Usage
+ * <StartScreen />
+ */
 const StartScreen = props => {
   useEffect(() => {
+    // Bluetooth 권한 요청
     PermissionUtil.cmmReqPermis([...APP_PERMISSION_CODE.bluetooth]);
   }, []);
-  const navigation = useNavigation(); // 네비게이션 객체를 가져옵니다.
+
+  const navigation = useNavigation();
+
   return (
     <View style={Mainstyle.container}>
       <LottieView
@@ -22,9 +32,12 @@ const StartScreen = props => {
         autoPlay
         loop
       />
+
       <CustomButton
         title="시작하기"
-        onPress={() => navigation.navigate('SignUp')}></CustomButton>
+        onPress={() => navigation.navigate('SignUp')}
+      />
+
       <Text
         style={Mainstyle.bottomText}
         onPress={() => navigation.navigate('Login')}>
@@ -33,4 +46,5 @@ const StartScreen = props => {
     </View>
   );
 };
+
 export default StartScreen;
