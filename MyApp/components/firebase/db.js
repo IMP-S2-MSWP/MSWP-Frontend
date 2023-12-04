@@ -6,7 +6,7 @@ import {
   FIREBASE_BUCKET,
   FIREBASE_MSG,
   FIREBASE_APP,
-} from '@env';
+} from '../../env';
 import {initializeApp} from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries

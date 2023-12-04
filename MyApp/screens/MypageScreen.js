@@ -1,33 +1,30 @@
-import React from 'react';
-import {View, Text, StyleSheet, FlatList, SafeAreaView} from 'react-native';
-import CustomButton from '../components/Button/CustomButton';
-import {useIsFocused} from '@react-navigation/native';
-import {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useUser} from '../stores/UserContext';
 
-import {
-  Button,
-  Checkbox,
-  Input,
-  useTheme,
-  Pressable,
-  Box,
-  HStack,
-  Badge,
-  Spacer,
-  Image,
-  Flex,
-  VStack,
-  Modal,
-} from 'native-base';
-import {ScrollView, TextInput} from 'react-native-gesture-handler';
+import {API_URL, Image_URL} from '../env';
 import axios from 'axios';
-import Svg, {Path} from 'react-native-svg';
-import {API_URL, Image_URL} from '@env';
+import {
+  Box,
+  Button,
+  HStack,
+  Image,
+  Modal,
+  Pressable,
+  Spacer,
+  VStack,
+} from 'native-base';
 import {launchImageLibrary} from 'react-native-image-picker';
-
+import MyPageInput from '../components/Input/MyPageInput';
+import styles from '../components/Style/MyProfile/ProfileStyle';
+import WennectTitle from '../components/WennectTitle/WennectTitle';
+/**
+ * 마이페이지 화면 컴포넌트입니다.
+ * @param {object} props - 프롭스 객체.
+ * @returns {JSX.Element} MypageScreen 컴포넌트.
+ */
 const MypageScreen = props => {
   const {user, setUser} = useUser();
   const [name, setName] = useState('카리나');
@@ -113,7 +110,6 @@ const MypageScreen = props => {
             if (response.data.sc == '200') {
               console.log('만드는데 성공함');
               setFileSource(photo.uri);
-
               setFileType(response.assets[0].type);
               setFileData(response.assets[0]);
             } else {
@@ -177,46 +173,15 @@ const MypageScreen = props => {
       </Pressable>
     );
   };
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <HStack>
-        <Text
-          style={{
-            fontWeight: 'bold',
-
-            margin: 14,
-            marginBottom: 34,
-            fontSize: 20,
-            alignSelf: 'flex-start',
-            color: '#2679ff',
-          }}>
-          Wennect
-        </Text>
+        <WennectTitle />
       </HStack>
-      <Text
-        style={{
-          alignSelf: 'center',
-          fontSize: 40,
-          fontWeight: 'bold',
-          color: '#2679ff',
-        }}>
-        Profile
-      </Text>
-      <Box
-        style={{
-          borderWidth: 10,
-          borderColor: '#2679ff',
-          borderRadius: 300,
-          height: 550,
-          width: 550,
-          marginTop: 2,
-          alignSelf: 'center',
-        }}>
-        <View
-          style={{
-            alignItems: 'center',
-            textAlign: 'center',
-          }}>
+      <Text style={styles.profileText}>Profile</Text>
+      <Box style={styles.circleBox}>
+        <View style={styles.makeCenter}>
           <Pressable onPress={handleChoosePhoto}>
             <Image
               source={{
@@ -231,56 +196,28 @@ const MypageScreen = props => {
           </Pressable>
 
           <HStack alignItems="center">
-            <TextInput
-              style={{
-                color: isEditable ? '#808588' : 'black', // 버튼을 눌렀을 때 색상 변경
-                fontWeight: 'bold',
-                fontSize: 20,
-                marginTop: 17,
-              }}
+            <MyPageInput
               value={user.name}
               onChangeText={setName}
-              editable={isEditable}
+              isEditable={isEditable}
             />
-            <TextInput
-              style={{
-                color: isEditable ? '#808588' : 'black', // 버튼을 눌렀을 때 색상 변경
-
-                fontWeight: 'bold',
-                fontSize: 20,
-                marginTop: 17,
-              }}
+            <MyPageInput
               value={age}
               onChangeText={setAge}
-              editable={isEditable}
+              isEditable={isEditable}
             />
           </HStack>
-          <TextInput
-            style={{
-              color: isEditable ? '#808588' : 'black', // 버튼을 눌렀을 때 색상 변경
-
-              fontWeight: 'bold',
-              fontSize: 14,
-            }}
+          <MyPageInput
             value={introduce}
             onChangeText={setIntroduce}
-            editable={isEditable}
+            isEditable={isEditable}
+            customStyle={{fontSize: 14, marginTop: 0}} // 일부 스타일 변경
           />
 
           <HStack p="9" rounded="lg" w="370" h="110">
             <VStack>
               <Pressable
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 150,
-                  width: 50,
-                  height: 50,
-                  backgroundColor: '#808588',
-                  borderColor: 'grey',
-                  textAlign: 'center',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                style={styles.IconStyle}
                 onPress={() => setIsBeaconModalVisible(true)}>
                 <Ionicons name="bluetooth" size={30} color="white" />
               </Pressable>
@@ -288,15 +225,7 @@ const MypageScreen = props => {
             </VStack>
             <Spacer />
             <Pressable
-              style={{
-                borderWidth: 0,
-                borderRadius: 150,
-                width: 90,
-                height: 90,
-                textAlign: 'center',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
+              style={styles.heartStyle}
               onPress={() => {
                 console.log('hello2');
               }}>
@@ -306,17 +235,7 @@ const MypageScreen = props => {
             <Spacer />
             <VStack>
               <Pressable
-                style={{
-                  borderWidth: 1,
-                  borderRadius: 150,
-                  borderColor: 'grey',
-                  width: 50,
-                  height: 50,
-                  backgroundColor: '#808588',
-                  textAlign: 'center',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                style={styles.IconStyle}
                 onPress={() => {
                   console.log('change profile');
                   isEditable ? handleEditable() : null;
@@ -324,22 +243,9 @@ const MypageScreen = props => {
                 }}>
                 <Ionicons name="settings" size={30} color="white" />
               </Pressable>
-              <Text style={{alignSelf: 'center', color: '#808588'}}>설정 </Text>
+              <Text style={styles.settingStyle}>설정 </Text>
             </VStack>
           </HStack>
-          {/* <Svg height="28%" width="140%" viewBox="0 0 200 100">
-            <Path
-              d="M0 20 Q 95 90 200 20 L 200 120 L 0 120 Z"
-              fill="#E6E6E6" // 그림자 색상
-            />
-            <Path
-              d="M0 20 Q 95 90 200 20"
-              fill="none"
-              stroke="#2679ff"
-              strokeWidth="5"
-              transform="scale(-1, 1) translate(-200, 0)"
-            />
-          </Svg> */}
           <Modal
             isOpen={isBeaconModalVisible}
             onClose={() => setIsBeaconModalVisible(false)}>
@@ -367,25 +273,5 @@ const MypageScreen = props => {
     </SafeAreaView>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  box: {
-    width: 200,
-    height: 200,
-    backgroundColor: '#2679ff',
-    position: 'relative', // 절대적인 위치 사용을 위해 필요
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover', // 이미지가 Box에 맞게 크기 조정
-    position: 'absolute', // 절대적인 위치 사용
-    top: 0,
-    left: 0,
-  },
-});
+
 export default MypageScreen;

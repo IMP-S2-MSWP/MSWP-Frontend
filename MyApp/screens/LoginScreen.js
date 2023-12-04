@@ -34,7 +34,6 @@ const LoginScreen = () => {
     }));
   };
 
-
   const {user, setUser} = useUser();
   const handleLogin = async () => {
     const fcmToken = await fcm().getToken();

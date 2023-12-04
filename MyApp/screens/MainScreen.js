@@ -1,48 +1,32 @@
-import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Animated,
-  StatusBar,
-  Dimensions,
-  SafeAreaView,
-} from 'react-native';
-import CustomButton from '../components/Button/CustomButton';
-import {useIsFocused} from '@react-navigation/native';
-import {useState, useEffect, useRef} from 'react';
-import {
-  Button,
-  Checkbox,
-  Input,
-  useTheme,
-  Pressable,
   Box,
   HStack,
-  Badge,
-  Spacer,
-  Flex,
-  Switch,
   Image,
-  Center,
+  Pressable,
+  Spacer,
   VStack,
+  useTheme,
 } from 'native-base';
-import {TextInput} from 'react-native-gesture-handler';
-import LottieView from 'lottie-react-native';
-import {useNavigation} from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, {useEffect, useRef, useState} from 'react';
+import {SafeAreaView, Text, View} from 'react-native';
 import PagerView from 'react-native-pager-view';
-import {NavigationContainer} from '@react-navigation/native';
-import UserListpage from './MainViewPager/UserListPage';
-import Beaconlistpage from './MainViewPager/BeaconListPage';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import useBluetoothAdvertiser from '../components/Bluetooth/BluetoothAdvertiser';
 import {useUser} from '../stores/UserContext';
+import Beaconlistpage from './MainViewPager/BeaconListPage';
+import UserListpage from './MainViewPager/UserListPage';
 import ProfileSettingsModal from './ProfileSettingsModal';
 // import {API_URL} from '@env';
-import {API_URL, Image_URL} from '@env';
+import {API_URL, Image_URL} from '../env';
 import axios from 'axios';
-const MainScreen = props => {
+import styles from '../components/Style/MainStyle/MainScreenStyle';
+import WennectTitle from '../components/WennectTitle/WennectTitle';
+/**
+ * MainScreen 컴포넌트는 애플리케이션의 메인 화면을 구성합니다.
+ * @component
+ */
+const MainScreen = () => {
   const theme = useTheme();
   const [pageIndex, setPageIndex] = useState(0);
   const [heartList, setHeartList] = useState([]);
@@ -50,41 +34,25 @@ const MainScreen = props => {
   const pagerRef = useRef(null);
   const {startAdvertising} = useBluetoothAdvertiser();
   const [list, setList] = useState([]);
-  const [users, setUsers] = useState([]); // Initialize users as empty array
+  const [users, setUsers] = useState([]); // 사용자 목록을 빈 배열로 초기화합니다.
   const {user} = useUser();
   const [isProfileModalVisible, setProfileModalVisible] = useState(false);
 
-  const navigation = useNavigation(); // <-- 여기에 추가
+  const navigation = useNavigation(); // <-- Navigation hook을 사용하기 위해 추가
 
+  // Bluetooth 광고 시작 및 주기적인 HeartList 갱신을 위한 useEffect
   useEffect(() => {
     startAdvertising();
-    fheartlist(user.id);
+    fetchHeartList(user.id);
     const scanInterval = setInterval(() => {
-      fheartlist(user.id);
+      fetchHeartList(user.id);
     }, 6000);
     return () => {
       clearInterval(scanInterval);
     };
   }, []);
-  const handleUserTextClick = () => {
-    if (pageIndex == 1) {
-      setPageIndex(prevPageIndex => prevPageIndex - 1);
-      pagerRef.current.setPage(pageIndex - 1);
-    }
-  };
-  const handleBeaconTextClick = () => {
-    if (pageIndex == 0) {
-      setPageIndex(prevPageIndex => prevPageIndex + 1);
-      pagerRef.current.setPage(pageIndex + 1);
-    }
-  };
-  const handleOpenProfileModal = () => {
-    setProfileModalVisible(true);
-  };
 
-  const handleCloseProfileModal = () => {
-    setProfileModalVisible(false);
-  };
+  // HeartList 및 사용자 목록 갱신 시 실행되는 useEffect
   useEffect(() => {
     const duplicates = list.filter(item => heartList.includes(item));
     setHeartcount(duplicates.length);
@@ -94,27 +62,41 @@ const MainScreen = props => {
     console.log('users', users);
   }, [users]);
 
-  async function fheartlist(id) {
+  /**
+   * 서버로부터 HeartList를 가져오는 함수
+   * @async
+   * @function
+   * @param {string} id - 사용자 ID
+   * @returns {Promise<Array>} - 서버 응답으로부터 얻은 HeartList 배열
+   */
+  async function fetchHeartList(id) {
     try {
-      const response = await axios.post(API_URL + '/api/like/me', {
-        id: id,
-      });
-      // Handle the server response
+      const response = await axios.post(API_URL + '/api/like/me', {id});
       if (response.data) {
-        console.log('Service UUIDs check was successful.');
-        setHeartList(response.data); // Assuming updateUsers function is designed to handle the response data properly.
+        setHeartList(response.data);
       } else {
         console.log('There was a problem checking the Service UUIDs.');
       }
-      return response.data; // Return the data for further processing if needed
+      return response.data;
     } catch (error) {
       console.error(
         'An error occurred while checking the new service UUIDs:',
         error,
       );
-      return error; // Returning error for handling it appropriately in the calling context
+      return error;
     }
   }
+
+  /**
+   * 하트 아이콘과 텍스트를 표시하는 컴포넌트
+   * @component
+   * @param {Object} props - HeartIconWithText 컴포넌트에 전달되는 속성값
+   * @param {string} props.text - 표시될 텍스트
+   * @param {number} props.size - 아이콘 크기
+   * @param {string} props.color - 아이콘 및 텍스트 색상
+   * @param {Object} props.textStyle - 텍스트에 적용될 스타일 객체
+   * @param {Object} props.iconStyle - 아이콘에 적용될 스타일 객체
+   */
   const HeartIconWithText = ({text, size, color, textStyle, iconStyle}) => {
     return (
       <View style={{alignItems: 'center'}}>
@@ -124,24 +106,50 @@ const MainScreen = props => {
     );
   };
 
-  const toggleList = () => {
-    // 스위치를 토글할 때 호출되는 함수
-    setIsFirstListVisible(!isFirstListVisible); // 현재 상태를 반대로 설정
+  /**
+   * 사용자 목록과 비콘 목록을 전환하는 함수
+   * @function
+   */
+  const handleUserTextClick = () => {
+    if (pageIndex === 1) {
+      setPageIndex(prevPageIndex => prevPageIndex - 1);
+      pagerRef.current.setPage(pageIndex - 1);
+    }
   };
+
+  /**
+   * 비콘 목록과 사용자 목록을 전환하는 함수
+   * @function
+   */
+  const handleBeaconTextClick = () => {
+    if (pageIndex === 0) {
+      setPageIndex(prevPageIndex => prevPageIndex + 1);
+      pagerRef.current.setPage(pageIndex + 1);
+    }
+  };
+
+  /**
+   * 프로필 설정 모달을 열기 위한 함수
+   * @function
+   */
+  const handleOpenProfileModal = () => {
+    setProfileModalVisible(true);
+  };
+
+  /**
+   * 프로필 설정 모달을 닫기 위한 함수
+   * @function
+   */
+  const handleCloseProfileModal = () => {
+    setProfileModalVisible(false);
+  };
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
       <View style={styles.center}>
+        {/* 헤더 영역 */}
         <HStack>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              margin: 14,
-              fontSize: 20,
-              alignSelf: 'flex-start',
-              color: '#2679ff',
-            }}>
-            Wennect
-          </Text>
+          <WennectTitle />
           <Spacer />
           <Pressable p="4" onPress={handleOpenProfileModal}>
             <Ionicons name="settings" size={30} color="grey" />
@@ -151,15 +159,16 @@ const MainScreen = props => {
             onClose={handleCloseProfileModal}
           />
         </HStack>
+
+        {/* 사용자 정보 영역 */}
         <Box
           borderColor="#2679ff"
           p="5"
-          //borderBottomWidth="0.4"
           borderBottomWidth="2"
-          //borderTopWidth="2"
           mb="5"
           w="370"
-          h="110">
+          h="110"
+          backgroundColor="blue">
           <HStack alignItems="center">
             <Image
               source={{
@@ -172,38 +181,28 @@ const MainScreen = props => {
               h="60"
               mb="1"
             />
-
             <VStack ml="3">
-              <Text style={{fontWeight: 'bold', fontSize: 18, marginLeft: 6}}>
-                {user.name}
-              </Text>
-              <Text style={{marginLeft: 6, fontSize: 13}}>{user.message}</Text>
+              <Text style={styles.userName}>{user.name}</Text>
+              <Text style={styles.userMessage}>{user.message}</Text>
             </VStack>
             <Spacer />
             <HeartIconWithText
-              text={heartcount} // 여기에 표시할 텍스트 입력
+              text={heartcount}
               size={30}
               color="#DE3163"
-              textStyle={{fontSize: 20, marginRight: 20}} // 텍스트에 대한 스타일 지정
+              textStyle={{fontSize: 20, marginRight: 20}}
               iconStyle={{
                 marginRight: 20,
               }}
             />
           </HStack>
         </Box>
+
+        {/* 탭 버튼 영역 */}
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Pressable
             style={{flex: 1, alignItems: 'center'}}
             onPress={handleUserTextClick}>
-            {/* <Text
-              style={[
-                {fontSize: 18},
-                pageIndex === 0
-                  ? {fontWeight: 'bold', borderBottomWidth: 1}
-                  : null,
-              ]}>
-              User
-            </Text> */}
             <Ionicons
               style={[
                 pageIndex === 0
@@ -219,19 +218,9 @@ const MainScreen = props => {
               color="#808588"
             />
           </Pressable>
-
           <Pressable
             style={{flex: 1, alignItems: 'center'}}
             onPress={handleBeaconTextClick}>
-            {/* <Text
-              style={[
-                {fontSize: 18},
-                pageIndex === 1
-                  ? {fontWeight: 'bold', borderBottomWidth: 1}
-                  : null,
-              ]}>
-              Beacon
-            </Text> */}
             <Ionicons
               style={[
                 pageIndex === 1
@@ -249,6 +238,8 @@ const MainScreen = props => {
           </Pressable>
         </View>
       </View>
+
+      {/* 페이지 뷰어 */}
       <PagerView
         ref={pagerRef}
         style={styles.container}
@@ -261,23 +252,10 @@ const MainScreen = props => {
           users={users}
           setUsers={setUsers}
         />
-
         <Beaconlistpage key="1" users={users} setUsers={setUsers} />
       </PagerView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  center: {
-    alignItems: 'center',
-    textAlign: 'center',
-    backgroundColor: '#ffffff',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-  },
-});
 
 export default MainScreen;

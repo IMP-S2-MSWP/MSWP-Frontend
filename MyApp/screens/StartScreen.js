@@ -9,24 +9,35 @@ import PermissionUtil, {
   APP_PERMISSION_CODE,
 } from '../components/permission/PermissionUtil';
 import axios from 'axios';
-import {API_URL} from '@env';
+import {API_URL} from '../env';
 
+/**
+ * 시작 화면 컴포넌트입니다.
+ * @component
+ * @example
+ * // Usage
+ * <StartScreen />
+ */
 const StartScreen = props => {
   useEffect(() => {
+    // Bluetooth 권한 요청
     PermissionUtil.cmmReqPermis([...APP_PERMISSION_CODE.bluetooth]);
+
+    // API 호출 예시 (수정 필요)
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://3.37.127.142:8080/api/like/count?id=test`,
-        );
+        const response = await axios.get(`${API_URL}/api/like/count?id=test`);
+        // API 응답 데이터 처리
+        console.log(response.data);
       } catch (error) {
-        console.log(error);
-      } finally {
+        console.error(error);
       }
     };
     fetchData();
   }, []);
-  const navigation = useNavigation(); // 네비게이션 객체를 가져옵니다.
+
+  const navigation = useNavigation();
+
   return (
     <View style={Mainstyle.container}>
       <LottieView
@@ -35,9 +46,12 @@ const StartScreen = props => {
         autoPlay
         loop
       />
+
       <CustomButton
         title="시작하기"
-        onPress={() => navigation.navigate('SignUp')}></CustomButton>
+        onPress={() => navigation.navigate('SignUp')}
+      />
+
       <Text
         style={Mainstyle.bottomText}
         onPress={() => navigation.navigate('Login')}>
@@ -46,4 +60,5 @@ const StartScreen = props => {
     </View>
   );
 };
+
 export default StartScreen;
