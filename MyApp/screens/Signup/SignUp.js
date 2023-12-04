@@ -16,7 +16,6 @@ import UserNamePage from './UsernamePage';
 import {API_URL} from '../../env';
 import fcm from '@react-native-firebase/messaging';
 
-
 /**
  * 회원가입을 처리하는 함수형 컴포넌트입니다.
  *

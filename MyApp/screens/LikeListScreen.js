@@ -1,96 +1,78 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
-import {Pressable, HStack, Spacer, Box, Image, VStack} from 'native-base';
+/**
+ * 좋아요 목록 화면 컴포넌트입니다.
+ * @component
+ * @example
+ * // Usage
+ * <LikeListScreen />
+ */
+import {API_URL, Image_URL} from '../env';
 import {useNavigation} from '@react-navigation/native';
-import PagerView from 'react-native-pager-view';
 import axios from 'axios';
+import {Box, HStack, Image, Pressable, VStack} from 'native-base';
+import React, {useEffect, useState} from 'react';
+import {SafeAreaView, ScrollView, StyleSheet, Text} from 'react-native';
 import {useUser} from '../stores/UserContext';
-import {API_URL, Image_URL} from '@env';
-
+import styles from '../components/Style/LikeList/LikeStyle';
+import WennectTitle from '../components/WennectTitle/WennectTitle';
+/**
+ * 좋아요 목록 화면을 나타내는 함수형 컴포넌트입니다.
+ * @function
+ * @returns {JSX.Element} 좋아요 목록 화면 컴포넌트
+ */
 const LikeListScreen = props => {
   const {user} = useUser();
-  //const uid = route.params.uid
-  const [likeList, setlikeList] = useState([]);
-
+  const [likeList, setLikeList] = useState([]);
   const navigation = useNavigation();
+
   useEffect(() => {
     axios.get(API_URL + '/api/like/list?id=' + user.id).then(response => {
       if (response.data != null) {
         console.log(response.data);
-        setlikeList(Object.values(response.data));
+        setLikeList(Object.values(response.data));
       } else {
         console.log('조회 실패');
       }
     });
   }, []);
 
+  /**
+   * 채팅 화면으로 이동하는 함수
+   * @param {string} id - 채팅 상대방의 아이디
+   */
+  const moveChat = id => {
+    // 채팅으로 이동하는 로직 추가
+    // navigation.navigate('Chat', { chatId: id });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <HStack>
-        <Text
-          style={{
-            fontWeight: 'bold',
-            margin: 14,
-            marginBottom: 34,
-            fontSize: 20,
-            alignSelf: 'flex-start',
-            color: '#2679ff',
-          }}>
-          Wennect
-        </Text>
+        <WennectTitle />
       </HStack>
-      <Box
-        borderColor="#2679ff"
-        p="2"
-        //borderBottomWidth="0.4"
-        borderBottomWidth="2"
-        //borderTopWidth="2"
-        mb="5"
-        w="370"
-        h="100"
-        alignSelf="center">
-        <Text
-          style={{
-            alignSelf: 'center',
-            fontSize: 40,
-            fontWeight: 'bold',
-            color: '#2679ff',
-          }}>
-          WHO YOU LIKE
-        </Text>
+      <Box style={styles.headerBox}>
+        <Text style={styles.headerText}>WHO YOU LIKE</Text>
       </Box>
       <ScrollView>
+        {/* 좋아요 리스트를 화면에 렌더링 */}
         {likeList.map((item, index) => (
           <Pressable
             key={index}
-            p="1"
-            m="1"
-            marginBottom={1}
-            borderBottomWidth="0"
+            style={styles.pressableItem}
             onPress={() => moveChat(item.id)}>
             <HStack
               space={3}
               alignItems="center"
               justifyContent="space-between">
               <HStack space={3} alignItems="center" marginLeft={4} flex={1}>
-                {/* Assuming you have an 'image' property in your likeList items */}
                 <Image
-                  style={{borderRadius: 14}}
+                  style={styles.image}
                   source={{uri: Image_URL + '/user/' + item.image}}
                   alt={'test'}
                   boxSize={10}
                 />
                 <VStack>
-                  <Text style={{fontSize: 16}}>{item.name}</Text>
-                  {/* Replace with actual message property */}
-                  <Text>{item.message}</Text>
+                  <Text style={styles.itemName}>{item.name}</Text>
+                  <Text style={styles.itemMessage}>{item.message}</Text>
                 </VStack>
               </HStack>
             </HStack>
@@ -100,29 +82,5 @@ const LikeListScreen = props => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  chatItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
-  },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#2679ff',
-    marginRight: 15,
-  },
-  chatName: {
-    fontSize: 16,
-  },
-});
 
 export default LikeListScreen;
