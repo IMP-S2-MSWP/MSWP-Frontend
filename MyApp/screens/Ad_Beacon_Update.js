@@ -1,35 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Image,
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
-  Animated,
-} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {Button, HStack, Pressable} from 'native-base';
+import React, {useEffect, useState} from 'react';
+import {
+  Animated,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {API_URL, Image_URL} from '../env';
 import {useUser} from '../stores/UserContext';
-import {launchImageLibrary} from 'react-native-image-picker';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-  Checkbox,
-  Input,
-  useTheme,
-  Pressable,
-  Box,
-  HStack,
-  Badge,
-  Spacer,
-  Flex,
-  Switch,
-  Center,
-  VStack,
-  Button,
-} from 'native-base';
+import styles from '../components/Style/BeaconRegist/ADBeaconUpdateStyle';
 const Ad_Beacon_Update = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;
 
@@ -152,19 +137,10 @@ const Ad_Beacon_Update = ({route}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
+    <SafeAreaView style={styles.safeAreaViewStyle}>
       <ScrollView style={styles.container}>
         <HStack>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              margin: 14,
-              fontSize: 20,
-              alignSelf: 'flex-start',
-              color: '#2679ff',
-            }}>
-            광고 생성
-          </Text>
+          <Text style={styles.screenTitle}>광고 생성</Text>
         </HStack>
         <View style={styles.header}>
           <Text style={styles.headerText}>{beaconname}</Text>
@@ -201,77 +177,5 @@ const Ad_Beacon_Update = ({route}) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 10,
-    backgroundColor: '#2679ff',
-  },
-  headerText: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: 'white',
-    flex: 1,
-    textAlign: 'center',
-  },
-  bannerImage: {
-    width: 400,
-    height: 400,
-    borderRadius: 20,
-    alignSelf: 'center',
-  },
-  formContainer: {
-    padding: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    height: 80,
-    marginVertical: 12,
-    borderWidth: 1,
-    padding: 10,
-    width: 335,
-    borderRightWidth: 1,
-    borderLeftWidth: 1,
-    borderColor: '#2679ff',
-    borderRadius: 20,
-  },
-  text1: {
-    justifyContent: 'center',
-    alignSelf: 'center',
-    fontSize: 40,
-    marginBottom: 14,
-    color: '#2679ff',
-  },
-  text2: {
-    justifyContent: 'center',
-    alignSelf: 'center',
-    fontSize: 30,
-    margin: 10,
-    color: '#2679ff',
-  },
-  button_style: {
-    backgroundColor: '#2679ff',
-    borderRadius: 8,
-    width: 340,
-    height: 56,
-    bottom: 25,
-  },
-  invalidName: {
-    width: 60,
-    height: 20,
-    fontFamily: 'BMJUA_ttf',
-    fontSize: 16,
-    letterSpacing: 0.42,
-    textAlign: 'center',
-    color: '#ffffff',
-  },
-});
 
 export default Ad_Beacon_Update;

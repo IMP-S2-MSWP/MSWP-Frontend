@@ -3,7 +3,7 @@
 // axios 및 React, useRef, useState를 가져옵니다.
 import axios from 'axios';
 import React, {useRef, useState} from 'react';
-import {View} from 'react-native';
+import {View, Platform} from 'react-native';
 import PagerView from 'react-native-pager-view';
 import SignUpButton from '../../components/Button/SignUp/SignUpButton';
 
@@ -12,7 +12,7 @@ import NameGenderDOBPage from './NameGenderDobPage';
 import NickNamePage from './NickNamePage';
 import PasswordPage from './PasswordPage';
 import UserNamePage from './UsernamePage';
-import {API_URL} from '@env';
+import {API_URL} from '../../env';
 import fcm from '@react-native-firebase/messaging';
 
 /**
@@ -121,7 +121,17 @@ const SignUp = () => {
   // 서버에 회원가입을 요청하는 함수를 정의합니다.
   const handleRegister = async () => {
     try {
-      const fcmToken = await fcm().getToken();
+      //추가 사항 12/04 - 소대현
+      let fcmToken = '';
+      if (Platform.OS === 'android') {
+        console.log('android');
+        fcmToken = await fcm().getToken();
+        console.log(fcmToken);
+      } else {
+        console.log('ios');
+        fcmToken = 'sample';
+      }
+      //추가 사항
       const response = await axios.post(API_URL + '/api/register', {
         id: userData.username,
         password: userData.password,
