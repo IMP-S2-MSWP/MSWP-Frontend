@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
 import {Input, Select, CheckIcon, Pressable, Box} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import WennectTitle from '../components/WennectTitle/WennectTitle';
 import styles from '../components/Style/BeaconRegist/BeaconRegistScreenStyle';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 /**
  * 비콘 등록 컴포넌트
@@ -34,7 +35,7 @@ const BeaconRegist = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <WennectTitle customStyle={{marginBottom: 34}} />
       <Text style={styles.title}>비콘 등록</Text>
       <Box style={styles.box}>
@@ -84,7 +85,7 @@ const BeaconRegist = () => {
           <Text style={styles.registButton}>등록</Text>
         </Pressable>
       </Box>
-    </View>
+    </SafeAreaView>
   );
 };
 

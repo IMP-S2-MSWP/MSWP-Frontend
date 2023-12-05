@@ -9,12 +9,16 @@ import {
   StyleSheet,
   Text,
   TextInput,
+
   View,
+
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {API_URL, Image_URL} from '../env';
 import {useUser} from '../stores/UserContext';
-import styles from '../components/Style/BeaconRegist/ADBeaconUpdateStyle';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {Pressable, HStack, Button} from 'native-base';
+
 const Ad_Beacon_Update = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;
 

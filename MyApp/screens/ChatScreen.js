@@ -1,16 +1,5 @@
 import React, {useRef, useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  Platform,
-  SafeAreaView,
-  InputAccessoryView,
-} from 'react-native';
+import {View, Text, ScrollView, Alert, SafeAreaView} from 'react-native';
 import {VStack} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -45,7 +34,7 @@ const ChatScreen = ({route}) => {
       docSnapshot => {
         let documents = [];
         docSnapshot.forEach(document => {
-          const type = user.nickname === document.data().name;
+          const type = user.id === document.data().id;
           documents.push({
             docid: document.id,
             ...document.data(),
@@ -65,7 +54,7 @@ const ChatScreen = ({route}) => {
     if (newMessage.length > 0) {
       try {
         await addDoc(collection(db, 'room', route.params.number, 'chat'), {
-          name: user.nickname,
+          name: user.name,
           text: newMessage,
           date: Timestamp.now(),
           id: user.id,
@@ -73,7 +62,7 @@ const ChatScreen = ({route}) => {
         axios.post(PUSH_URL + '/fcm/notification', {
           to: route.params.number,
           id: user.id,
-          nickname: user.nickname,
+          nickname: user.name,
           text: newMessage,
         });
       } catch (err) {
