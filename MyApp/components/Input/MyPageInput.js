@@ -13,6 +13,8 @@ const MyPageInput = ({value, onChangeText, isEditable, customStyle}) => {
     <TextInput
       style={{
         color: isEditable ? '#808588' : 'black',
+        borderBottomWidth: isEditable ? 0.2 : 0,
+        caretHidden: false,
         fontWeight: 'bold',
         fontSize: 20,
         marginTop: 17,

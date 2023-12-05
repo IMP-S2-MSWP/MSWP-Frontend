@@ -12,6 +12,7 @@ import {Image_URL} from '../../env';
  * @param {Function} props.onClose - 모달을 닫는 함수.
  */
 const BeaconModal = ({title, fileSource, isVisible, onClose}) => {
+  console.log(fileSource + '========' + 'AQPjG5JeDN4.jpg');
   return (
     <Modal isOpen={isVisible} onClose={onClose}>
       <Modal.Content>
@@ -21,13 +22,16 @@ const BeaconModal = ({title, fileSource, isVisible, onClose}) => {
           {fileSource !== null ? (
             <Image
               source={{
+
                 uri: fileSource + '?cache=' + Math.random(),
+
               }}
               alt={'x'}
               resizeMode="contain"
               height={400}
             />
           ) : null}
+          <Text>{fileSource}</Text>
         </Modal.Body>
         <Modal.Footer>
           <Text>{title}</Text>
