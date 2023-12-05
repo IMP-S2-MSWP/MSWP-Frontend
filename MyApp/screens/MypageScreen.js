@@ -191,16 +191,8 @@ const MypageScreen = props => {
           </Pressable>
 
           <HStack alignItems="center">
-            <MyPageInput
-              value={user.name}
-              onChangeText={setName}
-              isEditable={isEditable}
-            />
-            <MyPageInput
-              value={age}
-              onChangeText={setAge}
-              isEditable={isEditable}
-            />
+            <MyPageInput value={user.name} onChangeText={setName} />
+            <MyPageInput value={age} onChangeText={setAge} />
           </HStack>
           <MyPageInput
             value={introduce}
@@ -222,7 +214,7 @@ const MypageScreen = props => {
             <Pressable
               style={styles.heartStyle}
               onPress={() => {
-                console.log('hello2');
+                navigation.navigate('좋아요');
               }}>
               <Ionicons name="heart" size={90} color="#DE3163" />
             </Pressable>

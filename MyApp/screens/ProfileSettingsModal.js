@@ -7,22 +7,10 @@ import {useNavigation} from '@react-navigation/native';
 const ProfileSettingsModal = ({isVisible, onClose}) => {
   const navigation = useNavigation(); // <-- 여기에 추가
 
-  const handleProfileChange = () => {
-    // 프로필 변경 로직을 구현하세요.
-    // ...
-    console.log('hellodddd');
-  };
-
-  const handleStatusChange = () => {
-    // 상태 메세지 변경 로직을 구현하세요.
-    // ...
-  };
-
   const handleLogout = () => {
     // 로그아웃 로직을 구현하세요.
     // 사용자의 세션을 종료하고 필요한 경우 클라이언트 상태를 초기화합니다.
     // 예: AsyncStorage.clear() 또는 사용자 정보를 관리하는 Context를 초기화하는 등
-
     // 로그인 화면으로 이동합니다.
     navigation.navigate('Login');
   };
@@ -39,12 +27,6 @@ const ProfileSettingsModal = ({isVisible, onClose}) => {
             <Ionicons name="close-circle" size={30} color="#2679ff" />
           </Pressable>
           <View style={styles.buttonContainer}>
-            <Pressable style={styles.button} onPress={handleProfileChange}>
-              <Text style={styles.buttonText}>프로필 변경</Text>
-            </Pressable>
-            <Pressable style={styles.button} onPress={handleStatusChange}>
-              <Text style={styles.buttonText}>상태 메세지 변경</Text>
-            </Pressable>
             <Pressable style={styles.button} onPress={handleLogout}>
               <Text style={styles.buttonText}>로그아웃</Text>
             </Pressable>
