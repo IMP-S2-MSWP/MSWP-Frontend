@@ -12,7 +12,7 @@ const ProfileSettingsModal = ({isVisible, onClose}) => {
     // 사용자의 세션을 종료하고 필요한 경우 클라이언트 상태를 초기화합니다.
     // 예: AsyncStorage.clear() 또는 사용자 정보를 관리하는 Context를 초기화하는 등
     // 로그인 화면으로 이동합니다.
-    navigation.navigate('Login');
+    navigation.reset({index: 0, routes: [{name: 'Start'}]});
   };
 
   return (

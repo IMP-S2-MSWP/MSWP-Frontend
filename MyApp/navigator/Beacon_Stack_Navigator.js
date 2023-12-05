@@ -1,11 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {View, TouchableOpacity, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import Main from '../screens/MainScreen';
 import EventBeacon from '../screens/EventBeacon';
-import BeaconScreen from '../screens/BeaconScreen';
-import MypageScreen from '../screens/MypageScreen';
 import BeaconListScreen from '../screens/BeaconListScreen';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import ChatScreen from '../screens/ChatScreen';

@@ -1,32 +1,15 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useTheme} from '@react-navigation/native';
-import {useNavigation} from '@react-navigation/native';
 import Main_Stack_Navigator from './Main_Stack_Navigator';
 import Chat_Stack_Navigator from './Chat_Stack_Navigator';
 import Profile_Stack_Navigator from './Profile_Stack_Navigator';
-import MypageScreen from '../screens/MypageScreen';
-import SettingScreen from '../screens/ProfileSettingsModal';
-import BeaconListScreen from '../screens/BeaconListScreen';
 import Beacon_Stack_Navigator from './Beacon_Stack_Navigator';
 import LikeListScreen from '../screens/LikeListScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-  Menu,
-  HamburgerIcon,
-  Pressable,
-  Button,
-  HStack,
-  Badge,
-  Spacer,
-  Flex,
-} from 'native-base';
 
 const Tab = createBottomTabNavigator();
 
 const Main_Tab_Navigator = () => {
-  const theme = useTheme();
-  const navigation = useNavigation(); // <-- 여기에 추가
   return (
     <Tab.Navigator
       initialRouteName="메인"

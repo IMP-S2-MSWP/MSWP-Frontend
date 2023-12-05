@@ -120,29 +120,16 @@ const ChatScreen = ({route}) => {
                 <VStack>
                   <Image
                     style={styles.userImage}
-                    // source={{
-                    //   uri:
-                    //     Image_URL + '/user/' + message.id + '.jpg'
-                    //       ? Image_URL + '/user/' + message.id + '.jpg'
-                    //       : Image_URL + '/user/' + message.id + '.png',
-                    // }}
                     source={
                       {
-                        uri:
-                          Image_URL +
-                          '/user/' +
-                          message.id +
-                          `.jpg?cache=${Math.random()}`,
+                        uri: Image_URL + '/user/' + message.id + `.jpg`,
                       } != null
                         ? {
-                            uri:
-                              Image_URL +
-                              '/user/' +
-                              message.id +
-                              `.jpg?cache=${Math.random()}`,
+                            uri: Image_URL + '/user/' + message.id + `.jpg`,
                           }
                         : {uri: Image_URL + '/user/no_image.jpg'}
                     }
+                    fallbackSource={{uri: Image_URL + '/user/no_image.jpg'}}
                     alt={Image_URL + '/user/no_image.jpg'}
                   />
                 </VStack>

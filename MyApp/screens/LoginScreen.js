@@ -83,6 +83,7 @@ const LoginScreen = () => {
           value={userData.username}
           onChangeText={handleInputChange('id')}
           placeholder="아이디 입력"
+          type="username"
         />
 
         {/* Use the LoginFormControl component for the 'password' input */}
@@ -91,8 +92,8 @@ const LoginScreen = () => {
           value={userData.password}
           onChangeText={handleInputChange('password')}
           placeholder="비밀번호 입력"
+          type="password"
         />
-        <Text>{API_URL}</Text>
       </View>
       <LoginButton handleLogin={handleLogin} />
     </View>

@@ -1,4 +1,3 @@
-
 /**
  * 좋아요 목록 화면 컴포넌트입니다.
  * @component
@@ -68,7 +67,7 @@ const LikeListScreen = props => {
                 <Image
                   style={styles.image}
                   source={{uri: Image_URL + '/user/' + item.image}}
-                  alt={'test'}
+                  alt={''}
                   boxSize={10}
                 />
                 <VStack>

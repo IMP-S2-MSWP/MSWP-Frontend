@@ -24,7 +24,7 @@ const UserListPage = props => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    heartlist(user.id);
+    extractIdFrom();
     // 컴포넌트 마운트 시 1회 스캔을 수행합니다.
     const initialScanTimeout = setTimeout(() => {
       startScan(5);
@@ -100,6 +100,11 @@ const UserListPage = props => {
         return usermap;
       }),
     );
+  };
+
+  const extractIdFrom = async () => {
+    data = await heartlist(user.id);
+    setHeartList(data.list.map(item => item.idTo));
   };
 
   const updateUsers = (data, prevuser) => {

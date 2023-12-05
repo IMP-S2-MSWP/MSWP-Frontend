@@ -192,7 +192,6 @@ const MypageScreen = props => {
 
           <HStack alignItems="center">
             <MyPageInput value={user.name} onChangeText={setName} />
-            <MyPageInput value={age} onChangeText={setAge} />
           </HStack>
           <MyPageInput
             value={introduce}

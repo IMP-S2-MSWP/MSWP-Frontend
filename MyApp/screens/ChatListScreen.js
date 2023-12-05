@@ -1,13 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  Image,
-} from 'react-native';
-import {Pressable, HStack, Spacer} from 'native-base';
+import {Text, StyleSheet, FlatList, SafeAreaView} from 'react-native';
+import {Pressable, HStack, Image} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {API_URL, Image_URL} from '../env';
@@ -52,6 +45,7 @@ const ChatListScreen = props => {
         source={{
           uri: Image_URL + '/user/' + item.id + '.jpg',
         }}
+        fallbackSource={{uri: Image_URL + '/user/no_image.jpg'}}
         style={styles.avatar}
       />
       <Text style={styles.chatName}>{item.rname}</Text>

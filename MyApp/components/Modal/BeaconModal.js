@@ -22,16 +22,13 @@ const BeaconModal = ({title, fileSource, isVisible, onClose}) => {
           {fileSource !== null ? (
             <Image
               source={{
-
                 uri: fileSource + '?cache=' + Math.random(),
-
               }}
               alt={'x'}
               resizeMode="contain"
               height={400}
             />
           ) : null}
-          <Text>{fileSource}</Text>
         </Modal.Body>
         <Modal.Footer>
           <Text>{title}</Text>

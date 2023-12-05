@@ -1,44 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
-import CustomButton from '../components/Button/CustomButton';
-import {useIsFocused} from '@react-navigation/native';
-import {
-  Button,
-  Checkbox,
-  Input,
-  useTheme,
-  Pressable,
-  Box,
-  HStack,
-  Badge,
-  Spacer,
-  Flex,
-} from 'native-base';
-import {TextInput} from 'react-native-gesture-handler';
+import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 import {app} from '../components/firebase/db.js';
-import {
-  getFirestore,
-  doc,
-  onSnapshot,
-  query,
-  collection,
-  Timestamp,
-  addDoc,
-} from 'firebase/firestore';
+import {getFirestore, onSnapshot, collection} from 'firebase/firestore';
 
 const db = getFirestore(app);
 const EventBeacon = ({route}) => {
   //const uid = "route.params.uid"
   const uid = 'test';
-  const [newMessage, setNewMessage] = useState('');
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
   useEffect(() => {

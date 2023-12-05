@@ -23,6 +23,7 @@ const LoginFormControl = props => {
         <Input
           size="xl"
           variant="underlined"
+          type={props.type}
           onChangeText={props.onChangeText}
           value={props.value}
           placeholder={props.placeholder}
