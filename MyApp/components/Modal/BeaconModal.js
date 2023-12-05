@@ -22,7 +22,9 @@ const BeaconModal = ({title, fileSource, isVisible, onClose}) => {
           {fileSource !== null ? (
             <Image
               source={{
-                uri: Image_URL + '/advertisement/' + fileSource,
+
+                uri: fileSource + '?cache=' + Math.random(),
+
               }}
               alt={'x'}
               resizeMode="contain"
