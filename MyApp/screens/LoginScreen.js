@@ -36,8 +36,9 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     let fcmToken = '';
     if (Platform.OS === 'android') {
-      console.log('ios');
+      console.log('android');
       fcmToken = await fcm().getToken();
+      console.log(fcmToken);
     } else {
       console.log('ios');
       fcmToken = 'sample';

@@ -33,9 +33,6 @@ async function requestUserPermission() {
 const Stack = createStackNavigator();
 
 function App() {
-  // fcm().onMessage(async remoteMessage => {
-  //   const fcmMsg = JSON.stringify(remoteMessage);
-  // });
   requestUserPermission();
 
   return (
