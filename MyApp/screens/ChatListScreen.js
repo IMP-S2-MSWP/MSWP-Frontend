@@ -54,7 +54,7 @@ const ChatListScreen = props => {
         }}
         style={styles.avatar}
       />
-      <Text style={styles.chatName}>{item.rname}사용자님</Text>
+      <Text style={styles.chatName}>{item.rname}</Text>
     </Pressable>
   );
 

@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import {Button, HStack, Pressable} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {
   Animated,
@@ -9,14 +8,11 @@ import {
   StyleSheet,
   Text,
   TextInput,
-
   View,
-
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {API_URL, Image_URL} from '../env';
 import {useUser} from '../stores/UserContext';
-import {launchImageLibrary} from 'react-native-image-picker';
 import {Pressable, HStack, Button} from 'native-base';
 
 const Ad_Beacon_Update = ({route}) => {

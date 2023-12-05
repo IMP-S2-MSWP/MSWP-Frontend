@@ -7,12 +7,25 @@ import {useUser} from '../stores/UserContext';
 import {TextInput} from 'react-native-gesture-handler';
 import {API_URL, Image_URL} from '../env';
 import style from '../components/Style/Signup/style';
+import BeaconModal from '../components/Modal/BeaconModal';
+import {
+  useBeaconShow,
+  useBeaconJoin,
+} from '../components/Hook/Beacon/useBeacon';
+
 const BeaconListScreen = props => {
   //const uid = route.params.uid
   const {user} = useUser();
   const [selectedTab, setSelectedTab] = useState('groupChat'); // 기본 탭 설정
   const [chatList, setChatList] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState(''); // New state for search keyword
+  const {
+    fetchBeaconData,
+    title,
+    fileSource,
+    isBeaconModalVisible,
+    setIsBeaconModalVisible,
+  } = useBeaconShow();
 
   useEffect(() => {
     // API 요청을 위한 함수
@@ -69,12 +82,9 @@ const BeaconListScreen = props => {
   const renderChatItem2 = ({item}) => (
     <Pressable
       style={styles.chatItem}
-      onPress={() =>
-        navigation.navigate('EventBeacon', {
-          number: item.uuid,
-          rname: item.beaconname,
-        })
-      }>
+      onPress={() => {
+        fetchBeaconData(item.uuid);
+      }}>
       <Image
         style={styles.avatar}
         source={{uri: Image_URL + '/beacon/' + item.image}}
@@ -124,8 +134,16 @@ const BeaconListScreen = props => {
           borderWidth="1"
           alignItems="center"
           borderRadius="10"
+          style={{
+            backgroundColor:
+              selectedTab === 'groupChat' ? '#2679ff' : 'transparent',
+            borderColor: selectedTab === 'groupChat' ? 'white' : 'black',
+          }}
           onPress={() => setSelectedTab('groupChat')}>
-          <Text>비콘</Text>
+          <Text
+            style={{color: selectedTab === 'groupChat' ? 'white' : 'black'}}>
+            비콘
+          </Text>
         </Pressable>
         <Pressable
           p="2"
@@ -133,8 +151,15 @@ const BeaconListScreen = props => {
           alignItems="center"
           borderWidth="1"
           borderRadius="10"
+          style={{
+            backgroundColor:
+              selectedTab === 'event' ? '#2679ff' : 'transparent',
+            borderColor: selectedTab === 'event' ? 'white' : 'black',
+          }}
           onPress={() => setSelectedTab('event')}>
-          <Text>이벤트</Text>
+          <Text style={{color: selectedTab === 'event' ? 'white' : 'black'}}>
+            이벤트
+          </Text>
         </Pressable>
       </View>
       {selectedTab === 'groupChat' && (
@@ -158,6 +183,12 @@ const BeaconListScreen = props => {
           />
         </>
       )}
+      <BeaconModal
+        title={title}
+        fileSource={fileSource}
+        isVisible={isBeaconModalVisible}
+        onClose={() => setIsBeaconModalVisible(false)}
+      />
     </SafeAreaView>
   );
 };
