@@ -12,7 +12,7 @@ import NameGenderDOBPage from './NameGenderDobPage';
 import NickNamePage from './NickNamePage';
 import PasswordPage from './PasswordPage';
 import UserNamePage from './UsernamePage';
-import {API_URL} from '@env';
+import {API_URL} from '../../env';
 import fcm from '@react-native-firebase/messaging';
 
 /**

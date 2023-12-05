@@ -1,18 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Butto,
-  SafeAreaView,
-} from 'react-native';
-import {Pressable, HStack, Box} from 'native-base';
+import {View, Text, StyleSheet, FlatList, SafeAreaView} from 'react-native';
+import {Pressable, HStack, Box, Image} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {useUser} from '../stores/UserContext';
 import {TextInput} from 'react-native-gesture-handler';
-import {API_URL} from '../env';
+import {API_URL, Image_URL} from '../env';
+import style from '../components/Style/Signup/style';
 const BeaconListScreen = props => {
   //const uid = route.params.uid
   const {user} = useUser();
@@ -63,7 +57,12 @@ const BeaconListScreen = props => {
       onPress={() =>
         navigation.navigate('Chat', {number: item.uuid, rname: item.beaconname})
       }>
-      <View style={styles.avatar} />
+      <Image
+        style={styles.avatar}
+        source={{uri: Image_URL + '/beacon/' + item.image}}
+        alt={'test'}
+        boxSize={10}
+      />
       <Text style={styles.chatName}>{item.beaconname} 비콘</Text>
     </Pressable>
   );
@@ -76,7 +75,12 @@ const BeaconListScreen = props => {
           rname: item.beaconname,
         })
       }>
-      <View style={styles.avatar} />
+      <Image
+        style={styles.avatar}
+        source={{uri: Image_URL + '/beacon/' + item.image}}
+        alt={'test'}
+        boxSize={10}
+      />
       <Text style={styles.chatName}>{item.beaconname} 비콘</Text>
     </Pressable>
   );
@@ -174,7 +178,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#2679ff',
     marginRight: 15,
   },
   chatName: {

@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Image,
   StyleSheet,
   ScrollView,
   SafeAreaView,
@@ -14,22 +13,7 @@ import axios from 'axios';
 import {API_URL, Image_URL} from '../env';
 import {useUser} from '../stores/UserContext';
 import {launchImageLibrary} from 'react-native-image-picker';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-  Checkbox,
-  Input,
-  useTheme,
-  Pressable,
-  Box,
-  HStack,
-  Badge,
-  Spacer,
-  Flex,
-  Switch,
-  Center,
-  VStack,
-  Button,
-} from 'native-base';
+import {Pressable, HStack, Button} from 'native-base';
 const Ad_Beacon_Update = ({route}) => {
   const {uuid, beaconname, beaconType} = route.params;
 

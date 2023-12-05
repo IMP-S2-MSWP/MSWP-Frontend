@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useUser} from '../stores/UserContext';
-
 import {API_URL, Image_URL} from '../env';
 import axios from 'axios';
 import {
@@ -110,10 +109,6 @@ const MypageScreen = props => {
             if (response.data.sc == '200') {
               console.log('만드는데 성공함');
               setFileSource(photo.uri);
-              setFileType(response.assets[0].type);
-              setFileData(response.assets[0]);
-            } else {
-              console.log('너 이미 그 기기 등록함 ');
             }
           })
           .catch(error => {

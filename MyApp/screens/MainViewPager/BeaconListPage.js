@@ -1,88 +1,71 @@
-// BeaconListPage.js
+/**
+ * BeaconListPage 컴포넌트
+ * 비콘 리스트를 표시하고, 비콘 관련 상호작용을 관리하는 페이지 컴포넌트입니다.
+ */
 
-import React, {useRef, useState, useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {View, Text, FlatList, ScrollView} from 'react-native';
-import {
-  Button,
-  Checkbox,
-  Input,
-  Pressable,
-  Box,
-  HStack,
-  VStack,
-  Badge,
-  Spacer,
-  Flex,
-  Switch,
-  Image,
-  Center,
-  Modal,
-} from 'native-base';
-/// 스타일 임포트
-import axios from 'axios';
-import LottieView from 'lottie-react-native';
-import {API_URL, Image_URL} from '../../env';
+import {View, Text} from 'react-native';
 import {useUser} from '../../stores/UserContext';
 import {insertUserInfo} from '../../components/firebase/roomService';
-const BeaconListPage = props => {
-  const [users, setUsers] = useState([]); // Initialize users as empty array
-  const {user} = useUser();
-  const [title, setTitle] = useState('');
-  const [fileSource, setFileSource] = useState(null);
-  const [isBeaconModalVisible, setIsBeaconModalVisible] = useState(false);
+import BeaconList from '../../components/Listitem/BeaconListItem';
+import BeaconModal from '../../components/Modal/BeaconModal';
+import {
+  useBeaconShow,
+  useBeaconJoin,
+} from '../../components/Hook/Beacon/useBeacon';
 
+const BeaconListPage = props => {
+  const {user} = useUser();
   const navigation = useNavigation();
 
-  const eventHandler = async (uuid, state, beaconname) => {
-    const response = await axios.post(API_URL + '/api/beacon/join', {
-      id: user.id,
-      state: state,
-      uuid: uuid,
-    });
-    console.log(response.data);
+  const {
+    fetchBeaconData,
+    title,
+    fileSource,
+    isBeaconModalVisible,
+    setIsBeaconModalVisible,
+  } = useBeaconShow();
 
+  /**
+   * Beacon 참여를 위한 함수.
+   */
+  const {joinBeacon} = useBeaconJoin();
+
+  /**
+   * 채팅 화면으로 네비게이션하는 함수.
+   *
+   * @param {string} beaconname - 비콘 이름.
+   * @param {number} number - 비콘 번호.
+   */
+  const navigateToChat = (beaconname, number) => {
+    navigation.navigate('채팅', {
+      screen: 'Chat',
+      params: {rname: beaconname, number: number},
+    });
+  };
+
+  /**
+   * 비콘 이벤트 핸들러.
+   * 비콘 참여 또는 광고 보기를 처리합니다.
+   *
+   * @param {string} uuid - 비콘 UUID.
+   * @param {number} state - 비콘 상태.
+   * @param {string} beaconname - 비콘 이름.
+   */
+  const eventHandler = async (uuid, state, beaconname) => {
+    const data = await joinBeacon(user.id, state, uuid);
     if (state == 2) {
-      if (response.data.sc == 201) {
-        insertUserInfo(response.data.number, [user.id], [user.nickname]);
-        navigation.navigate('채팅', {
-          screen: 'Chat',
-          params: {rname: beaconname, number: response.data.number},
-        });
-      } else if (response.data.sc == 200) {
-        navigation.navigate('채팅', {
-          screen: 'Chat',
-          params: {rname: beaconname, number: response.data.number},
-        });
-      } else {
-        console.log('비콘 join 에러');
+      if (data.sc == 201) {
+        insertUserInfo(data.number, [user.id], [user.nickname]);
+        navigateToChat(beaconname, data.number);
+      } else if (data.sc == 200) {
+        navigateToChat(beaconname, data.number);
       }
     } else if (state == 3) {
-      if (response.data.sc == 201 || response.data.sc == 200) {
-        console.log('광고인듯');
-        axios
-          .post(API_URL + '/api/beacon/show', {uuid: uuid})
-          .then(response => {
-            if (response.data != null) {
-              console.log(response.data);
-              setTitle(response.data.title);
-              setFileSource(response.data.advertisementImage);
-              setIsBeaconModalVisible(true);
-            } else {
-              console.log('error');
-            }
-          })
-          .catch(error => {
-            console.log(error);
-            // 에러 처리 로직 작성
-          });
-      } else {
-        console.log('비콘 join 에러');
+      if (data.sc == 201 || data.sc == 200) {
+        fetchBeaconData(uuid);
       }
-    } else {
-      //광고 로직 추가 필요
-      console.log('광고인듯');
     }
   };
 
@@ -91,68 +74,13 @@ const BeaconListPage = props => {
       <Text style={{marginLeft: 10, padding: 7, fontSize: 16}}>
         근처 비콘 수 : {props.users.filter(user => user.gender == 'P').length}
       </Text>
-      <ScrollView>
-        {props.users
-          .filter(user => user.gender == 'P')
-          .map(user => (
-            <Pressable
-              key={user.id}
-              p="1"
-              marginBottom={1}
-              borderWidth="0"
-              onPress={() =>
-                eventHandler(user.uuid, user.state, user.beaconname)
-              }>
-              <HStack
-                space={3}
-                alignItems="center"
-                justifyContent="space-between">
-                <HStack space={3} alignItems="center" marginLeft={4} flex={1}>
-                  <Image
-                    style={{borderRadius: 14}}
-                    source={{uri: Image_URL + '/beacon/' + user.image}}
-                    alt={'x'}
-                    boxSize={10}
-                  />
-                  <VStack>
-                    <Text style={{fontSize: 16}}>{user.beaconname}</Text>
-                    <Text>{user.message}</Text>
-                    {/* Replace with actual heart icon */}
-                    {/*<Button title={user.filled ? '❤️' : '♡'} onPress={() => toggleFill(user.id)} />*/}
-                  </VStack>
-                </HStack>
-              </HStack>
-            </Pressable>
-          ))}
-      </ScrollView>
-      <Modal
-        isOpen={isBeaconModalVisible}
-        onClose={() => setIsBeaconModalVisible(false)}>
-        <Modal.Content>
-          <Modal.CloseButton />
-          <Modal.Header>광고</Modal.Header>
-          <Modal.Body>
-            {fileSource !== null ? (
-              <Image
-                source={{
-                  uri:
-                    Image_URL +
-                    '/advertisement/' +
-                    fileSource +
-                    '?cache=' +
-                    Math.random(),
-                }}
-                alt={'x'}
-                resizeMode="contain"
-                height={400}
-              />
-            ) : null}
-          </Modal.Body>
-          <Modal.Footer>
-            <Text>{title}</Text>
-          </Modal.Footer>
-        </Modal.Content>
-      </Modal>
+      <BeaconList users={props.users} eventHandler={eventHandler} />
+      <BeaconModal
+        title={title}
+        fileSource={fileSource}
+        isVisible={isBeaconModalVisible}
+        onClose={() => setIsBeaconModalVisible(false)}
+      />
     </View>
   );
 };
