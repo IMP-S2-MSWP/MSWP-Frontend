@@ -47,6 +47,7 @@ const ChatListScreen = props => {
         }}
         fallbackSource={{uri: Image_URL + '/user/no_image.jpg'}}
         style={styles.avatar}
+        alt={Image_URL + '/user/no_image.jpg'}
       />
       <Text style={styles.chatName}>{item.rname}</Text>
     </Pressable>

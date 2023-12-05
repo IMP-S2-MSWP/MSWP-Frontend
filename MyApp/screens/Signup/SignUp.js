@@ -121,7 +121,6 @@ const SignUp = () => {
   // 서버에 회원가입을 요청하는 함수를 정의합니다.
   const handleRegister = async () => {
     try {
-      //추가 사항 12/04 - 소대현
       let fcmToken = '';
       if (Platform.OS === 'android') {
         console.log('android');
@@ -131,7 +130,6 @@ const SignUp = () => {
         console.log('ios');
         fcmToken = 'sample';
       }
-      //추가 사항
       const response = await axios.post(API_URL + '/api/register', {
         id: userData.username,
         password: userData.password,
