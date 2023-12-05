@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import axios from 'axios';
-import {API_URL} from '../../../env';
+import {API_URL, Image_URL} from '../../../env';
 
 /**
  * 비콘 정보를 가져와서 모달에 표시하기 위한 훅.
@@ -26,7 +26,9 @@ const useBeaconShow = () => {
       });
       if (response.data != null) {
         setTitle(response.data.title);
-        setFileSource(response.data.advertisementImage);
+        setFileSource(
+          Image_URL + '/advertisement/' + response.data.advertisementImage,
+        );
         setIsBeaconModalVisible(true);
       } else {
         console.log('error');
@@ -40,6 +42,8 @@ const useBeaconShow = () => {
     fetchBeaconData,
     title,
     fileSource,
+    setFileSource,
+    setTitle,
     isBeaconModalVisible,
     setIsBeaconModalVisible,
   };
