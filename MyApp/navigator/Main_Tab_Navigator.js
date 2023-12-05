@@ -41,7 +41,7 @@ const Main_Tab_Navigator = () => {
             iconName = focused ? 'heart' : 'heart-outline';
             iconColor = focused ? '#2679ff' : '#808588'; // 갈색
           } else if (route.name === '프로필') {
-            iconName = focused ? 'stepforward' : 'person-outline';
+            iconName = focused ? 'person' : 'person-outline';
             iconColor = focused ? '#2679ff' : '#808588'; // 갈색
           }
 
